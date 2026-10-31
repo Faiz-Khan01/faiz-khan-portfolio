@@ -193,11 +193,50 @@
 .code-token-comment { color: #9f1239; font-style: italic; }
 
 @media print {
-  body {
-    background: #ffffff !important;
-    color: #000000 !important;
-  }
-  .no-print {
+  /* Hide the rest of the application when printing */
+  header, #hero, #projects, #architecture, #sandbox, #skills, #experience, #contact, footer, .no-print {
     display: none !important;
+  }
+  
+  body, html {
+    background: #ffffff !important;
+    color: #111827 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .resume-modal-overlay {
+    position: static !important;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    display: block !important;
+  }
+
+  .resume-modal-card {
+    max-width: 100% !important;
+    max-height: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: #ffffff !important;
+    color: #111827 !important;
+    overflow: visible !important;
+    border-radius: 0 !important;
+    display: block !important;
+  }
+
+  .resume-modal-scroll {
+    overflow: visible !important;
+    max-height: none !important;
+    padding: 0 !important;
+  }
+
+  .resume-modal-card * {
+    color: #111827 !important;
+    background: transparent !important;
+    border-color: #d1d5db !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
   }
 }
