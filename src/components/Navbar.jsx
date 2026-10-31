@@ -62,7 +62,7 @@ export default function Navbar({ onOpenResume }) {
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
       scrolled 
-        ? 'bg-[#080c14]/85 backdrop-blur-md border-b border-slate-800/80 shadow-lg shadow-black/40 py-3' 
+        ? 'bg-[#070102]/90 backdrop-blur-md border-b border-red-950/50 shadow-lg shadow-black/70 py-3' 
         : 'bg-transparent py-5'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
@@ -154,7 +154,7 @@ export default function Navbar({ onOpenResume }) {
 
       {/* Mobile Dropdown Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden px-4 pt-3 pb-6 bg-[#090e1a]/95 backdrop-blur-xl border-b border-slate-800 shadow-2xl transition-all">
+        <div className="lg:hidden px-4 pt-3 pb-6 bg-[#080204]/95 backdrop-blur-xl border-b border-red-950/60 shadow-2xl transition-all">
           <div className="flex flex-col gap-2">
             {navLinks.map((link) => {
               const Icon = link.icon;

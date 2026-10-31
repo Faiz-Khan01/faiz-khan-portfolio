@@ -44,9 +44,10 @@ export default function ParticleCanvas() {
     window.addEventListener('mouseleave', handleMouseLeave);
 
     const colors = [
-      'rgba(16, 185, 129, ',  // Emerald
-      'rgba(6, 182, 212, ',   // Cyan
-      'rgba(99, 102, 241, '   // Indigo
+      'rgba(239, 68, 68, ',   // Crimson Red
+      'rgba(220, 38, 38, ',   // Ruby Red
+      'rgba(244, 63, 94, ',   // Deep Rose
+      'rgba(245, 158, 11, '   // Warm Ember Gold
     ];
 
     for (let i = 0; i < particleCount; i++) {
@@ -108,7 +109,7 @@ export default function ParticleCanvas() {
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = `rgba(16, 185, 129, ${lineAlpha})`;
+            ctx.strokeStyle = `rgba(239, 68, 68, ${lineAlpha})`;
             ctx.lineWidth = 0.8;
             ctx.stroke();
           }

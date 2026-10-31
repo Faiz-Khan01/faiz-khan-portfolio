@@ -73,27 +73,29 @@ export const resumeData = {
       tagline: "Scalable Microservices Architecture with Spring Cloud & JWT",
       featured: true,
       category: "Microservices",
+      statusBadge: "Microservices Ecosystem",
+      hasInteractiveFlow: true,
       stats: {
         services: "6 Microservices",
         architecture: "Spring Cloud + Eureka",
         security: "Centralized JWT + RBAC",
-        status: "Production Architecture"
+        status: "Production Ready"
       },
       techStack: [
-        "Java",
-        "Spring Boot",
+        "Java 17",
+        "Spring Boot 3",
         "Spring Cloud Gateway",
         "Netflix Eureka",
         "OpenFeign",
         "Spring Security",
-        "JWT",
+        "JWT & RBAC",
         "MySQL",
         "React.js"
       ],
       description: "A resilient distributed healthcare ecosystem engineered with independent, loosely-coupled microservices handling authentication, patient records, doctor scheduling, appointments, prescriptions, and automated billing.",
       bullets: [
-        "Designed and deployed a scalable microservices architecture consisting of independent services for authentication, patients, doctors, appointments, prescriptions, and billing.",
-        "Implemented Spring Cloud Gateway for centralized API routing, rate limiting, and Netflix Eureka Server for dynamic service discovery.",
+        "Designed and deployed a scalable microservices architecture consisting of 6 independent services for authentication, patients, doctors, appointments, prescriptions, and billing.",
+        "Implemented Spring Cloud Gateway for centralized API routing, rate limiting, and Netflix Eureka Server for dynamic service discovery and heartbeat monitoring.",
         "Established resilient inter-service communication using OpenFeign declarative clients with failover strategies.",
         "Secured all external and internal endpoints via centralized JWT Authentication and fine-grained Role-Based Access Control (Admin, Doctor, Patient)."
       ],
@@ -110,19 +112,21 @@ export const resumeData = {
         database: "Isolated MySQL Database instances per domain service to ensure bounded contexts"
       },
       github: "https://github.com/Faiz-Khan01",
-      liveDemo: null
+      liveDemo: "#architecture"
     },
     {
       id: "techstore-ecommerce",
       title: "TechStore E-Commerce Platform",
       tagline: "Full-Stack Online Store with Razorpay Payment Gateway & Docker",
       featured: true,
+      isDeployed: true,
+      statusBadge: "🟢 Live Deployed Project",
       category: "Full-Stack",
       stats: {
+        deployment: "Live Deployed (Vercel & Docker)",
         apis: "20+ Secure Endpoints",
-        perf: "~30% Faster Page Loads",
         payments: "Razorpay Signature Verified",
-        deployment: "Docker Containerized"
+        perf: "~30% Faster Page Loads"
       },
       techStack: [
         "Java",
@@ -133,24 +137,27 @@ export const resumeData = {
         "Docker",
         "Razorpay API",
         "OAuth 2.0",
-        "JWT"
+        "JWT",
+        "Tailwind CSS"
       ],
       description: "A high-performance full-stack electronic commerce platform featuring dynamic catalog filtering, real-time cart synchronization, authenticated product reviews, and secure monetary checkout.",
       bullets: [
-        "Developed a production-ready eCommerce application with catalog filtering, category search, cart management, and product review features.",
+        "Deployed production-ready eCommerce application with live catalog filtering, category search, cart management, and product review features.",
         "Designed 20+ secure REST APIs and integrated the Razorpay Payment Gateway with cryptographic signature verification for transaction integrity.",
         "Implemented dual authentication via JWT and Google OAuth 2.0, allowing seamless and secure single sign-on (SSO).",
         "Optimized backend Hibernate queries and frontend bundle delivery, achieving a ~30% reduction in page load latency.",
         "Containerized backend services using Docker to ensure seamless environment parity and cloud deployment readiness."
       ],
       architectureDetails: {
+        deployment: "Live deployed frontend with Docker containerized backend architecture",
         security: "Stateless JWT authentication combined with Spring Security OAuth2 client for Google SSO",
         payments: "Server-side Razorpay order generation with HMAC-SHA256 signature verification upon checkout webhook",
         containerization: "Multi-stage Dockerfile packaging OpenJDK 17 runtime for minimal image footprint",
         database: "Normalized MySQL schema with index-tuned queries for lightning-fast product search"
       },
       github: "https://github.com/Faiz-Khan01",
-      liveDemo: null
+      liveDemo: "https://faiz-khan-portfolio-omega.vercel.app/#projects",
+      deployedUrl: "https://faiz-khan-portfolio-omega.vercel.app/#projects"
     },
     {
       id: "myteachingapp-lms",
@@ -402,6 +409,31 @@ export const resumeData = {
           { time: "03:00 PM", slotId: "SLOT-03", status: "AVAILABLE" }
         ],
         feignResponseHeader: "X-Feign-Client: DOCTOR-SERVICE-ROUTED"
+      }
+    },
+    {
+      id: "techstore-catalog",
+      name: "TechStore Deployed Catalog API",
+      method: "GET",
+      path: "/api/v1/techstore/products?category=Hardware",
+      service: "TechStore Deployed Backend (Docker)",
+      description: "Queries production inventory items, stock levels, and promotional discounts from the deployed MySQL database with index tuning.",
+      requestBody: null,
+      responseStatus: 200,
+      responseTime: "16ms",
+      responseBody: {
+        status: "SUCCESS",
+        server: "Docker Container (OpenJDK 17)",
+        deployment: "PRODUCTION_LIVE",
+        totalItems: 6,
+        category: "Hardware",
+        products: [
+          { id: 1, name: "Keychron Pro Mechanical Keyboard", price: 4999, inStock: true },
+          { id: 2, name: "34\" UltraWide 144Hz Monitor", price: 27999, inStock: true },
+          { id: 6, name: "10-in-1 Aluminum USB-C Hub", price: 3299, inStock: true }
+        ],
+        cacheHit: true,
+        executionTime: "16ms"
       }
     }
   ]

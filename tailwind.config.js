@@ -43,17 +43,48 @@ export default {
       animation: {
         'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         'float': 'float 6s ease-in-out infinite',
+        'float-slow': 'float 8s ease-in-out infinite',
+        'float-reverse': 'floatReverse 7s ease-in-out infinite',
         'spin-slow': 'spin 12s linear infinite',
         'shimmer': 'shimmer 2.5s linear infinite',
+        'marquee': 'marquee 30s linear infinite',
+        'marquee-fast': 'marquee 18s linear infinite',
+        'marquee-reverse': 'marqueeReverse 30s linear infinite',
+        'glow-pulse': 'glowPulse 2.5s ease-in-out infinite',
+        'badge-pulse': 'badgePulse 2s ease-in-out infinite',
+        'flow-dash': 'flowDash 1.5s linear infinite',
       },
       keyframes: {
         float: {
           '0%, 100%': { transform: 'translateY(0px)' },
           '50%': { transform: 'translateY(-10px)' },
         },
+        floatReverse: {
+          '0%, 100%': { transform: 'translateY(0px)' },
+          '50%': { transform: 'translateY(10px)' },
+        },
         shimmer: {
           '0%': { backgroundPosition: '-200% 0' },
           '100%': { backgroundPosition: '200% 0' },
+        },
+        marquee: {
+          '0%': { transform: 'translateX(0%)' },
+          '100%': { transform: 'translateX(-50%)' },
+        },
+        marqueeReverse: {
+          '0%': { transform: 'translateX(-50%)' },
+          '100%': { transform: 'translateX(0%)' },
+        },
+        glowPulse: {
+          '0%, 100%': { opacity: '0.4', transform: 'scale(1)' },
+          '50%': { opacity: '0.8', transform: 'scale(1.05)' },
+        },
+        badgePulse: {
+          '0%, 100%': { transform: 'scale(1)', opacity: '1' },
+          '50%': { transform: 'scale(1.15)', opacity: '0.7' },
+        },
+        flowDash: {
+          'to': { strokeDashoffset: '-20' },
         }
       }
     },

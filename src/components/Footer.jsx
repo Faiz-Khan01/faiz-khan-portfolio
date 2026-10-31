@@ -10,7 +10,7 @@ export default function Footer({ onOpenResume }) {
   };
 
   return (
-    <footer className="bg-[#060910] border-t border-slate-800/80 py-12 text-slate-400 text-xs">
+    <footer className="bg-[#050001] border-t border-red-950/50 py-12 text-slate-400 text-xs">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-slate-800/60">

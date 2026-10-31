@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import ParticleCanvas from './components/ParticleCanvas';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import TechTicker from './components/TechTicker';
 import ArchitectureExplorer from './components/ArchitectureExplorer';
 import Projects from './components/Projects';
 import ApiSandbox from './components/ApiSandbox';
@@ -24,8 +25,16 @@ export default function App() {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#080c14] text-slate-100 selection:bg-emerald-500/30 selection:text-emerald-300">
+    <div className="relative min-h-screen bg-[#070102] text-slate-100 selection:bg-red-500/30 selection:text-red-300">
       
+      {/* Deep Crimson Ambient Background Glows (Video Palette Reference) */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+        <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[950px] h-[650px] bg-red-600/20 rounded-full blur-[140px] animate-pulse-slow"></div>
+        <div className="absolute top-[35%] left-1/2 -translate-x-1/2 w-[850px] h-[600px] bg-red-800/14 rounded-full blur-[160px]"></div>
+        <div className="absolute top-[65%] left-10 w-[550px] h-[550px] bg-rose-950/20 rounded-full blur-[150px]"></div>
+        <div className="absolute bottom-10 right-10 w-[650px] h-[650px] bg-red-900/15 rounded-full blur-[160px]"></div>
+      </div>
+
       {/* Interactive Particle Constellation Background */}
       <ParticleCanvas />
 
@@ -35,6 +44,7 @@ export default function App() {
       {/* Main Content Sections */}
       <main className="relative z-10">
         <Hero onOpenResume={() => setResumeOpen(true)} />
+        <TechTicker />
         <ArchitectureExplorer />
         <Projects />
         <ApiSandbox />
