@@ -12,27 +12,27 @@ export default function ResumeModal({ isOpen, onClose }) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/85 backdrop-blur-md overflow-y-auto">
-      <div className="bg-[#0b1120] text-slate-200 border border-slate-700 rounded-3xl max-w-4xl w-full max-h-[92vh] flex flex-col shadow-2xl overflow-hidden relative animate-fadeIn">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/90 backdrop-blur-md overflow-y-auto">
+      <div className="bg-[#0e0305] text-slate-200 border border-red-950 rounded-3xl max-w-4xl w-full max-h-[92vh] flex flex-col shadow-2xl overflow-hidden relative animate-fadeIn">
         
         {/* Modal Top Controls Bar */}
-        <div className="bg-slate-900 px-6 py-4 border-b border-slate-800 flex items-center justify-between no-print">
+        <div className="bg-[#120204] px-6 py-4 border-b border-red-950 flex items-center justify-between no-print">
           <div className="flex items-center gap-2">
             <span className="font-display font-bold text-white text-base">Curriculum Vitae</span>
-            <span className="text-xs font-mono text-emerald-400">• Official Document</span>
+            <span className="text-xs font-mono text-red-400">• Official Document</span>
           </div>
 
           <div className="flex items-center gap-3">
             <button
               onClick={handlePrint}
-              className="px-3.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer"
+              className="px-3.5 py-1.5 rounded-xl bg-[#1a0407] hover:bg-red-600 text-white text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer border border-red-950 hover:border-red-500"
             >
-              <Printer className="w-3.5 h-3.5 text-emerald-400" />
+              <Printer className="w-3.5 h-3.5 text-red-400 group-hover:text-white" />
               <span>Print / PDF</span>
             </button>
             <button
               onClick={onClose}
-              className="p-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition-colors"
+              className="p-1.5 rounded-xl bg-[#1a0407] hover:bg-[#25060b] text-slate-400 hover:text-white transition-colors border border-red-950"
             >
               <X className="w-5 h-5" />
             </button>
@@ -43,26 +43,26 @@ export default function ResumeModal({ isOpen, onClose }) {
         <div className="p-6 sm:p-10 overflow-y-auto space-y-8 print:p-0 print:space-y-6">
           
           {/* Header */}
-          <div className="text-center border-b border-slate-800 pb-6 print:border-black">
+          <div className="text-center border-b border-red-950/80 pb-6 print:border-black">
             <h1 className="text-3xl font-bold tracking-tight text-white print:text-black">
               {personal.name}
             </h1>
-            <h2 className="text-sm font-semibold text-emerald-400 print:text-gray-800 mt-1 font-mono">
+            <h2 className="text-sm font-semibold text-red-400 print:text-gray-800 mt-1 font-mono">
               {personal.title}
             </h2>
             <div className="mt-3 flex flex-wrap items-center justify-center gap-4 text-xs text-slate-400 print:text-gray-600 font-mono">
               <span className="flex items-center gap-1">
-                <MapPin className="w-3.5 h-3.5" />
+                <MapPin className="w-3.5 h-3.5 text-rose-400" />
                 {personal.location}
               </span>
               <span>•</span>
               <span className="flex items-center gap-1">
-                <Phone className="w-3.5 h-3.5" />
+                <Phone className="w-3.5 h-3.5 text-rose-400" />
                 {personal.phone}
               </span>
               <span>•</span>
               <span className="flex items-center gap-1">
-                <Mail className="w-3.5 h-3.5" />
+                <Mail className="w-3.5 h-3.5 text-rose-400" />
                 {personal.email}
               </span>
               <span>•</span>
@@ -70,7 +70,7 @@ export default function ResumeModal({ isOpen, onClose }) {
                 href={personal.github} 
                 target="_blank" 
                 rel="noreferrer" 
-                className="text-emerald-400 hover:underline print:text-black font-semibold"
+                className="text-red-400 hover:underline print:text-black font-semibold"
               >
                 GitHub: @Faiz-Khan01
               </a>
@@ -79,7 +79,7 @@ export default function ResumeModal({ isOpen, onClose }) {
 
           {/* Professional Summary */}
           <div>
-            <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-emerald-400 print:text-black mb-2 border-b border-slate-800 pb-1">
+            <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-red-400 print:text-black mb-2 border-b border-red-950/80 pb-1">
               Professional Summary
             </h3>
             <p className="text-xs sm:text-sm text-slate-300 print:text-gray-800 leading-relaxed">
@@ -89,7 +89,7 @@ export default function ResumeModal({ isOpen, onClose }) {
 
           {/* Technical Skills */}
           <div>
-            <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-emerald-400 print:text-black mb-3 border-b border-slate-800 pb-1">
+            <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-red-400 print:text-black mb-3 border-b border-red-950/80 pb-1">
               Technical Skills
             </h3>
             <div className="space-y-1.5 text-xs text-slate-300 print:text-gray-800">
@@ -118,7 +118,7 @@ export default function ResumeModal({ isOpen, onClose }) {
 
           {/* Experience */}
           <div>
-            <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-emerald-400 print:text-black mb-3 border-b border-slate-800 pb-1">
+            <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-red-400 print:text-black mb-3 border-b border-red-950/80 pb-1">
               Work &amp; Virtual Internship Experience
             </h3>
             {experience.map((exp, idx) => (
@@ -142,7 +142,7 @@ export default function ResumeModal({ isOpen, onClose }) {
 
           {/* Projects */}
           <div>
-            <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-emerald-400 print:text-black mb-3 border-b border-slate-800 pb-1">
+            <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-red-400 print:text-black mb-3 border-b border-red-950/80 pb-1">
               Projects
             </h3>
             <div className="space-y-4">
@@ -153,7 +153,7 @@ export default function ResumeModal({ isOpen, onClose }) {
                       {proj.title}
                     </h4>
                   </div>
-                  <div className="text-[11px] font-mono text-cyan-400 print:text-gray-700">
+                  <div className="text-[11px] font-mono text-rose-300 print:text-gray-700">
                     <strong>Tech Stack: </strong> {proj.techStack.join(', ')}
                   </div>
                   <ul className="space-y-1 text-xs text-slate-300 print:text-gray-800 list-disc pl-4">
@@ -168,7 +168,7 @@ export default function ResumeModal({ isOpen, onClose }) {
 
           {/* Education */}
           <div>
-            <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-emerald-400 print:text-black mb-3 border-b border-slate-800 pb-1">
+            <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-red-400 print:text-black mb-3 border-b border-red-950/80 pb-1">
               Education
             </h3>
             <div className="space-y-3">
@@ -181,7 +181,7 @@ export default function ResumeModal({ isOpen, onClose }) {
                     <p className="text-slate-400 print:text-gray-700">{edu.institution}, {edu.location}</p>
                   </div>
                   <div className="text-right font-mono">
-                    <span className="font-bold text-emerald-400 print:text-gray-800">{edu.grade}</span>
+                    <span className="font-bold text-red-400 print:text-gray-800">{edu.grade}</span>
                     <p className="text-slate-400 print:text-gray-600">{edu.period}</p>
                   </div>
                 </div>
@@ -191,7 +191,7 @@ export default function ResumeModal({ isOpen, onClose }) {
 
           {/* Certifications */}
           <div>
-            <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-emerald-400 print:text-black mb-3 border-b border-slate-800 pb-1">
+            <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-red-400 print:text-black mb-3 border-b border-red-950/80 pb-1">
               Certifications &amp; Credentials
             </h3>
             <div className="space-y-2 text-xs">
@@ -202,7 +202,7 @@ export default function ResumeModal({ isOpen, onClose }) {
                     <span className="text-slate-400 print:text-gray-700"> — {c.issuer} ({c.date})</span>
                   </div>
                   {c.credentialId && (
-                    <span className="font-mono text-cyan-400 text-[11px]">
+                    <span className="font-mono text-rose-300 text-[11px]">
                       ID: {c.credentialId}
                     </span>
                   )}
@@ -213,7 +213,7 @@ export default function ResumeModal({ isOpen, onClose }) {
 
           {/* Key Achievements */}
           <div>
-            <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-emerald-400 print:text-black mb-2 border-b border-slate-800 pb-1">
+            <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-red-400 print:text-black mb-2 border-b border-red-950/80 pb-1">
               Achievements &amp; Key Highlights
             </h3>
             <ul className="space-y-1 text-xs text-slate-300 print:text-gray-800 list-disc pl-4">

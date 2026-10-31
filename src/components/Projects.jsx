@@ -40,28 +40,28 @@ export default function Projects() {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6">
           <div>
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono font-semibold mb-4">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-950/60 border border-red-500/30 text-red-400 text-xs font-mono font-semibold mb-4">
               <Code2 className="w-3.5 h-3.5" />
               <span>Production-Ready Engineering</span>
             </div>
             <h2 className="font-display text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-              Featured <span className="gradient-text-emerald">Projects</span>
+              Featured <span className="gradient-text-red">Projects</span>
             </h2>
-            <p className="mt-3 text-slate-400 text-sm sm:text-base max-w-xl">
+            <p className="mt-3 text-slate-300 text-sm sm:text-base max-w-xl">
               Scalable distributed backends, RESTful microservices, and live deployed full-stack applications with fintech integrations.
             </p>
           </div>
 
           {/* Filter Tabs */}
-          <div className="flex items-center gap-2 bg-slate-900 p-1.5 rounded-2xl border border-slate-800 self-start">
+          <div className="flex items-center gap-2 bg-[#120204] p-1.5 rounded-2xl border border-red-950 self-start">
             {['ALL', 'MICROSERVICES', 'FULL-STACK'].map((cat) => (
               <button
                 key={cat}
                 onClick={() => setFilter(cat)}
                 className={`px-4 py-2 rounded-xl text-xs font-mono font-semibold transition-all ${
                   filter === cat
-                    ? 'bg-emerald-500 text-slate-950 shadow-md shadow-emerald-500/30'
-                    : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+                    ? 'bg-red-600 text-white shadow-md shadow-red-600/35'
+                    : 'text-slate-400 hover:text-white hover:bg-red-950/40'
                 }`}
               >
                 {cat}
@@ -79,22 +79,22 @@ export default function Projects() {
             return (
               <div
                 key={project.id}
-                className={`rounded-3xl bg-[#0b1120] border shadow-xl overflow-hidden flex flex-col justify-between glass-card-hover group relative ${
+                className={`rounded-3xl bg-[#0e0305] border shadow-xl overflow-hidden flex flex-col justify-between glass-card-hover group relative ${
                   isTechStore
-                    ? 'border-emerald-500/50 shadow-emerald-500/10'
+                    ? 'border-red-500/50 shadow-red-600/10'
                     : isHospital
-                    ? 'border-cyan-500/40 shadow-cyan-500/10'
-                    : 'border-slate-800/90'
+                    ? 'border-rose-500/40 shadow-rose-600/10'
+                    : 'border-red-950/80'
                 }`}
               >
                 
-                {/* Glowing subtle top bar for deployed & microservice badges */}
+                {/* Glowing top bar for deployed & microservice badges */}
                 <div className={`h-1.5 w-full ${
                   isTechStore
-                    ? 'bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400'
+                    ? 'bg-gradient-to-r from-red-600 via-rose-600 to-amber-500'
                     : isHospital
-                    ? 'bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-500'
-                    : 'bg-slate-800'
+                    ? 'bg-gradient-to-r from-rose-600 via-red-600 to-amber-500'
+                    : 'bg-red-950'
                 }`}></div>
 
                 {/* Main Card Content */}
@@ -102,21 +102,21 @@ export default function Projects() {
                   
                   {/* Category & Live Badge */}
                   <div className="flex items-center justify-between gap-2 mb-4">
-                    <span className="px-3 py-1 rounded-full text-[11px] font-mono font-semibold bg-slate-800/90 text-emerald-400 border border-emerald-500/30">
+                    <span className="px-3 py-1 rounded-full text-[11px] font-mono font-semibold bg-[#160407] text-rose-300 border border-red-950">
                       {project.category}
                     </span>
 
                     {/* Live Deployed Badge */}
                     {isTechStore && (
-                      <span className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-[11px] font-mono font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 animate-pulse">
-                        <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
+                      <span className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-[11px] font-mono font-bold bg-red-500/20 text-red-300 border border-red-500/40 animate-pulse">
+                        <span className="w-2 h-2 rounded-full bg-red-500"></span>
                         LIVE DEPLOYED
                       </span>
                     )}
 
                     {isHospital && (
-                      <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/40">
-                        <Zap className="w-3 h-3 text-cyan-400" />
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40">
+                        <Zap className="w-3 h-3 text-amber-400" />
                         6 SERVICES
                       </span>
                     )}
@@ -129,10 +129,10 @@ export default function Projects() {
                   </div>
 
                   {/* Title & Tagline */}
-                  <h3 className="font-display text-xl sm:text-2xl font-bold text-white group-hover:text-emerald-400 transition-colors leading-snug">
+                  <h3 className="font-display text-xl sm:text-2xl font-bold text-white group-hover:text-red-400 transition-colors leading-snug">
                     {project.title}
                   </h3>
-                  <p className="mt-1 text-xs font-mono text-cyan-400 font-medium">
+                  <p className="mt-1 text-xs font-mono text-rose-300 font-medium">
                     {project.tagline}
                   </p>
 
@@ -142,11 +142,11 @@ export default function Projects() {
                   </p>
 
                   {/* Metric Badges */}
-                  <div className="mt-5 grid grid-cols-2 gap-2 bg-slate-900/80 p-3 rounded-2xl border border-slate-800">
+                  <div className="mt-5 grid grid-cols-2 gap-2 bg-[#140306] p-3 rounded-2xl border border-red-950">
                     {Object.entries(project.stats).slice(0, 2).map(([k, v]) => (
                       <div key={k} className="flex flex-col">
                         <span className="text-[10px] uppercase font-mono text-slate-400">{k}</span>
-                        <span className="text-xs font-bold text-emerald-300 font-mono truncate">{v}</span>
+                        <span className="text-xs font-bold text-rose-300 font-mono truncate">{v}</span>
                       </div>
                     ))}
                   </div>
@@ -156,7 +156,7 @@ export default function Projects() {
                     {project.techStack.map((tech) => (
                       <span
                         key={tech}
-                        className="px-2.5 py-1 rounded-lg text-[11px] font-mono bg-slate-900/90 text-slate-300 border border-slate-800"
+                        className="px-2.5 py-1 rounded-lg text-[11px] font-mono bg-[#160407] text-rose-200 border border-red-950"
                       >
                         {tech}
                       </span>
@@ -166,12 +166,12 @@ export default function Projects() {
                 </div>
 
                 {/* Bottom Actions */}
-                <div className="px-6 py-4 bg-slate-900/80 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-3">
+                <div className="px-6 py-4 bg-[#120204]/90 border-t border-red-950/80 flex flex-wrap items-center justify-between gap-3">
                   
                   {isTechStore ? (
                     <button
                       onClick={() => setTechStoreModalOpen(true)}
-                      className="px-4 py-2 rounded-xl text-xs font-bold font-mono text-slate-950 bg-gradient-to-r from-emerald-400 to-cyan-400 hover:from-emerald-300 hover:to-cyan-300 transition-all flex items-center gap-1.5 shadow-md shadow-emerald-500/20 cursor-pointer"
+                      className="px-4 py-2 rounded-xl text-xs font-bold font-mono text-white bg-gradient-to-r from-red-600 via-rose-600 to-red-500 hover:from-red-500 hover:to-rose-500 transition-all flex items-center gap-1.5 shadow-md shadow-red-600/30 cursor-pointer"
                     >
                       <ShoppingCart className="w-3.5 h-3.5" />
                       <span>Live Store Demo</span>
@@ -179,7 +179,7 @@ export default function Projects() {
                   ) : isHospital ? (
                     <a
                       href="#architecture"
-                      className="px-4 py-2 rounded-xl text-xs font-bold font-mono text-slate-950 bg-gradient-to-r from-cyan-400 to-blue-400 hover:from-cyan-300 hover:to-blue-300 transition-all flex items-center gap-1.5 shadow-md shadow-cyan-500/20"
+                      className="px-4 py-2 rounded-xl text-xs font-bold font-mono text-white bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 transition-all flex items-center gap-1.5 shadow-md shadow-red-600/30"
                     >
                       <Zap className="w-3.5 h-3.5" />
                       <span>Simulate Microservices</span>
@@ -187,7 +187,7 @@ export default function Projects() {
                   ) : (
                     <button
                       onClick={() => setActiveModalProject(project)}
-                      className="text-xs font-semibold text-emerald-400 hover:text-emerald-300 flex items-center gap-1.5 transition-colors cursor-pointer"
+                      className="text-xs font-semibold text-red-400 hover:text-red-300 flex items-center gap-1.5 transition-colors cursor-pointer"
                     >
                       <span>Architecture Details</span>
                       <ArrowUpRight className="w-3.5 h-3.5" />
@@ -198,7 +198,7 @@ export default function Projects() {
                     {isTechStore && (
                       <button
                         onClick={() => setActiveModalProject(project)}
-                        className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors"
+                        className="p-2 rounded-xl bg-[#160407] hover:bg-[#20050a] text-slate-300 hover:text-white border border-red-950 transition-colors"
                         title="Architecture & Docker Specs"
                       >
                         <Layers className="w-4 h-4" />
@@ -209,7 +209,7 @@ export default function Projects() {
                       href={project.github}
                       target="_blank"
                       rel="noreferrer"
-                      className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors"
+                      className="p-2 rounded-xl bg-[#160407] hover:bg-[#20050a] text-slate-300 hover:text-white border border-red-950 transition-colors"
                       title="View Source on GitHub (@Faiz-Khan01)"
                     >
                       <Github className="w-4 h-4" />
@@ -232,26 +232,26 @@ export default function Projects() {
 
       {/* Project Deep Dive Modal */}
       {activeModalProject && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fadeIn">
-          <div className="bg-[#0b1120] border border-slate-700 rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl p-6 sm:p-8 relative">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md animate-fadeIn">
+          <div className="bg-[#0e0305] border border-red-950 rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl p-6 sm:p-8 relative">
             
             {/* Close Button */}
             <button
               onClick={() => setActiveModalProject(null)}
-              className="absolute top-6 right-6 p-2 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-300 transition-colors"
+              className="absolute top-6 right-6 p-2 rounded-xl bg-[#160407] hover:bg-[#20050a] text-slate-300 transition-colors border border-red-950"
             >
               <X className="w-5 h-5" />
             </button>
 
             {/* Modal Header */}
             <div className="pr-12">
-              <span className="px-3 py-1 rounded-full text-xs font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+              <span className="px-3 py-1 rounded-full text-xs font-mono bg-red-950/80 text-red-300 border border-red-500/40">
                 {activeModalProject.category}
               </span>
               <h3 className="mt-2 font-display text-2xl sm:text-3xl font-extrabold text-white">
                 {activeModalProject.title}
               </h3>
-              <p className="text-sm font-mono text-cyan-400 mt-1">
+              <p className="text-sm font-mono text-rose-300 mt-1">
                 {activeModalProject.tagline}
               </p>
             </div>
@@ -259,13 +259,13 @@ export default function Projects() {
             {/* Key Achievements Bullets */}
             <div className="mt-6">
               <h4 className="text-xs font-mono font-semibold uppercase tracking-wider text-slate-400 mb-3 flex items-center gap-2">
-                <Sparkles className="w-4 h-4 text-emerald-400" />
+                <Sparkles className="w-4 h-4 text-red-400" />
                 <span>Key Engineering Highlights</span>
               </h4>
               <ul className="space-y-2.5">
                 {activeModalProject.bullets.map((bullet, bIdx) => (
                   <li key={bIdx} className="flex items-start gap-2.5 text-sm text-slate-300">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
                     <span>{bullet}</span>
                   </li>
                 ))}
@@ -274,15 +274,15 @@ export default function Projects() {
 
             {/* Architecture Details */}
             {activeModalProject.architectureDetails && (
-              <div className="mt-6 p-4 rounded-2xl bg-slate-900/90 border border-slate-800">
+              <div className="mt-6 p-4 rounded-2xl bg-[#140306] border border-red-950">
                 <h4 className="text-xs font-mono font-semibold uppercase tracking-wider text-slate-400 mb-3 flex items-center gap-2">
-                  <Layers className="w-4 h-4 text-cyan-400" />
+                  <Layers className="w-4 h-4 text-rose-400" />
                   <span>Architecture Specifications</span>
                 </h4>
                 <div className="space-y-2 text-xs font-mono text-slate-300">
                   {Object.entries(activeModalProject.architectureDetails).map(([k, v]) => (
-                    <div key={k} className="border-b border-slate-800/80 pb-2 last:border-0 last:pb-0">
-                      <span className="text-emerald-400 capitalize">{k}: </span>
+                    <div key={k} className="border-b border-red-950/60 pb-2 last:border-0 last:pb-0">
+                      <span className="text-red-400 capitalize">{k}: </span>
                       {typeof v === 'string' ? (
                         <span>{v}</span>
                       ) : Array.isArray(v) ? (
@@ -309,7 +309,7 @@ export default function Projects() {
                 {activeModalProject.techStack.map((tech) => (
                   <span
                     key={tech}
-                    className="px-3 py-1 rounded-lg text-xs font-mono bg-slate-800 text-slate-200 border border-slate-700"
+                    className="px-3 py-1 rounded-lg text-xs font-mono bg-[#160407] text-slate-200 border border-red-950"
                   >
                     {tech}
                   </span>
@@ -318,13 +318,13 @@ export default function Projects() {
             </div>
 
             {/* Footer Buttons */}
-            <div className="mt-8 pt-6 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3">
+            <div className="mt-8 pt-6 border-t border-red-950/80 flex flex-wrap items-center justify-between gap-3">
               <div className="flex items-center gap-3">
                 <a
                   href={activeModalProject.github}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-xs text-white bg-slate-800 hover:bg-slate-700 transition-colors"
+                  className="flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-xs text-white bg-[#160407] hover:bg-[#20050a] border border-red-950 transition-colors"
                 >
                   <Github className="w-4 h-4" />
                   <span>View Source Code (@Faiz-Khan01)</span>
@@ -336,7 +336,7 @@ export default function Projects() {
                       setActiveModalProject(null);
                       setTechStoreModalOpen(true);
                     }}
-                    className="flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs text-slate-950 bg-emerald-400 hover:bg-emerald-300 transition-colors"
+                    className="flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs text-white bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 transition-colors shadow-md shadow-red-600/30"
                   >
                     <ShoppingCart className="w-3.5 h-3.5" />
                     <span>Launch Live Store</span>
@@ -346,7 +346,7 @@ export default function Projects() {
 
               <button
                 onClick={() => setActiveModalProject(null)}
-                className="px-5 py-2.5 rounded-xl font-semibold text-xs text-slate-300 bg-slate-850 hover:bg-slate-800 transition-colors"
+                className="px-5 py-2.5 rounded-xl font-semibold text-xs text-slate-300 bg-[#140306] hover:bg-[#1f0509] border border-red-950 transition-colors"
               >
                 Close Modal
               </button>

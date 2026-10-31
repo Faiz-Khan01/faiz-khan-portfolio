@@ -16,17 +16,17 @@ import {
 
 const tickerItems = [
   { name: 'Java 17 / 21', icon: Code2, color: 'text-amber-400' },
-  { name: 'Spring Boot 3', icon: Server, color: 'text-emerald-400' },
-  { name: 'Microservices Architecture', icon: Layers, color: 'text-cyan-400' },
-  { name: 'Netflix Eureka Registry', icon: Radio, color: 'text-yellow-400' },
-  { name: 'Spring Cloud Gateway', icon: CloudLightning, color: 'text-teal-400' },
-  { name: 'Spring Security & JWT', icon: ShieldCheck, color: 'text-indigo-400' },
-  { name: 'OpenFeign Inter-Service', icon: GitBranch, color: 'text-blue-400' },
-  { name: 'Docker Containerization', icon: Container, color: 'text-sky-400' },
-  { name: 'MySQL Relational DB', icon: Database, color: 'text-blue-400' },
-  { name: 'Razorpay Payment Gateway', icon: CreditCard, color: 'text-emerald-400' },
-  { name: 'React.js 18', icon: Cpu, color: 'text-cyan-400' },
-  { name: 'Tailwind CSS', icon: Zap, color: 'text-teal-400' },
+  { name: 'Spring Boot 3', icon: Server, color: 'text-rose-400' },
+  { name: 'Microservices Architecture', icon: Layers, color: 'text-red-400' },
+  { name: 'Netflix Eureka Registry', icon: Radio, color: 'text-amber-300' },
+  { name: 'Spring Cloud Gateway', icon: CloudLightning, color: 'text-rose-300' },
+  { name: 'Spring Security & JWT', icon: ShieldCheck, color: 'text-red-400' },
+  { name: 'OpenFeign Inter-Service', icon: GitBranch, color: 'text-rose-400' },
+  { name: 'Docker Containerization', icon: Container, color: 'text-amber-400' },
+  { name: 'MySQL Relational DB', icon: Database, color: 'text-rose-400' },
+  { name: 'Razorpay Payment Gateway', icon: CreditCard, color: 'text-red-400' },
+  { name: 'React.js 18', icon: Cpu, color: 'text-amber-400' },
+  { name: 'Tailwind CSS', icon: Zap, color: 'text-rose-400' },
 ];
 
 export default function TechTicker() {
@@ -44,13 +44,13 @@ export default function TechTicker() {
           return (
             <div
               key={index}
-              className="inline-flex items-center gap-2.5 px-6 py-2 mx-2 rounded-xl bg-slate-900/70 border border-slate-800/80 backdrop-blur-sm transition-all hover:border-emerald-500/40 hover:scale-105"
+              className="inline-flex items-center gap-2.5 px-6 py-2 mx-2 rounded-xl bg-[#0e0305]/85 border border-red-950/60 backdrop-blur-sm transition-all hover:border-red-500/50 hover:scale-105"
             >
               <Icon className={`w-4 h-4 ${item.color} shrink-0`} />
-              <span className="font-mono text-xs font-semibold text-slate-300 tracking-wide whitespace-nowrap">
+              <span className="font-mono text-xs font-semibold text-zinc-300 tracking-wide whitespace-nowrap">
                 {item.name}
               </span>
-              <span className="w-1.5 h-1.5 rounded-full bg-slate-700"></span>
+              <span className="w-1.5 h-1.5 rounded-full bg-red-900/50"></span>
             </div>
           );
         })}

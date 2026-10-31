@@ -27,23 +27,23 @@ export default function Skills() {
   ];
 
   return (
-    <section id="skills" className="py-24 relative overflow-hidden">
+    <section id="skills" className="py-24 relative overflow-hidden bg-[#070102] border-t border-red-950/40">
       
       {/* Background glow */}
-      <div className="absolute top-1/3 right-0 w-96 h-96 bg-rose-900/15 rounded-full blur-3xl pointer-events-none"></div>
+      <div className="absolute top-1/3 right-0 w-96 h-96 bg-red-600/10 rounded-full blur-3xl pointer-events-none"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono font-semibold mb-4">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-950/60 border border-red-500/30 text-red-400 text-xs font-mono font-semibold mb-4">
             <Cpu className="w-3.5 h-3.5" />
             <span>Technical Expertise</span>
           </div>
           <h2 className="font-display text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Skills &amp; Technology <span className="gradient-text-emerald">Matrix</span>
+            Skills &amp; Technology <span className="gradient-text-red">Matrix</span>
           </h2>
-          <p className="mt-4 text-slate-400 text-sm sm:text-base leading-relaxed">
+          <p className="mt-4 text-slate-300 text-sm sm:text-base leading-relaxed">
             Enterprise backend development with Java &amp; Spring Boot, microservice choreography, modern frontends, and containerized deployment workflows.
           </p>
         </div>
@@ -59,14 +59,14 @@ export default function Skills() {
                 onClick={() => setActiveCategory(cat.id)}
                 className={`flex items-center gap-2.5 px-5 py-3 rounded-2xl text-xs font-mono font-semibold transition-all cursor-pointer ${
                   isActive
-                    ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 shadow-lg shadow-emerald-500/25 scale-105'
-                    : 'bg-slate-900/80 text-slate-300 border border-slate-800 hover:border-slate-700 hover:text-white'
+                    ? 'bg-gradient-to-r from-red-600 via-rose-600 to-red-500 text-white shadow-lg shadow-red-600/35 scale-105'
+                    : 'bg-[#120204] text-slate-300 border border-red-950/80 hover:border-red-900 hover:text-white'
                 }`}
               >
                 <Icon className="w-4 h-4" />
                 <span>{cat.label}</span>
                 <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${
-                  isActive ? 'bg-slate-950/20 text-slate-950' : 'bg-slate-800 text-slate-400'
+                  isActive ? 'bg-black/30 text-white' : 'bg-[#1e0509] text-rose-300'
                 }`}>
                   {cat.count}
                 </span>
@@ -76,7 +76,7 @@ export default function Skills() {
         </div>
 
         {/* Skills Cards Grid */}
-        <div className="bg-[#0b1120] p-6 sm:p-10 rounded-3xl border border-slate-800/90 shadow-2xl">
+        <div className="bg-[#0e0305] p-6 sm:p-10 rounded-3xl border border-red-950/80 shadow-2xl">
           
           {/* Backend View */}
           {activeCategory === 'backend' && (
@@ -84,26 +84,26 @@ export default function Skills() {
               {skills.backend.map((item, idx) => (
                 <div
                   key={idx}
-                  className="p-5 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-emerald-500/40 transition-all group glass-card-hover"
+                  className="p-5 rounded-2xl bg-[#140306] border border-red-950/80 hover:border-red-500/40 transition-all group glass-card-hover"
                 >
                   <div className="flex items-center justify-between gap-2">
-                    <span className="font-display font-bold text-white text-base group-hover:text-emerald-400 transition-colors">
+                    <span className="font-display font-bold text-white text-base group-hover:text-red-400 transition-colors">
                       {item.name}
                     </span>
-                    <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+                    <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-red-950 text-rose-300 border border-red-500/30">
                       {item.badge}
                     </span>
                   </div>
                   <p className="mt-2 text-xs text-slate-400 leading-relaxed">
                     {item.desc}
                   </p>
-                  <div className="mt-4 pt-3 border-t border-slate-800/70 flex items-center justify-between">
+                  <div className="mt-4 pt-3 border-t border-red-950/60 flex items-center justify-between">
                     <span className="text-[10px] font-mono text-slate-400">Proficiency</span>
-                    <span className="text-xs font-mono font-bold text-emerald-400">{item.level}%</span>
+                    <span className="text-xs font-mono font-bold text-red-400">{item.level}%</span>
                   </div>
-                  <div className="w-full bg-slate-800 rounded-full h-1.5 mt-1 overflow-hidden">
+                  <div className="w-full bg-[#0a0204] rounded-full h-1.5 mt-1 overflow-hidden">
                     <div
-                      className="bg-gradient-to-r from-emerald-500 to-teal-400 h-full rounded-full transition-all duration-1000"
+                      className="bg-gradient-to-r from-red-600 via-rose-600 to-amber-500 h-full rounded-full transition-all duration-1000"
                       style={{ width: `${item.level}%` }}
                     ></div>
                   </div>
@@ -118,25 +118,25 @@ export default function Skills() {
               {skills.languages.map((item, idx) => (
                 <div
                   key={idx}
-                  className="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 text-center glass-card-hover group"
+                  className="p-6 rounded-2xl bg-[#140306] border border-red-950/80 text-center glass-card-hover group"
                 >
-                  <div className="w-12 h-12 mx-auto rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 font-bold mb-3 group-hover:scale-110 transition-transform">
+                  <div className="w-12 h-12 mx-auto rounded-2xl bg-red-950/60 border border-red-500/30 flex items-center justify-center text-red-400 font-bold mb-3 group-hover:scale-110 transition-transform">
                     <Code2 className="w-6 h-6" />
                   </div>
-                  <h4 className="font-display font-bold text-white text-lg group-hover:text-emerald-400 transition-colors">
+                  <h4 className="font-display font-bold text-white text-lg group-hover:text-red-400 transition-colors">
                     {item.name}
                   </h4>
-                  <span className="inline-block mt-1 text-xs font-mono text-cyan-400">
+                  <span className="inline-block mt-1 text-xs font-mono text-rose-300">
                     {item.category}
                   </span>
-                  <div className="mt-4 pt-3 border-t border-slate-800/70">
+                  <div className="mt-4 pt-3 border-t border-red-950/60">
                     <div className="flex justify-between text-xs font-mono text-slate-400 mb-1">
                       <span>Proficiency</span>
-                      <span className="text-emerald-400 font-bold">{item.level}%</span>
+                      <span className="text-red-400 font-bold">{item.level}%</span>
                     </div>
-                    <div className="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
+                    <div className="w-full bg-[#0a0204] rounded-full h-2 overflow-hidden">
                       <div
-                        className="bg-emerald-400 h-full rounded-full"
+                        className="bg-gradient-to-r from-red-600 to-rose-500 h-full rounded-full"
                         style={{ width: `${item.level}%` }}
                       ></div>
                     </div>
@@ -152,26 +152,26 @@ export default function Skills() {
               {skills.frontend.map((item, idx) => (
                 <div
                   key={idx}
-                  className="p-5 rounded-2xl bg-slate-900/80 border border-slate-800 glass-card-hover group"
+                  className="p-5 rounded-2xl bg-[#140306] border border-red-950/80 glass-card-hover group"
                 >
                   <div className="flex items-center justify-between">
-                    <h4 className="font-display font-bold text-white text-base group-hover:text-cyan-400 transition-colors">
+                    <h4 className="font-display font-bold text-white text-base group-hover:text-rose-400 transition-colors">
                       {item.name}
                     </h4>
-                    <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">
+                    <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-red-950 text-rose-300 border border-red-500/30">
                       {item.badge}
                     </span>
                   </div>
                   <p className="mt-2 text-xs text-slate-400 leading-relaxed">
                     {item.desc}
                   </p>
-                  <div className="mt-4 pt-3 border-t border-slate-800/70 flex justify-between text-xs font-mono">
+                  <div className="mt-4 pt-3 border-t border-red-950/60 flex justify-between text-xs font-mono">
                     <span className="text-slate-400">Skill Level</span>
-                    <span className="text-cyan-400 font-bold">{item.level}%</span>
+                    <span className="text-rose-400 font-bold">{item.level}%</span>
                   </div>
-                  <div className="w-full bg-slate-800 rounded-full h-1.5 mt-1 overflow-hidden">
+                  <div className="w-full bg-[#0a0204] rounded-full h-1.5 mt-1 overflow-hidden">
                     <div
-                      className="bg-cyan-400 h-full rounded-full"
+                      className="bg-gradient-to-r from-red-500 to-amber-500 h-full rounded-full"
                       style={{ width: `${item.level}%` }}
                     ></div>
                   </div>
@@ -186,26 +186,26 @@ export default function Skills() {
               {skills.devopsAndTools.map((item, idx) => (
                 <div
                   key={idx}
-                  className="p-5 rounded-2xl bg-slate-900/80 border border-slate-800 glass-card-hover group"
+                  className="p-5 rounded-2xl bg-[#140306] border border-red-950/80 glass-card-hover group"
                 >
                   <div className="flex items-center justify-between">
-                    <h4 className="font-display font-bold text-white text-base group-hover:text-emerald-400 transition-colors">
+                    <h4 className="font-display font-bold text-white text-base group-hover:text-red-400 transition-colors">
                       {item.name}
                     </h4>
-                    <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-purple-500/10 text-purple-400 border border-purple-500/30">
+                    <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-red-950 text-rose-300 border border-red-500/30">
                       {item.badge}
                     </span>
                   </div>
                   <p className="mt-2 text-xs text-slate-400 leading-relaxed">
                     {item.desc}
                   </p>
-                  <div className="mt-4 pt-3 border-t border-slate-800/70 flex justify-between text-xs font-mono">
+                  <div className="mt-4 pt-3 border-t border-red-950/60 flex justify-between text-xs font-mono">
                     <span className="text-slate-400">Mastery</span>
-                    <span className="text-emerald-400 font-bold">{item.level}%</span>
+                    <span className="text-red-400 font-bold">{item.level}%</span>
                   </div>
-                  <div className="w-full bg-slate-800 rounded-full h-1.5 mt-1 overflow-hidden">
+                  <div className="w-full bg-[#0a0204] rounded-full h-1.5 mt-1 overflow-hidden">
                     <div
-                      className="bg-gradient-to-r from-purple-400 to-emerald-400 h-full rounded-full"
+                      className="bg-gradient-to-r from-rose-500 to-red-600 h-full rounded-full"
                       style={{ width: `${item.level}%` }}
                     ></div>
                   </div>
@@ -220,9 +220,9 @@ export default function Skills() {
               {skills.coreConcepts.map((item, idx) => (
                 <div
                   key={idx}
-                  className="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 flex items-start gap-4 glass-card-hover"
+                  className="p-6 rounded-2xl bg-[#140306] border border-red-950/80 flex items-start gap-4 glass-card-hover"
                 >
-                  <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shrink-0">
+                  <div className="w-10 h-10 rounded-xl bg-red-950/60 border border-red-500/30 flex items-center justify-center text-red-400 shrink-0">
                     <BookOpen className="w-5 h-5" />
                   </div>
                   <div>
@@ -239,16 +239,16 @@ export default function Skills() {
           )}
 
           {/* Soft Skills Footer */}
-          <div className="mt-10 pt-6 border-t border-slate-800/80">
+          <div className="mt-10 pt-6 border-t border-red-950/60">
             <h4 className="text-xs font-mono font-semibold uppercase tracking-wider text-slate-400 mb-3 flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-emerald-400" />
+              <Sparkles className="w-4 h-4 text-red-400" />
               <span>Professional Soft Skills</span>
             </h4>
             <div className="flex flex-wrap gap-2">
               {skills.softSkills.map((soft) => (
                 <span
                   key={soft}
-                  className="px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-900 text-slate-300 border border-slate-700/60"
+                  className="px-3 py-1.5 rounded-xl text-xs font-medium bg-[#140306] text-rose-200 border border-red-950"
                 >
                   ✓ {soft}
                 </span>
