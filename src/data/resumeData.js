@@ -312,5 +312,133 @@ export const resumeData = {
       title: "Real-World Fintech & Cloud Architecture",
       desc: "Applied critical engineering features into real-world projects: Razorpay Payment Integration, OAuth2, JWT Security, Microservices Routing, and Dockerization."
     }
+  ],
+
+  apiEndpoints: [
+    {
+      id: "auth-login",
+      name: "JWT Authentication Token Issuance",
+      method: "POST",
+      path: "/api/v1/auth/login",
+      service: "Auth Microservice (:8086)",
+      description: "Authenticates credentials and generates a signed HMAC-SHA256 JSON Web Token (JWT) with RBAC claims.",
+      requestBody: {
+        email: "faizkhan966563@gmail.com",
+        password: "••••••••••••",
+        roleRequested: "DEVELOPER"
+      },
+      responseStatus: 200,
+      responseTime: "24ms",
+      responseBody: {
+        status: "SUCCESS",
+        timestamp: "2026-10-31T13:50:00Z",
+        tokenType: "Bearer",
+        accessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmYWl6a2hhbiIsInJvbGVzIjpbIlJPTEVfQURNSU4iLCJST0xFX0RFVkVMT1BFUiJdfQ...",
+        expiresIn: 86400,
+        user: {
+          name: "Faiz Khan",
+          role: "ROLE_BACKEND_ENGINEER",
+          permissions: ["READ_ALL", "WRITE_SERVICES", "EXECUTE_DEPLOYMENTS"]
+        }
+      }
+    },
+    {
+      id: "techstore-catalog-api",
+      name: "TechStore PRO Live Catalog & Sizing",
+      method: "GET",
+      path: "/api/products?department=Outerwear",
+      service: "TechStore Backend (Render Docker :8082)",
+      description: "Queries active luxury catalog products with 3D fitting room compatibility and variant sizing from Aiven Cloud MySQL.",
+      requestBody: null,
+      responseStatus: 200,
+      responseTime: "18ms",
+      responseBody: {
+        status: "SUCCESS",
+        database: "Aiven Cloud MySQL 8.0 (SSL)",
+        department: "Outerwear",
+        products: [
+          {
+            id: "top-1",
+            name: "Milano Double-Breasted Wool Blazer",
+            price: 14999,
+            currency: "INR",
+            sizes: ["S (38\")", "M (40\")", "L (42\")", "XL (44\")"],
+            fittingRoomEnabled: true,
+            inStock: true
+          }
+        ],
+        cacheHit: true
+      }
+    },
+    {
+      id: "razorpay-verify",
+      name: "Razorpay Cryptographic HMAC Verification",
+      method: "POST",
+      path: "/api/payment/verify",
+      service: "Razorpay Fintech Service",
+      description: "Validates HMAC-SHA256 signature against Razorpay secret key to confirm transaction integrity and generate tax invoice.",
+      requestBody: {
+        razorpay_order_id: "order_Kz8271nBxQ91",
+        razorpay_payment_id: "pay_98b1a37c442",
+        razorpay_signature: "a94a8fe5ccb19ba61c4c0873d391e987982fbbd3"
+      },
+      responseStatus: 200,
+      responseTime: "38ms",
+      responseBody: {
+        paymentStatus: "VERIFIED",
+        transactionId: "TXN-2026-99218",
+        currency: "INR",
+        amountCaptured: 17698.00,
+        signatureMatch: true,
+        invoiceNumber: "INV-2026-9921",
+        message: "Payment successfully verified. PDF tax invoice and BlueDart AWB generated."
+      }
+    },
+    {
+      id: "hospital-appointment-feign",
+      name: "HospitalSync OpenFeign Slot Reservation",
+      method: "POST",
+      path: "/api/v1/appointments/reserve",
+      service: "appointment-service (:8083) -> doctor-service (:8082)",
+      description: "Choreographs synchronous inter-service RPC via OpenFeign declarative client with non-blocking resilience safeguards.",
+      requestBody: {
+        patientId: 104,
+        doctorId: 12,
+        consultationDate: "2026-11-01",
+        slotTime: "10:30 AM"
+      },
+      responseStatus: 201,
+      responseTime: "29ms",
+      responseBody: {
+        status: "CONFIRMED",
+        appointmentId: "APT-8821",
+        doctor: "Dr. Sharma",
+        department: "Cardiology",
+        feignResponseHeader: "X-Feign-Client: DOCTOR-SERVICE-ROUTED",
+        auditRecordId: "AUDIT-2941",
+        hipaaCompliant: true
+      }
+    },
+    {
+      id: "eureka-registry",
+      name: "Eureka Service Discovery Heartbeat Status",
+      method: "GET",
+      path: "/eureka/apps",
+      service: "Eureka Naming Server (:8761)",
+      description: "Fetches real-time heartbeat health status across all 18 registered Spring Boot microservices.",
+      requestBody: null,
+      responseStatus: 200,
+      responseTime: "14ms",
+      responseBody: {
+        clusterStatus: "UP",
+        totalRegisteredServices: 18,
+        activeInstances: [
+          "API-GATEWAY:8080", "AUTH-SERVICE:8086", "USER-SERVICE:8087", "PATIENT-SERVICE:8081",
+          "DOCTOR-SERVICE:8082", "APPOINTMENT-SERVICE:8083", "ADMISSION-SERVICE:8096", "BILLING-SERVICE:8084"
+        ],
+        heartbeatIntervalSeconds: 30,
+        selfPreservationMode: "OFF"
+      }
+    }
   ]
 };

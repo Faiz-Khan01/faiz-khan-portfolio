@@ -15,14 +15,37 @@ import {
 } from 'lucide-react';
 import { resumeData } from '../data/resumeData';
 
+const defaultFallbackEndpoint = {
+  id: "auth-login",
+  name: "JWT Authentication Token Issuance",
+  method: "POST",
+  path: "/api/v1/auth/login",
+  service: "Auth Microservice (:8086)",
+  description: "Authenticates credentials and generates a signed HMAC-SHA256 JSON Web Token (JWT).",
+  requestBody: {
+    email: "faizkhan966563@gmail.com",
+    password: "••••••••••••"
+  },
+  responseStatus: 200,
+  responseTime: "24ms",
+  responseBody: {
+    status: "SUCCESS",
+    tokenType: "Bearer",
+    accessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+  }
+};
+
 export default function ApiSandbox() {
-  const { apiEndpoints } = resumeData;
-  const [selectedEndpoint, setSelectedEndpoint] = useState(apiEndpoints[0]);
+  const apiEndpoints = (resumeData && Array.isArray(resumeData.apiEndpoints) && resumeData.apiEndpoints.length > 0)
+    ? resumeData.apiEndpoints
+    : [defaultFallbackEndpoint];
+
+  const [selectedEndpoint, setSelectedEndpoint] = useState(apiEndpoints[0] || defaultFallbackEndpoint);
   const [isLoading, setIsLoading] = useState(false);
-  const [responseOutput, setResponseOutput] = useState(selectedEndpoint.responseBody);
+  const [responseOutput, setResponseOutput] = useState(selectedEndpoint?.responseBody || defaultFallbackEndpoint.responseBody);
   const [activeTab, setActiveTab] = useState('response'); // 'response' | 'request'
   const [copied, setCopied] = useState(false);
-  const [simulatedTime, setSimulatedTime] = useState(selectedEndpoint.responseTime);
+  const [simulatedTime, setSimulatedTime] = useState(selectedEndpoint?.responseTime || '24ms');
 
   const handleSelectEndpoint = (ep) => {
     setSelectedEndpoint(ep);
