@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, Printer, Download, Mail, Phone, MapPin, ExternalLink, CheckCircle2, ShieldCheck } from 'lucide-react';
+import { X, Printer, Download, Mail, Phone, MapPin, ExternalLink, CheckCircle2, ShieldCheck, Github } from 'lucide-react';
 import { resumeData } from '../data/resumeData';
 
 export default function ResumeModal({ isOpen, onClose }) {
@@ -19,7 +19,7 @@ export default function ResumeModal({ isOpen, onClose }) {
         <div className="bg-[#120204] px-6 py-4 border-b border-red-950 flex items-center justify-between no-print">
           <div className="flex items-center gap-2">
             <span className="font-display font-bold text-white text-base">Curriculum Vitae</span>
-            <span className="text-xs font-mono text-red-400">• Official Document</span>
+            <span className="text-xs font-mono text-red-400">• Official Resume</span>
           </div>
 
           <div className="flex items-center gap-3">
@@ -28,11 +28,11 @@ export default function ResumeModal({ isOpen, onClose }) {
               className="px-3.5 py-1.5 rounded-xl bg-[#1a0407] hover:bg-red-600 text-white text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer border border-red-950 hover:border-red-500"
             >
               <Printer className="w-3.5 h-3.5 text-red-400 group-hover:text-white" />
-              <span>Print / PDF</span>
+              <span>Print / Save PDF</span>
             </button>
             <button
               onClick={onClose}
-              className="p-1.5 rounded-xl bg-[#1a0407] hover:bg-[#25060b] text-slate-400 hover:text-white transition-colors border border-red-950"
+              className="p-1.5 rounded-xl bg-[#1a0407] hover:bg-[#25060b] text-slate-400 hover:text-white transition-colors border border-red-950 cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
@@ -70,9 +70,10 @@ export default function ResumeModal({ isOpen, onClose }) {
                 href={personal.github} 
                 target="_blank" 
                 rel="noreferrer" 
-                className="text-red-400 hover:underline print:text-black font-semibold"
+                className="text-red-400 hover:underline print:text-black font-semibold flex items-center gap-1"
               >
-                GitHub: @Faiz-Khan01
+                <Github className="w-3.5 h-3.5 text-rose-400" />
+                <span>GitHub: @Faiz-Khan01</span>
               </a>
             </div>
           </div>
@@ -106,12 +107,24 @@ export default function ResumeModal({ isOpen, onClose }) {
                 <span>React.js, Tailwind CSS, Bootstrap, Axios</span>
               </div>
               <div>
-                <strong className="text-white print:text-black font-semibold">Databases &amp; Cloud: </strong>
-                <span>MySQL, Docker, Git, GitHub, Maven, Postman</span>
+                <strong className="text-white print:text-black font-semibold">Databases: </strong>
+                <span>MySQL</span>
+              </div>
+              <div>
+                <strong className="text-white print:text-black font-semibold">Cloud &amp; DevOps Tools: </strong>
+                <span>Docker, Git, GitHub, Maven, Postman</span>
+              </div>
+              <div>
+                <strong className="text-white print:text-black font-semibold">Developer Tools: </strong>
+                <span>IntelliJ IDEA, Eclipse, VS Code</span>
               </div>
               <div>
                 <strong className="text-white print:text-black font-semibold">Core Concepts: </strong>
                 <span>Object-Oriented Programming (OOP), Data Structures &amp; Algorithms (DSA), System Design Fundamentals, MVC Architecture</span>
+              </div>
+              <div>
+                <strong className="text-white print:text-black font-semibold">Soft Skills: </strong>
+                <span>Problem Solving, Team Collaboration, Time Management, Adaptability, Attention to Detail</span>
               </div>
             </div>
           </div>
@@ -125,7 +138,7 @@ export default function ResumeModal({ isOpen, onClose }) {
               <div key={idx} className="space-y-2">
                 <div className="flex justify-between items-baseline">
                   <h4 className="text-sm font-bold text-white print:text-black">
-                    {exp.role} <span className="font-normal text-slate-400 print:text-gray-700">| {exp.organization}</span>
+                    • {exp.role} <span className="font-normal text-slate-400 print:text-gray-700">: {exp.organization}</span>
                   </h4>
                   <span className="text-xs font-mono text-slate-400 print:text-gray-600 font-medium">
                     {exp.period}
@@ -145,13 +158,24 @@ export default function ResumeModal({ isOpen, onClose }) {
             <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-red-400 print:text-black mb-3 border-b border-red-950/80 pb-1">
               Projects
             </h3>
-            <div className="space-y-4">
+            <div className="space-y-5">
               {projects.map((proj, idx) => (
                 <div key={idx} className="space-y-1.5">
-                  <div className="flex flex-wrap justify-between items-baseline">
-                    <h4 className="text-sm font-bold text-white print:text-black">
-                      {proj.title}
+                  <div className="flex flex-wrap justify-between items-baseline gap-2">
+                    <h4 className="text-sm font-bold text-white print:text-black flex items-center gap-1.5">
+                      <span>• {proj.title}</span>
                     </h4>
+                    {proj.liveStorefront && (
+                      <a
+                        href={proj.liveStorefront}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-xs font-mono text-red-400 hover:underline flex items-center gap-1 no-print"
+                      >
+                        <ExternalLink className="w-3 h-3" />
+                        <span>Live Storefront ↗</span>
+                      </a>
+                    )}
                   </div>
                   <div className="text-[11px] font-mono text-rose-300 print:text-gray-700">
                     <strong>Tech Stack: </strong> {proj.techStack.join(', ')}
@@ -192,19 +216,25 @@ export default function ResumeModal({ isOpen, onClose }) {
           {/* Certifications */}
           <div>
             <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-red-400 print:text-black mb-3 border-b border-red-950/80 pb-1">
-              Certifications &amp; Credentials
+              Certifications
             </h3>
             <div className="space-y-2 text-xs">
               {certifications.map((c, idx) => (
-                <div key={idx} className="flex justify-between items-start">
+                <div key={idx} className="flex flex-wrap justify-between items-start gap-1">
                   <div>
-                    <span className="font-bold text-white print:text-black">{c.title}</span>
+                    <span className="font-bold text-white print:text-black">• {c.title}</span>
                     <span className="text-slate-400 print:text-gray-700"> — {c.issuer} ({c.date})</span>
                   </div>
-                  {c.credentialId && (
-                    <span className="font-mono text-rose-300 text-[11px]">
-                      ID: {c.credentialId}
-                    </span>
+                  {c.link && (
+                    <a
+                      href={c.link}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="font-mono text-rose-300 hover:text-red-400 hover:underline text-[11px] flex items-center gap-1 no-print"
+                    >
+                      <ExternalLink className="w-3 h-3" />
+                      <span>Verify Credential ↗</span>
+                    </a>
                   )}
                 </div>
               ))}

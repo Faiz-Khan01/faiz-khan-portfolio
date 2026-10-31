@@ -173,7 +173,7 @@ export default function TechStoreLiveModal({ isOpen, onClose }) {
   };
 
   const handleCopyLink = () => {
-    navigator.clipboard.writeText('https://faiz-khan-portfolio-omega.vercel.app/#projects');
+    navigator.clipboard.writeText('https://techstore-catalog-yw04kw9zf-faiz-khan01s-projects.vercel.app/');
     setCopiedLink(true);
     setTimeout(() => setCopiedLink(false), 2000);
   };
@@ -192,7 +192,7 @@ export default function TechStoreLiveModal({ isOpen, onClose }) {
             <span className="w-3 h-3 rounded-full bg-amber-500"></span>
             <span className="w-3 h-3 rounded-full bg-red-600"></span>
             <span className="ml-2 text-xs font-mono font-semibold text-slate-300 hidden sm:inline">
-              TechStore E-Commerce • Production Environment
+              TechStore PRO • Enterprise Luxury E-Commerce & Virtual Fitting Room
             </span>
           </div>
 
@@ -201,22 +201,31 @@ export default function TechStoreLiveModal({ isOpen, onClose }) {
             <div className="flex items-center gap-1.5 truncate">
               <Lock className="w-3.5 h-3.5 text-red-400 shrink-0" />
               <span className="text-red-400 font-semibold">https://</span>
-              <span className="text-slate-200 truncate">faiz-khan-portfolio.vercel.app/techstore</span>
+              <span className="text-slate-200 truncate">techstore-catalog.vercel.app</span>
             </div>
             <button 
               onClick={handleCopyLink}
-              title="Copy URL" 
-              className="text-slate-500 hover:text-slate-300 ml-2"
+              title="Copy Live Storefront URL" 
+              className="text-slate-500 hover:text-slate-300 ml-2 cursor-pointer"
             >
               {copiedLink ? <Check className="w-3.5 h-3.5 text-red-400" /> : <Copy className="w-3.5 h-3.5" />}
             </button>
           </div>
 
-          {/* Close & Cart Action */}
+          {/* Close, External & Cart Action */}
           <div className="flex items-center gap-2">
+            <a
+              href="https://techstore-catalog-yw04kw9zf-faiz-khan01s-projects.vercel.app/"
+              target="_blank"
+              rel="noreferrer"
+              className="px-3 py-1.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-mono text-xs font-bold flex items-center gap-1.5 shadow-md shadow-red-600/30 transition-all"
+            >
+              <ExternalLink className="w-3.5 h-3.5" />
+              <span className="hidden md:inline">Open Live Store</span>
+            </a>
             <button
               onClick={() => setIsCartOpen(!isCartOpen)}
-              className="relative p-2 rounded-xl bg-[#160407] hover:bg-[#20050a] text-slate-200 transition-colors border border-red-950"
+              className="relative p-2 rounded-xl bg-[#160407] hover:bg-[#20050a] text-slate-200 transition-colors border border-red-950 cursor-pointer"
             >
               <ShoppingCart className="w-4 h-4" />
               {cartTotalItems > 0 && (
@@ -227,7 +236,7 @@ export default function TechStoreLiveModal({ isOpen, onClose }) {
             </button>
             <button
               onClick={onClose}
-              className="p-2 rounded-xl bg-[#160407] hover:bg-[#20050a] text-slate-300 transition-colors border border-red-950"
+              className="p-2 rounded-xl bg-[#160407] hover:bg-[#20050a] text-slate-300 transition-colors border border-red-950 cursor-pointer"
             >
               <X className="w-4 h-4" />
             </button>
@@ -243,17 +252,27 @@ export default function TechStoreLiveModal({ isOpen, onClose }) {
               <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500"></span>
             </span>
             <span className="font-mono font-bold text-red-400 uppercase tracking-wide">
-              Live Deployed E-Commerce Project
+              Production Deployment Active (Vercel + Render + Aiven MySQL)
             </span>
-            <span className="text-slate-400 hidden md:inline">• Java Spring Boot + Razorpay + React.js + Docker</span>
+            <span className="text-slate-400 hidden lg:inline">• 3D Virtual Fitting Room • AI Stylist • Razorpay INR</span>
           </div>
           <div className="flex items-center gap-2 font-mono text-[11px] text-slate-400">
-            <span className="px-2 py-0.5 rounded bg-[#160407] text-rose-300 border border-red-950">
-              Docker Engine: Active
-            </span>
-            <span className="px-2 py-0.5 rounded bg-[#160407] text-amber-300 border border-red-950">
-              Razorpay API: Connected
-            </span>
+            <a
+              href="https://full-stack-ecommerce-catalog.onrender.com/"
+              target="_blank"
+              rel="noreferrer"
+              className="px-2 py-0.5 rounded bg-[#160407] hover:bg-[#20050a] text-rose-300 border border-red-950 transition-colors"
+            >
+              Render Backend API ↗
+            </a>
+            <a
+              href="https://github.com/Faiz-Khan01/Full-Stack-eCommerce-Catalog"
+              target="_blank"
+              rel="noreferrer"
+              className="px-2 py-0.5 rounded bg-[#160407] hover:bg-[#20050a] text-amber-300 border border-red-950 transition-colors"
+            >
+              GitHub Source ↗
+            </a>
           </div>
         </div>
 

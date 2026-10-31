@@ -71,7 +71,7 @@ export default function Hero({ onOpenResume }) {
             className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-red-500/15 via-rose-500/15 to-amber-500/15 border border-red-500/40 text-xs font-mono text-red-300 hover:text-white transition-all hover:scale-105 shadow-md shadow-red-950/40"
           >
             <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
-            <span>TechStore E-Commerce Live Deployed</span>
+            <span>TechStore PRO • Live Deployed (3D Fitting Room)</span>
             <ArrowRight className="w-3 h-3 text-red-400" />
           </a>
         </div>

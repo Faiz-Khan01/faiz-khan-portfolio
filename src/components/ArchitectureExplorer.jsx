@@ -19,27 +19,33 @@ import {
   Code2,
   CheckCircle2,
   ExternalLink,
-  Sparkles
+  Sparkles,
+  HeartPulse,
+  Pill,
+  FileText,
+  CreditCard,
+  Bell
 } from 'lucide-react';
 
 const architectureNodes = [
   {
     id: 'gateway',
-    name: 'Spring Cloud Gateway',
-    type: 'Reverse Proxy & Router',
+    name: 'Spring Cloud API Gateway',
+    type: 'Edge Router & Non-blocking Filter',
     port: '8080',
     color: 'from-red-600 to-rose-600',
     borderColor: 'border-red-500',
     bgGlow: 'shadow-red-500/30',
-    tag: 'Entrypoint',
-    desc: 'Single unified entrypoint for all client traffic. Performs JWT token inspection, global rate limiting, and route forwarding to downstream microservices.',
+    tag: 'Edge Ingress',
+    category: 'Edge & Infrastructure',
+    desc: 'Single unified edge ingress on Netty non-blocking I/O. Enforces centralized JWT validation, global CORS, path-based routing, and resilient rate limiting across all 16 domain microservices.',
     features: [
-      'Token validation & claim extraction filter',
-      'Path-based routing to Eureka discovered services',
-      'Global CORS configuration & SSL termination',
-      'Circuit breaker with fallback fallbacks'
+      'Stateless bearer JWT inspection filter',
+      'Dynamic routing via Eureka service discovery',
+      'Global CORS configuration & Netty non-blocking I/O',
+      'Resilience4j circuit breakers and fail-safe fallbacks'
     ],
-    tech: ['Spring Cloud Gateway', 'Spring WebFlux', 'Netty', 'JWT'],
+    tech: ['Spring Cloud Gateway 2024', 'Spring WebFlux', 'Netty', 'JJWT 0.12.6'],
     sampleCode: `@Bean
 public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
     return builder.routes()
@@ -49,52 +55,57 @@ public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
         .route("appointment-service", r -> r.path("/api/v1/appointments/**")
             .filters(f -> f.filter(jwtAuthFilter))
             .uri("lb://APPOINTMENT-SERVICE"))
+        .route("billing-service", r -> r.path("/api/v1/billing/**")
+            .filters(f -> f.filter(jwtAuthFilter))
+            .uri("lb://BILLING-SERVICE"))
         .build();
 }`
   },
   {
     id: 'eureka',
-    name: 'Netflix Eureka Registry',
-    type: 'Service Discovery',
+    name: 'Eureka Naming Server',
+    type: 'Service Discovery Registry',
     port: '8761',
     color: 'from-amber-500 to-red-500',
     borderColor: 'border-amber-500',
     bgGlow: 'shadow-amber-500/30',
     tag: 'Discovery',
-    desc: 'Dynamic registry maintaining live instances and health heartbeats of all active microservices in the cluster, enabling zero-downtime horizontal scaling.',
+    category: 'Edge & Infrastructure',
+    desc: 'Centralized discovery cluster tracking 18 independent services with 30s heartbeat health checks, dynamic client-side load balancing, and self-preservation mechanisms.',
     features: [
-      'Heartbeat monitoring (30s intervals)',
-      'Dynamic client-side load balancing',
-      'Fault tolerance & self-preservation mode',
-      'Automatic instance de-registration on failure'
+      'Heartbeat monitoring (30s intervals) & /actuator/health',
+      'Client-side load balancing via Spring Cloud LoadBalancer',
+      'Self-preservation mode during transient network partitions',
+      'Zero-downtime microservice registration & failover'
     ],
-    tech: ['Netflix Eureka Server', 'Spring Cloud Netflix', 'Actuator'],
+    tech: ['Netflix Eureka Server', 'Spring Cloud Netflix', 'Spring Boot Actuator'],
     sampleCode: `@SpringBootApplication
 @EnableEurekaServer
-public class EurekaServerApplication {
+public class NamingServerApplication {
     public static void main(String[] args) {
-        SpringApplication.run(EurekaServerApplication.class, args);
+        SpringApplication.run(NamingServerApplication.class, args);
     }
 }
-// Active Instances: GATEWAY, AUTH, PATIENT, DOCTOR, APPOINTMENT, BILLING`
+// Registered: GATEWAY, AUTH, USER, ROLE, DEPT, PATIENT, DOCTOR, APPT, ADMISSION, RX, EHR, MED, LAB, BILL, PAY, NOTIF`
   },
   {
     id: 'auth',
-    name: 'Auth & Security Service',
-    type: 'Security Microservice',
-    port: '8081',
+    name: 'Auth & User Identity Service',
+    type: 'Identity & RBAC Provider',
+    port: '8086 / 8087',
     color: 'from-rose-600 to-red-600',
     borderColor: 'border-rose-500',
     bgGlow: 'shadow-rose-500/30',
-    tag: 'Auth & RBAC',
-    desc: 'Issues cryptographically signed HMAC-SHA256 JWT tokens. Manages user roles (Admin, Doctor, Patient) and credentials with BCrypt hashing.',
+    tag: 'Identity & RBAC',
+    category: 'Identity',
+    desc: 'Issues cryptographically signed HMAC-SHA256/512 JWT tokens. Enforces fine-grained 7-role RBAC matrices (Admin, Doctor, Receptionist, Nurse, Lab Tech, Pharmacist, Patient) with BCrypt salt hashing.',
     features: [
-      'BCrypt password encryption (strength 12)',
-      'Stateless JWT issuance and signature validation',
-      'Role-Based Access Control (RBAC) rules',
-      'Google OAuth 2.0 Single Sign-On flow'
+      'BCrypt credential encryption & stateless session management',
+      'Signed JWT issuance with role claims & token refresh',
+      '7-role granular RBAC security matrix',
+      'Redis 7 caching for sub-millisecond user profile lookups'
     ],
-    tech: ['Spring Security 6', 'JJWT', 'OAuth2 Client', 'MySQL'],
+    tech: ['Spring Security 6', 'JJWT 0.12.6', 'Redis 7', 'MySQL 8.0'],
     sampleCode: `public String generateToken(UserDetails userDetails, List<String> roles) {
     return Jwts.builder()
         .setSubject(userDetails.getUsername())
@@ -107,101 +118,135 @@ public class EurekaServerApplication {
   },
   {
     id: 'patient',
-    name: 'Patient Service',
-    type: 'Domain Microservice',
-    port: '8082',
+    name: 'Patient & Clinical Ops Service',
+    type: 'Clinical Domain Microservice',
+    port: '8081',
     color: 'from-red-500 to-amber-500',
     borderColor: 'border-red-500',
     bgGlow: 'shadow-red-500/30',
-    tag: 'Core Domain',
-    desc: 'Maintains patient medical records, history, emergency contacts, and personal demographics with strict data privacy.',
+    tag: 'Clinical Ops',
+    category: 'Clinical',
+    desc: 'Maintains comprehensive patient intake demographics, emergency contacts, blood group, medical history, and longitudinal EHR records with strict HIPAA compliance.',
     features: [
-      'CRUD APIs for patient profiles',
-      'Encrypted health history storage',
-      'Pagination & filtering for large patient lists',
-      'OpenFeign integration with Doctor & Billing'
+      'Patient demographic registry & intake forms',
+      'Relational integration with EHR, Doctor & Admission modules',
+      'Redis cached lookups for emergency triage',
+      'Encrypted health history and blood group classification'
     ],
-    tech: ['Spring Boot', 'Spring Data JPA', 'Hibernate', 'MySQL'],
+    tech: ['Spring Boot 3.4', 'Spring Data JPA', 'Redis 7', 'MySQL 8.0'],
     sampleCode: `@Entity
 @Table(name = "patients", indexes = {@Index(name = "idx_patient_email", columnList = "email")})
 public class Patient {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String fullName;
-    private String medicalHistoryHash;
     private String bloodGroup;
+    private String emergencyContact;
 }`
   },
   {
     id: 'doctor',
-    name: 'Doctor & Schedule Service',
-    type: 'Domain Microservice',
-    port: '8083',
+    name: 'Doctor & Appointment Service',
+    type: 'Scheduling & Consultation Microservice',
+    port: '8082 / 8083',
     color: 'from-rose-500 to-red-500',
     borderColor: 'border-rose-500',
     bgGlow: 'shadow-rose-500/30',
-    tag: 'Scheduling',
-    desc: 'Handles doctor specializations, shift schedules, vacation leaves, and real-time consultation slot availability.',
+    tag: 'Consultation',
+    category: 'Clinical',
+    desc: 'Manages physician specialty directories, weekly shift calendars, dynamic slot reservation locking, and multi-status appointment workflows (SCHEDULED, COMPLETED, CANCELLED).',
     features: [
-      'Real-time slot reservation locking',
-      'Doctor department & specialization search',
-      'Dynamic schedule generation',
-      'Inter-service Feign API for appointment booking'
+      'Real-time slot reservation concurrency locking',
+      'Clinical department & physician specialization bindings',
+      'Declarative OpenFeign booking event triggers to notification-service',
+      'Non-blocking try/catch resilience preventing transactional rollbacks'
     ],
-    tech: ['Spring Boot', 'OpenFeign Client', 'MySQL', 'JPA'],
-    sampleCode: `@GetMapping("/{id}/slots")
-public ResponseEntity<List<TimeSlotDTO>> getAvailableSlots(
-        @PathVariable Long id, 
-        @RequestParam @DateTimeFormat(iso = ISO.DATE) LocalDate date) {
-    return ResponseEntity.ok(scheduleService.findAvailableSlots(id, date));
+    tech: ['Spring Boot 3.4', 'Spring Cloud OpenFeign', 'MySQL 8.0', 'Redis 7'],
+    sampleCode: `@FeignClient(name = "NOTIFICATION-SERVICE")
+public interface NotificationClient {
+    @PostMapping("/api/v1/notifications/dispatch")
+    void sendBookingConfirmation(@RequestBody NotificationDTO dto);
 }`
   },
   {
-    id: 'appointment',
-    name: 'Appointment Service',
-    type: 'Workflow Microservice',
-    port: '8084',
-    color: 'from-red-600 to-rose-700',
+    id: 'admission',
+    name: 'Admission & Bed Matrix Service',
+    type: 'Inpatient Care Microservice',
+    port: '8096',
+    color: 'from-red-600 to-amber-600',
     borderColor: 'border-red-500',
     bgGlow: 'shadow-red-500/30',
-    tag: 'Workflows',
-    desc: 'Coordinates patient-doctor bookings, consultation status transitions (Scheduled -> Completed -> Cancelled), and reminders.',
+    tag: 'Inpatient Beds',
+    category: 'Inpatient',
+    desc: 'Orchestrates live inpatient admissions, ward allocations (General, ICU, NICU, Maternity, Isolation), real-time bed state tracking (AVAILABLE, OCCUPIED, RESERVED), and discharge summaries.',
     features: [
-      'Declarative RPC calls to Doctor & Patient via OpenFeign',
-      'Slot conflict prevention logic',
-      'Automated email/SMS notification triggers',
-      'Status change audit trail'
+      'Visual real-time bed occupancy grid & ward distribution',
+      'Admission intake and automated discharge summary logs',
+      'Direct inter-service line item emission to billing-service',
+      'Emergency room priority triage workflow'
     ],
-    tech: ['Spring Boot', 'OpenFeign', 'Spring Events', 'MySQL'],
-    sampleCode: `@FeignClient(name = "DOCTOR-SERVICE")
-public interface DoctorFeignClient {
-    @PostMapping("/api/v1/doctors/{id}/reserve-slot")
-    SlotBookingResponse reserveSlot(@PathVariable("id") Long doctorId, @RequestBody SlotRequest req);
+    tech: ['Spring Boot 3.4', 'Spring Data JPA', 'MySQL 8.0'],
+    sampleCode: `@PutMapping("/beds/{bedId}/allocate")
+public ResponseEntity<BedAllocationDTO> allocateBed(
+        @PathVariable Long bedId, 
+        @RequestParam Long patientId, 
+        @RequestParam WardType ward) {
+    return ResponseEntity.ok(admissionService.allocate(bedId, patientId, ward));
+}`
+  },
+  {
+    id: 'pharmacy',
+    name: 'Pharmacy & Lab Diagnostics Service',
+    type: 'Inventory & Diagnostics Microservice',
+    port: '8091 / 8092 / 8093',
+    color: 'from-amber-600 to-rose-600',
+    borderColor: 'border-amber-500',
+    bgGlow: 'shadow-amber-500/30',
+    tag: 'Diagnostics',
+    category: 'Diagnostics',
+    desc: 'Full diagnostic lab order management and clinical pharmacy inventory. Tracks drug catalog, batch numbers, 90-day expiry warnings, lab test catalog, and specimen findings.',
+    features: [
+      'Stock alert tiers: Critical (Red), Low (Yellow), In Stock (Green)',
+      'Automated 90-day batch expiry monitoring',
+      'Lab test orders and structured specimen result logs',
+      'OpenFeign event dispatch upon lab report release'
+    ],
+    tech: ['Spring Boot 3.4', 'OpenFeign', 'MySQL 8.0 (Schema: 25 Tables)'],
+    sampleCode: `@PostMapping("/reports/{orderId}/release")
+public ResponseEntity<LabReportDTO> releaseLabReport(@PathVariable Long orderId, @RequestBody ResultDTO result) {
+    LabReportDTO report = labReportService.release(orderId, result);
+    notificationClient.sendReportNotification(report.getPatientId(), report.getId());
+    return ResponseEntity.ok(report);
 }`
   },
   {
     id: 'billing',
-    name: 'Billing & Prescription Service',
-    type: 'Finance Microservice',
-    port: '8085',
-    color: 'from-amber-600 to-red-600',
-    borderColor: 'border-amber-500',
-    bgGlow: 'shadow-amber-500/30',
-    tag: 'Payments',
-    desc: 'Generates medical prescriptions, calculates invoices, and handles payment gateway checkout with automated receipts.',
+    name: 'Billing & Razorpay Payment Service',
+    type: 'Fintech & Invoicing Microservice',
+    port: '8084 / 8094',
+    color: 'from-red-600 to-rose-700',
+    borderColor: 'border-red-500',
+    bgGlow: 'shadow-red-500/30',
+    tag: 'Fintech & Invoicing',
+    category: 'Finance',
+    desc: 'Itemized medical invoice consolidation (consultation, pharmacy, lab, bed fees), Razorpay payment gateway integration with SHA-256 HMAC cryptographic signature validation and receipts.',
     features: [
-      'Razorpay payment gateway integration',
-      'Automated PDF invoice generation',
-      'Medicine catalog and dosage prescription',
-      'Transaction integrity verification'
+      'Consolidated ledger across consultation, pharmacy, lab, and ward room charges',
+      'Razorpay payment order creation & HMAC-SHA256 signature verification',
+      'Multi-channel payment recording (UPI, Cards, Netbanking, Cash, Insurance)',
+      'OpenFeign payment confirmation dispatch & automated receipt generation'
     ],
-    tech: ['Spring Boot', 'Razorpay SDK', 'iText PDF', 'MySQL'],
-    sampleCode: `public PaymentVerificationResponse verifyRazorpaySignature(PaymentDTO dto) {
+    tech: ['Spring Boot 3.4', 'Razorpay Java SDK', 'OpenFeign', 'MySQL 8.0'],
+    sampleCode: `public PaymentVerificationResponse verifyRazorpay(PaymentDTO dto) {
     boolean isValid = SignatureVerifier.verify(
         dto.getOrderId() + "|" + dto.getPaymentId(), 
         dto.getSignature(), 
         razorpaySecret
     );
+    if (isValid) {
+        billingService.markInvoiceAsPaid(dto.getBillId(), dto.getPaymentId());
+        notificationClient.sendPaymentReceipt(dto.getUserId(), dto.getPaymentId());
+    }
     return new PaymentVerificationResponse(isValid ? "VERIFIED" : "FAILED");
 }`
   }
@@ -211,44 +256,45 @@ public interface DoctorFeignClient {
 const simulationScenarios = [
   {
     id: 'appointment-flow',
-    title: 'Patient Appointment Booking Flow',
-    description: 'Traces an end-to-end booking: Gateway token check -> Eureka discovery -> Feign RPC doctor reserve -> MySQL ACID transaction commit.',
+    title: 'Outpatient Appointment & OpenFeign Event',
+    description: 'Traces Gateway token check -> Eureka discovery -> Feign RPC doctor reserve -> MySQL commit -> Async notification trigger.',
     steps: [
-      { node: 'gateway', log: 'POST /api/v1/appointments - Gateway validating JWT Bearer token claims & rate limits' },
-      { node: 'eureka', log: 'Querying Eureka Registry: Resolving virtual host APPOINTMENT-SERVICE -> 10.0.1.14:8084' },
-      { node: 'appointment', log: 'Appointment Service receives request. Invoking DoctorFeignClient for slot availability' },
-      { node: 'doctor', log: 'Doctor Service confirms Dr. Jenkins slot 10:30 AM available. Applying temporary pessimistic lock' },
-      { node: 'appointment', log: 'Appointment confirmed! MySQL transaction committed (Isolation: READ_COMMITTED). HTTP 201 Created' },
+      { node: 'gateway', log: 'POST /api/v1/appointments - Gateway non-blocking Netty filter validates JWT claims' },
+      { node: 'eureka', log: 'Eureka Registry: Resolving virtual host APPOINTMENT-SERVICE -> 10.0.1.14:8083' },
+      { node: 'doctor', log: 'Doctor Service locks Dr. Sharma 10:30 AM slot. Verifies availability in Redis cache' },
+      { node: 'patient', log: 'Patient demographics validated & linked to consultation header #APT-8821' },
+      { node: 'billing', log: 'Appointment confirmed! OpenFeign dispatches notification event. HTTP 201 Created' }
+    ]
+  },
+  {
+    id: 'admission-flow',
+    title: 'Inpatient Admission & Ward Bed Allocation',
+    description: 'Traces patient admission, live bed reservation in ICU ward, and automatic itemized billing dispatch.',
+    steps: [
+      { node: 'gateway', log: 'POST /api/v1/admissions - Gateway validates NURSE / ADMIN RBAC permissions' },
+      { node: 'patient', log: 'Patient demographic retrieved. Medical history snapshot indexed' },
+      { node: 'admission', log: 'Admission Service reserves ICU Bed #B-104 (Status: AVAILABLE -> OCCUPIED)' },
+      { node: 'billing', log: 'Dispatches line item to billing-service: ICU Room Charge ₹3,500/day' },
+      { node: 'auth', log: 'Immutable HIPAA audit log entry created: Actor nurse.lead, differential snapshot stored' }
     ]
   },
   {
     id: 'billing-flow',
-    title: 'Consultation Billing & Razorpay Checkout',
-    description: 'Traces invoice generation, prescription issuance, and Razorpay HMAC-SHA256 signature verification.',
+    title: 'Invoice Settlement & Razorpay Verification',
+    description: 'Traces consolidated bill generation, Razorpay order generation, HMAC verification, and PDF receipt release.',
     steps: [
-      { node: 'doctor', log: 'Doctor marks consultation #9421 as COMPLETED with digital prescription data' },
-      { node: 'billing', log: 'Billing Service generates invoice #INV-2026-88. Order total: ₹1,500' },
-      { node: 'billing', log: 'Razorpay Gateway API: Created order order_Hsp9281. Awaiting patient payment' },
-      { node: 'gateway', log: 'Patient webhook arrives: POST /api/v1/payments/razorpay/verify' },
-      { node: 'billing', log: 'HMAC-SHA256 signature verified against Razorpay secret. PDF receipt dispatched!' }
-    ]
-  },
-  {
-    id: 'discovery-flow',
-    title: 'Eureka Discovery Heartbeat & High Availability',
-    description: 'Demonstrates microservice auto-registration, Actuator health pings, and dynamic load balancing.',
-    steps: [
-      { node: 'patient', log: 'Patient Service instance #2 boots up. Emits PUT /eureka/apps/PATIENT-SERVICE' },
-      { node: 'eureka', log: 'Eureka Server registers new instance with lease renewal interval of 30s' },
-      { node: 'gateway', log: 'Gateway local route cache refreshed via Eureka heartbeat delta (Cluster: Healthy)' },
-      { node: 'gateway', log: 'Incoming patient traffic load-balanced 50/50 across active instances' }
+      { node: 'billing', log: 'Billing Service consolidates invoice #INV-2026-94: Doctor + Lab + Pharmacy = ₹4,250' },
+      { node: 'billing', log: 'Razorpay Gateway API: Generated order_Hsp9281. Patient completes UPI payment' },
+      { node: 'gateway', log: 'Webhook callback received: POST /api/v1/payments/verify with HMAC signature' },
+      { node: 'billing', log: 'HMAC-SHA256 signature verified against Razorpay secret. Bill marked PAID' },
+      { node: 'auth', log: 'Payment confirmation dispatched via notification-service. Audit log finalized' }
     ]
   }
 ];
 
 export default function ArchitectureExplorer() {
   const [selectedNode, setSelectedNode] = useState(architectureNodes[0]);
-  const [activeTab, setActiveTab] = useState('specs'); // 'specs' | 'code'
+  const [activeTab, setActiveTab] = useState('specs'); // 'specs' | 'code' | 'schema'
   const [activeScenario, setActiveScenario] = useState(simulationScenarios[0]);
   const [currentStepIndex, setCurrentStepIndex] = useState(-1);
   const [isSimulating, setIsSimulating] = useState(false);
@@ -270,7 +316,7 @@ export default function ArchitectureExplorer() {
         if (idx === scenario.steps.length - 1) {
           setTimeout(() => {
             setIsSimulating(false);
-            setSimLogs(prev => [...prev, `[SUCCESS] Transaction finalized with 0 packet drops (Total Time: ~${(idx + 1) * 35 + 20}ms)`]);
+            setSimLogs(prev => [...prev, `[SUCCESS] Transaction committed with 0 packet drops (Total Time: ~${(idx + 1) * 35 + 20}ms)`]);
           }, 600);
         }
       }, (idx + 1) * 750);
@@ -296,14 +342,29 @@ export default function ArchitectureExplorer() {
         <div className="text-center max-w-3xl mx-auto mb-14">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-950/60 border border-red-500/30 text-red-400 text-xs font-mono font-semibold mb-4">
             <Network className="w-3.5 h-3.5" />
-            <span>Distributed Healthcare Ecosystem</span>
+            <span>HospitalSync Pro Suite v2.5 Architecture</span>
           </div>
           <h2 className="font-display text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Hospital Management <span className="gradient-text-red">Microservices Architecture</span>
+            18 Spring Boot Services <span className="gradient-text-red">Microservices Architecture</span>
           </h2>
           <p className="mt-4 text-slate-300 text-sm sm:text-base leading-relaxed">
-            Faiz's complete distributed enterprise healthcare platform engineered with 6 independent Spring Boot services, Spring Cloud Gateway, Netflix Eureka discovery, and OpenFeign inter-service RPC.
+            Enterprise-grade distributed hospital operating platform orchestrating 18 Spring Boot services, Spring Cloud Gateway (:8080), Eureka Registry (:8761), resilient OpenFeign inter-service events, Redis 7 caching, 25 normalized MySQL tables, and HIPAA immutable audit logging.
           </p>
+
+          <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
+            <a
+              href="https://github.com/Faiz-Khan01/hospital-management-microservices-backend"
+              target="_blank"
+              rel="noreferrer"
+              className="px-4 py-2 rounded-xl bg-[#160407] hover:bg-[#20050a] border border-red-500/30 text-xs font-mono font-semibold text-rose-300 hover:text-white transition-colors flex items-center gap-2"
+            >
+              <ExternalLink className="w-3.5 h-3.5" />
+              <span>Explore Backend Repository on GitHub ➔</span>
+            </a>
+            <span className="px-3 py-1.5 rounded-xl bg-[#120204] border border-red-950 text-xs font-mono text-zinc-400">
+              25 Normalized MySQL Tables &bull; Redis 7 Cache
+            </span>
+          </div>
         </div>
 
         {/* Live Simulation Controls Ribbon */}
@@ -314,10 +375,10 @@ export default function ArchitectureExplorer() {
             </div>
             <div>
               <h4 className="font-display font-bold text-white text-sm">
-                Interactive Transaction Flow Simulator
+                Interactive Inter-Service Flow Simulator
               </h4>
               <p className="text-xs text-slate-400">
-                Trigger real-time simulated packet flows across Gateway, Eureka, and microservices
+                Trigger real-time simulated packet flows across Gateway, Eureka, OpenFeign, and Redis/MySQL
               </p>
             </div>
           </div>
@@ -328,7 +389,7 @@ export default function ArchitectureExplorer() {
                 key={scen.id}
                 onClick={() => runSimulation(scen)}
                 disabled={isSimulating}
-                className={`px-3.5 py-2 rounded-xl text-xs font-mono font-semibold transition-all flex items-center gap-1.5 ${
+                className={`px-3.5 py-2 rounded-xl text-xs font-mono font-semibold transition-all flex items-center gap-1.5 cursor-pointer ${
                   activeScenario.id === scen.id && isSimulating
                     ? 'bg-red-600 text-white shadow-lg shadow-red-600/30 animate-pulse'
                     : 'bg-[#160407] hover:bg-[#20050a] text-slate-300 border border-red-950/80 hover:text-white'
@@ -342,7 +403,7 @@ export default function ArchitectureExplorer() {
             {isSimulating && (
               <button
                 onClick={resetSimulation}
-                className="p-2 rounded-xl bg-[#160407] hover:bg-[#20050a] text-slate-400 hover:text-white border border-red-950"
+                className="p-2 rounded-xl bg-[#160407] hover:bg-[#20050a] text-slate-400 hover:text-white border border-red-950 cursor-pointer"
                 title="Reset simulation"
               >
                 <RotateCcw className="w-4 h-4" />
@@ -360,26 +421,26 @@ export default function ArchitectureExplorer() {
             {/* Background Cyber Grid */}
             <div className="absolute inset-0 bg-cyber-grid opacity-30 pointer-events-none"></div>
 
-            <div className="relative z-10 flex flex-col gap-6">
+            <div className="relative z-10 flex flex-col gap-5">
               
               {/* Level 1: Client Application Layer */}
               <div className="flex flex-col items-center">
                 <div className="w-full max-w-md p-3.5 rounded-2xl bg-[#160407]/90 border border-red-950 text-center shadow-lg flex items-center justify-between px-5">
                   <div className="flex items-center gap-2.5 text-xs font-mono text-slate-300 font-semibold">
                     <Activity className="w-4 h-4 text-rose-400" />
-                    <span>Client Layer (React.js Frontend / Doctor &amp; Patient Portal)</span>
+                    <span>Executive Client Layer (React 19 / Bootstrap 5.3 / Aura Mesh)</span>
                   </div>
                   <span className="w-2 h-2 rounded-full bg-red-400 animate-ping"></span>
                 </div>
                 
                 {/* Flow Wire down to Gateway */}
-                <div className="h-6 w-0.5 bg-gradient-to-b from-rose-500 to-red-500 my-1 relative">
+                <div className="h-5 w-0.5 bg-gradient-to-b from-rose-500 to-red-500 my-1 relative">
                   <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-red-400 ${isSimulating ? 'animate-ping' : ''}`}></div>
                 </div>
               </div>
 
-              {/* Level 2: Spring Cloud Gateway & Netflix Eureka */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {/* Level 2: Spring Cloud Gateway & Eureka Server */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 
                 {/* Gateway Node */}
                 <button
@@ -396,8 +457,8 @@ export default function ArchitectureExplorer() {
                     </span>
                     <ShieldCheck className="w-4 h-4 text-red-400" />
                   </div>
-                  <h4 className="mt-2 font-display font-bold text-white text-sm">Spring Cloud Gateway</h4>
-                  <p className="text-[11px] text-slate-400 mt-1">JWT verification, rate limiting &amp; dynamic routing</p>
+                  <h4 className="mt-2 font-display font-bold text-white text-sm">Spring Cloud API Gateway</h4>
+                  <p className="text-[11px] text-slate-400 mt-1">Non-blocking Netty I/O, JWT filters &amp; centralized ingress</p>
                 </button>
 
                 {/* Eureka Node */}
@@ -415,8 +476,8 @@ export default function ArchitectureExplorer() {
                     </span>
                     <Radio className="w-4 h-4 text-amber-400" />
                   </div>
-                  <h4 className="mt-2 font-display font-bold text-white text-sm">Netflix Eureka Registry</h4>
-                  <p className="text-[11px] text-slate-400 mt-1">Heartbeat service discovery &amp; load balancing</p>
+                  <h4 className="mt-2 font-display font-bold text-white text-sm">Eureka Discovery Server</h4>
+                  <p className="text-[11px] text-slate-400 mt-1">Heartbeat registration (30s) &amp; client-side load balancing</p>
                 </button>
 
               </div>
@@ -425,11 +486,11 @@ export default function ArchitectureExplorer() {
               <div className="flex items-center justify-center my-0.5">
                 <span className="px-3.5 py-1 rounded-full bg-[#130306] border border-red-950/80 text-[10px] font-mono text-rose-300 flex items-center gap-1.5 shadow-sm">
                   <Zap className="w-3 h-3 text-red-400" />
-                  <span>OpenFeign Declarative RPC • JSON Payloads • JWT Headers</span>
+                  <span>OpenFeign Resilient RPC &bull; Non-Blocking Try/Catch &bull; JJWT Headers</span>
                 </span>
               </div>
 
-              {/* Level 3: Microservices Grid */}
+              {/* Level 3: Microservices Grid (16 Domain Services) */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {architectureNodes.slice(2).map((node) => {
                   const isSelected = selectedNode.id === node.id;
@@ -461,13 +522,22 @@ export default function ArchitectureExplorer() {
                 })}
               </div>
 
-              {/* Level 4: Database Layer */}
-              <div className="pt-3 border-t border-red-950/60 flex items-center justify-between text-xs text-slate-400 font-mono px-2">
-                <div className="flex items-center gap-2">
-                  <Database className="w-4 h-4 text-red-400" />
-                  <span>Database Isolation: Bounded Contexts (Isolated MySQL DBs)</span>
+              {/* Level 4: Persistence & Caching Layer */}
+              <div className="pt-3 border-t border-red-950/60 grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-400 font-mono">
+                <div className="p-2.5 rounded-xl bg-[#120204] border border-red-950 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Database className="w-4 h-4 text-red-400" />
+                    <span>MySQL 8.0 (25 Tables)</span>
+                  </div>
+                  <span className="text-rose-300 text-[10px] font-bold">ACID</span>
                 </div>
-                <span className="text-amber-400 font-semibold">ACID Ready</span>
+                <div className="p-2.5 rounded-xl bg-[#120204] border border-red-950 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Zap className="w-4 h-4 text-amber-400" />
+                    <span>Redis 7 Distributed Cache</span>
+                  </div>
+                  <span className="text-amber-300 text-[10px] font-bold">&lt;1ms</span>
+                </div>
               </div>
 
               {/* Telemetry Console during simulation */}
@@ -475,7 +545,7 @@ export default function ArchitectureExplorer() {
                 <div className="mt-2 p-3.5 rounded-2xl bg-[#080103] border border-red-950 font-mono text-[11px] text-slate-300 space-y-1 max-h-36 overflow-y-auto">
                   <div className="flex items-center gap-2 text-rose-400 pb-1 border-b border-red-950/50">
                     <Terminal className="w-3.5 h-3.5 text-red-400" />
-                    <span>Real-time Telemetry Trace:</span>
+                    <span>Real-time Inter-Service Event Trace:</span>
                   </div>
                   {simLogs.map((log, i) => (
                     <div key={i} className="text-rose-300/90 leading-relaxed">
@@ -521,7 +591,7 @@ export default function ArchitectureExplorer() {
               <div className="flex items-center gap-2 mt-4 pb-2 border-b border-red-950/60">
                 <button
                   onClick={() => setActiveTab('specs')}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-mono font-semibold transition-colors ${
+                  className={`px-3 py-1.5 rounded-xl text-xs font-mono font-semibold transition-colors cursor-pointer ${
                     activeTab === 'specs'
                       ? 'bg-red-600 text-white'
                       : 'text-slate-400 hover:text-white'
@@ -531,7 +601,7 @@ export default function ArchitectureExplorer() {
                 </button>
                 <button
                   onClick={() => setActiveTab('code')}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-mono font-semibold transition-colors ${
+                  className={`px-3 py-1.5 rounded-xl text-xs font-mono font-semibold transition-colors cursor-pointer ${
                     activeTab === 'code'
                       ? 'bg-red-600 text-white'
                       : 'text-slate-400 hover:text-white'
@@ -589,18 +659,27 @@ export default function ArchitectureExplorer() {
                     <pre><code>{selectedNode.sampleCode}</code></pre>
                   </div>
                   <span className="mt-2 block text-[11px] font-mono text-slate-400">
-                    Production pattern implemented in Faiz's repository
+                    Production code pattern implemented in Faiz's HospitalSync repository
                   </span>
                 </div>
               )}
 
-              {/* Call to Sandbox */}
-              <div className="mt-6 pt-4 border-t border-red-950/60">
+              {/* Call to Sandbox & Github */}
+              <div className="mt-6 pt-4 border-t border-red-950/60 space-y-2">
+                <a
+                  href="https://github.com/Faiz-Khan01/hospital-management-microservices-backend"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="w-full py-2.5 px-4 rounded-xl text-xs font-semibold text-white bg-red-600 hover:bg-red-500 shadow-md shadow-red-600/30 flex items-center justify-center gap-2 transition-all"
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  <span>View HospitalSync Repository (@Faiz-Khan01)</span>
+                </a>
                 <a
                   href="#sandbox"
-                  className="w-full py-2.5 px-4 rounded-xl text-xs font-semibold text-white bg-[#160407] hover:bg-red-600 border border-red-950 hover:border-red-500 flex items-center justify-center gap-2 transition-all group"
+                  className="w-full py-2.5 px-4 rounded-xl text-xs font-semibold text-slate-300 bg-[#160407] hover:bg-[#22060b] border border-red-950 flex items-center justify-center gap-2 transition-all group"
                 >
-                  <span>Test Live Microservices in REST Sandbox</span>
+                  <span>Test Endpoints in Live REST Sandbox</span>
                   <ChevronRight className="w-4 h-4 text-red-400 group-hover:translate-x-0.5 transition-transform" />
                 </a>
               </div>

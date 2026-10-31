@@ -13,48 +13,49 @@ export const resumeData = {
       { label: "Production Apps", value: "3+", detail: "Full-stack & Microservices" },
       { label: "REST APIs Engineered", value: "50+", detail: "Validated & Documented" },
       { label: "Perf Optimization", value: "~30%", detail: "Query & Frontend Tuning" },
-      { label: "Architecture", value: "100%", detail: "Distributed & Containerized" }
+      { label: "Architecture", value: "18 Services", detail: "Distributed Microservices" }
     ]
   },
 
   skills: {
     languages: [
-      { name: "Java", level: 90, category: "Backend Core", icon: "Coffee", badge: "Primary" },
-      { name: "SQL (MySQL)", level: 88, category: "Databases", icon: "Database", badge: "Core" },
-      { name: "JavaScript (ES6+)", level: 82, category: "Web", icon: "FileCode2" },
+      { name: "Java (17 / 21 LTS)", level: 92, category: "Backend Core", icon: "Coffee", badge: "Primary" },
+      { name: "SQL (MySQL 8.0)", level: 88, category: "Databases", icon: "Database", badge: "Core" },
+      { name: "JavaScript (ES6+)", level: 84, category: "Web", icon: "FileCode2" },
       { name: "HTML5 & CSS3", level: 90, category: "Markup", icon: "Layout" }
     ],
     backend: [
-      { name: "Spring Boot", level: 92, badge: "Expertise", desc: "Enterprise application development & configuration" },
-      { name: "Spring MVC", level: 88, badge: "Framework", desc: "Model-View-Controller architecture & dispatcher servlets" },
-      { name: "Spring Security", level: 86, badge: "Security", desc: "Filters, JWT authorization, OAuth 2.0 flows, RBAC" },
-      { name: "Hibernate / JPA", level: 85, badge: "ORM", desc: "Entity mapping, HQL queries, caching & relations" },
-      { name: "Microservices Architecture", level: 88, badge: "Architecture", desc: "Decoupled domain services, independent scaling" },
-      { name: "Spring Cloud Gateway", level: 84, badge: "Cloud", desc: "Dynamic reverse proxy, filter chains & rate limiting" },
-      { name: "Netflix Eureka", level: 85, badge: "Cloud", desc: "Service registration, heartbeat discovery" },
-      { name: "OpenFeign", level: 86, badge: "Cloud", desc: "Declarative inter-service HTTP client" },
-      { name: "RESTful API Design", level: 92, badge: "APIs", desc: "Resource modeling, HTTP status codes, error schemas" },
-      { name: "JWT & OAuth 2.0", level: 90, badge: "Auth", desc: "Stateless token authentication & Google SSO" }
+      { name: "Spring Boot 3", level: 94, badge: "Expertise", desc: "Enterprise application development, auto-config, embedded Tomcat/Netty" },
+      { name: "Microservices Architecture", level: 92, badge: "Architecture", desc: "Domain-Driven Design (DDD), 18 independent services, Eureka registry" },
+      { name: "Spring Cloud Gateway", level: 88, badge: "Cloud", desc: "Dynamic edge routing, rate limiting, global CORS & filter chains" },
+      { name: "Netflix Eureka", level: 88, badge: "Cloud", desc: "Dynamic service discovery cluster & 30s heartbeat health checks" },
+      { name: "OpenFeign Inter-Service", level: 90, badge: "Cloud", desc: "Declarative synchronous RPC with non-blocking resilience safeguards" },
+      { name: "Spring Security 6", level: 88, badge: "Security", desc: "Stateless bearer JWT, BCrypt hashing, 7-role RBAC matrices" },
+      { name: "Hibernate / Spring Data JPA", level: 88, badge: "ORM", desc: "25 normalized relational tables, query optimization, ACID transactions" },
+      { name: "Redis 7 Caching", level: 84, badge: "Caching", desc: "Distributed caching via Lettuce driver for sub-millisecond lookups" },
+      { name: "RESTful API Design", level: 94, badge: "APIs", desc: "50+ endpoints with validation, OpenAPI/Swagger docs, global exception handlers" },
+      { name: "OAuth 2.0 & JWT", level: 90, badge: "Auth", desc: "HMAC-SHA256 tokens, Google SSO, sessionless security" }
     ],
     frontend: [
-      { name: "React.js", level: 85, badge: "Frontend", desc: "Hooks, component lifecycles, state management" },
-      { name: "Tailwind CSS", level: 90, badge: "UI Design", desc: "Modern utility-first styling, glassmorphism & responsive layouts" },
-      { name: "Bootstrap", level: 85, badge: "CSS", desc: "Grid systems and responsive component kits" },
+      { name: "React 18 / 19 (Vite)", level: 88, badge: "Frontend", desc: "Hooks, SPA routing, state management, instant HMR bundling" },
+      { name: "Tailwind CSS", level: 92, badge: "UI Design", desc: "Aura mesh gradients, dark obsidian & ruby glassmorphic aesthetics" },
+      { name: "Three.js & 3D Visuals", level: 80, badge: "3D Graphics", desc: "3D virtual mannequin draping and interactive 360 turntables" },
+      { name: "Bootstrap 5.3", level: 86, badge: "CSS", desc: "Responsive component kits, modal drawers, and glass styling" },
       { name: "Axios", level: 90, badge: "HTTP", desc: "Interceptors, async API calls & global error handlers" }
     ],
     devopsAndTools: [
-      { name: "Docker", level: 80, badge: "Containerization", desc: "Dockerfile creation, container lifecycle, networking" },
-      { name: "Git & GitHub", level: 88, badge: "VCS", desc: "Branching strategies, PR reviews, CI-ready repos" },
-      { name: "Maven", level: 86, badge: "Build Tool", desc: "Dependency management, multi-module POMs, plugins" },
-      { name: "Postman", level: 92, badge: "API Testing", desc: "Automated test scripts, environment variables, mock servers" },
-      { name: "Razorpay Gateway", level: 88, badge: "Payment", desc: "Order creation, webhooks, signature verification" },
-      { name: "IntelliJ IDEA & VS Code", level: 90, badge: "IDE", desc: "Debugging, profilers, Spring tooling" }
+      { name: "Docker & Compose", level: 86, badge: "DevOps", desc: "Multi-stage builds, isolated container bridge networks, cloud parity" },
+      { name: "Git & GitHub", level: 90, badge: "VCS", desc: "Feature branching, CI-ready repositories, automated workflows" },
+      { name: "Maven 3.9+", level: 88, badge: "Build Tool", desc: "Multi-module POM lifecycle management, plugin pipelines" },
+      { name: "Postman", level: 92, badge: "Testing", desc: "Smoke-test runner, environment variables, automated token injection" },
+      { name: "Razorpay Gateway", level: 90, badge: "Fintech", desc: "Order creation, UPI/Card checkout, HMAC-SHA256 signature verification" },
+      { name: "Aiven & Render Cloud", level: 85, badge: "Cloud", desc: "Managed MySQL SSL clusters & Dockerized container hosting" }
     ],
     coreConcepts: [
-      { name: "Object-Oriented Programming (OOP)", desc: "Inheritance, Polymorphism, Encapsulation, Abstraction, Design Patterns" },
-      { name: "Data Structures & Algorithms (DSA)", desc: "Arrays, LinkedLists, Trees, HashMaps, Binary Search, Sorting" },
-      { name: "System Design Fundamentals", desc: "Load balancing, stateless sessions, API gateway patterns, caching" },
-      { name: "Database Design & Normalization", desc: "Schema design, relational indexes, foreign keys, transaction ACID" }
+      { name: "Object-Oriented Programming (OOP)", desc: "Inheritance, Polymorphism, Encapsulation, Abstraction, SOLID Design Patterns" },
+      { name: "Data Structures & Algorithms (DSA)", desc: "Arrays, LinkedLists, Trees, HashMaps, Binary Search, Sorting & Big-O Optimization" },
+      { name: "System Design & Microservices", desc: "Edge routing, stateless sessions, circuit breakers, distributed caching, CQRS" },
+      { name: "Database Design & Normalization", desc: "25 relational tables, 3NF schema design, indexing, foreign keys, ACID compliance" }
     ],
     softSkills: [
       "Problem Solving",
@@ -68,103 +69,109 @@ export const resumeData = {
 
   projects: [
     {
-      id: "hospital-management-microservices",
-      title: "Hospital Management System",
-      tagline: "Scalable Microservices Architecture with Spring Cloud & JWT",
-      featured: true,
-      category: "Microservices",
-      statusBadge: "Microservices Ecosystem",
-      hasInteractiveFlow: true,
-      stats: {
-        services: "6 Microservices",
-        architecture: "Spring Cloud + Eureka",
-        security: "Centralized JWT + RBAC",
-        status: "Production Ready"
-      },
-      techStack: [
-        "Java 17",
-        "Spring Boot 3",
-        "Spring Cloud Gateway",
-        "Netflix Eureka",
-        "OpenFeign",
-        "Spring Security",
-        "JWT & RBAC",
-        "MySQL",
-        "React.js"
-      ],
-      description: "A resilient distributed healthcare ecosystem engineered with independent, loosely-coupled microservices handling authentication, patient records, doctor scheduling, appointments, prescriptions, and automated billing.",
-      bullets: [
-        "Designed and deployed a scalable microservices architecture consisting of 6 independent services for authentication, patients, doctors, appointments, prescriptions, and billing.",
-        "Implemented Spring Cloud Gateway for centralized API routing, rate limiting, and Netflix Eureka Server for dynamic service discovery and heartbeat monitoring.",
-        "Established resilient inter-service communication using OpenFeign declarative clients with failover strategies.",
-        "Secured all external and internal endpoints via centralized JWT Authentication and fine-grained Role-Based Access Control (Admin, Doctor, Patient)."
-      ],
-      architectureDetails: {
-        gateway: "Spring Cloud Gateway (Port 8080) - Central entry point with token inspection filters",
-        discovery: "Netflix Eureka Service Registry (Port 8761) - Dynamic heartbeat registration",
-        services: [
-          { name: "Auth & Security Service", port: "8081", desc: "Issues signed JWTs, validates credentials, RBAC" },
-          { name: "Patient Service", port: "8082", desc: "CRUD patient demographics, medical history" },
-          { name: "Doctor & Schedule Service", port: "8083", desc: "Specialty management, availability slots" },
-          { name: "Appointment Service", port: "8084", desc: "Booking lifecycle, status workflows" },
-          { name: "Billing & Prescription Service", port: "8085", desc: "Invoices, pharmacy records, calculations" }
-        ],
-        database: "Isolated MySQL Database instances per domain service to ensure bounded contexts"
-      },
-      github: "https://github.com/Faiz-Khan01",
-      liveDemo: "#architecture"
-    },
-    {
       id: "techstore-ecommerce",
-      title: "TechStore E-Commerce Platform",
-      tagline: "Full-Stack Online Store with Razorpay Payment Gateway & Docker",
+      title: "TechStore PRO — Luxury E-Commerce & 3D Fitting Room",
+      tagline: "Full-Stack Luxury Ecosystem with 3D Fitting Room, AI Stylist, Spring Boot 3 & Razorpay",
       featured: true,
       isDeployed: true,
-      statusBadge: "🟢 Live Deployed Project",
       category: "Full-Stack",
+      statusBadge: "🟢 Live Deployed on Vercel",
+      liveStorefront: "https://techstore-catalog-yw04kw9zf-faiz-khan01s-projects.vercel.app/",
+      liveStorefrontAlt: "https://techstore-catalog.vercel.app/",
+      backendApi: "https://full-stack-ecommerce-catalog.onrender.com/",
+      github: "https://github.com/Faiz-Khan01/Full-Stack-eCommerce-Catalog",
+      deployedUrl: "https://techstore-catalog-yw04kw9zf-faiz-khan01s-projects.vercel.app/",
       stats: {
-        deployment: "Live Deployed (Vercel & Docker)",
-        apis: "20+ Secure Endpoints",
-        payments: "Razorpay Signature Verified",
-        perf: "~30% Faster Page Loads"
+        storefront: "Live on Vercel",
+        backend: "Spring Boot 3 (Docker)",
+        database: "Aiven Cloud MySQL 8.0",
+        payments: "Razorpay (₹ INR) HMAC"
       },
       techStack: [
-        "Java",
-        "Spring Boot",
-        "Spring Security",
-        "React.js",
-        "MySQL",
-        "Docker",
-        "Razorpay API",
-        "OAuth 2.0",
-        "JWT",
-        "Tailwind CSS"
+        "Java 17 LTS",
+        "Spring Boot 3.2.5",
+        "React 18 (Vite)",
+        "Three.js 3D",
+        "Aiven MySQL 8.0",
+        "Razorpay SDK",
+        "Spring Security 6",
+        "Docker (Render)",
+        "Tailwind CSS",
+        "jsPDF"
       ],
-      description: "A high-performance full-stack electronic commerce platform featuring dynamic catalog filtering, real-time cart synchronization, authenticated product reviews, and secure monetary checkout.",
+      description: "A production-ready, full-stack luxury eCommerce ecosystem built with Spring Boot 3, React 18 (Vite), Aiven Cloud MySQL, and Razorpay. Features an Interactive 3D Virtual Fitting Room, AI Personal Stylist, Smart Sizing Engine, Executive Admin Analytics, and Logistics Tracking.",
       bullets: [
-        "Deployed production-ready eCommerce application with live catalog filtering, category search, cart management, and product review features.",
-        "Designed 20+ secure REST APIs and integrated the Razorpay Payment Gateway with cryptographic signature verification for transaction integrity.",
-        "Implemented dual authentication via JWT and Google OAuth 2.0, allowing seamless and secure single sign-on (SSO).",
-        "Optimized backend Hibernate queries and frontend bundle delivery, achieving a ~30% reduction in page load latency.",
-        "Containerized backend services using Docker to ensure seamless environment parity and cloud deployment readiness."
+        "🧥 3D Virtual Fitting Room: Drapes actual catalog product imagery onto an atelier 3D mannequin bust with live size scaling, wardrobe rack, garment removal, and instant 'Add Outfit to Cart'.",
+        "🤖 AI Personal Stylist & Fragrance Concierge: Real-time catalog search concierge with interactive product mini-cards, fit recommendations, and direct fitting room transfer.",
+        "📏 Smart Sizing Engine: Automatic variant mapping for Apparel (S-XL), Pants (30\"-36\"), Footwear (UK 7-11), and Perfumes (50ml-150ml) integrated across product detail and cart.",
+        "💳 Razorpay & Indian Currency (₹ INR): Unified INR formatting with native UPI (GPay/PhonePe), Cards, Netbanking, COD, and SHA-256 HMAC cryptographic signature validation.",
+        "🛡️ Executive Admin Management Suite: 100% database-calculated dashboard metrics (live revenue, customer base, weekday sales scrubber, fulfillment rate ring) and category taxonomy manager.",
+        "🚚 Courier Tracking & Pincode Resolution: Indian 6-digit Pincode API auto-resolving City/State, multi-courier integration (Delhivery, BlueDart, DTDC, FedEx), and automated jsPDF tax invoices."
       ],
       architectureDetails: {
-        deployment: "Live deployed frontend with Docker containerized backend architecture",
-        security: "Stateless JWT authentication combined with Spring Security OAuth2 client for Google SSO",
-        payments: "Server-side Razorpay order generation with HMAC-SHA256 signature verification upon checkout webhook",
-        containerization: "Multi-stage Dockerfile packaging OpenJDK 17 runtime for minimal image footprint",
-        database: "Normalized MySQL schema with index-tuned queries for lightning-fast product search"
+        frontend: "React 18 SPA (Vite) deployed on Vercel Edge CDN with Tailwind CSS & Three.js Canvas",
+        backend: "Spring Boot 3.2.5 REST API running in Render Docker Container with Stateless JWT & Spring Security 6",
+        database: "Aiven Cloud MySQL 8.0 (SSL required) persisting Users, Products, Categories, Orders, and Payments",
+        payments: "Razorpay Java SDK 1.4.3 with server-side order generation and SHA-256 signature verification",
+        invoices: "Automated client-side PDF tax invoice generation with jsPDF and AutoTable"
+      }
+    },
+    {
+      id: "hospital-management-microservices",
+      title: "HospitalSync Pro Suite v2.5 — Microservices Healthcare Platform",
+      tagline: "Enterprise-Grade Distributed Healthcare Platform with 18 Spring Boot Services, Eureka & OpenFeign",
+      featured: true,
+      category: "Microservices",
+      statusBadge: "18 Microservices Ecosystem",
+      hasInteractiveFlow: true,
+      github: "https://github.com/Faiz-Khan01/hospital-management-microservices-backend",
+      liveDemo: "#architecture",
+      stats: {
+        services: "18 Microservices",
+        gateway: "Spring Cloud Netty (:8080)",
+        cache_db: "Redis 7 + MySQL (25 Tables)",
+        compliance: "HIPAA Immutable Audit Trail"
       },
-      github: "https://github.com/Faiz-Khan01",
-      liveDemo: "https://faiz-khan-portfolio-omega.vercel.app/#projects",
-      deployedUrl: "https://faiz-khan-portfolio-omega.vercel.app/#projects"
+      techStack: [
+        "Java 17 LTS",
+        "Spring Boot 3.4.2",
+        "Spring Cloud 2024",
+        "Eureka Registry (:8761)",
+        "API Gateway (:8080)",
+        "OpenFeign",
+        "Spring Security & JJWT",
+        "Redis 7 Cache",
+        "MySQL 8.0 (25 Tables)",
+        "React 19",
+        "Docker Compose"
+      ],
+      description: "A full-stack, distributed, cloud-native Hospital Information System (HIS) and Electronic Health Records (EHR) platform orchestrating 18 Spring Boot services behind a reactive API Gateway and Eureka cluster, with resilient OpenFeign events, Redis caching, 25 normalized MySQL tables, and HIPAA audit trails.",
+      bullets: [
+        "18 Independent Spring Boot Services: Clean separation of bounded domains per Domain-Driven Design (DDD) spanning identity, clinical operations, pharmacy, diagnostics, and finance.",
+        "Edge Gateway & Discovery: Centralized ingress via Spring Cloud Gateway (Port 8080) with Netty non-blocking I/O and Eureka Service Discovery cluster (Port 8761) with 30s heartbeats.",
+        "Fail-Safe Inter-Service Communication: Declarative OpenFeign clients with non-blocking resilience safeguards preventing cascading rollbacks during appointment booking or payment events.",
+        "Real-Time Inpatient & Bed Tracking: Live bed allocation matrix across General, ICU, NICU, Maternity, and Isolation wards with ward-level breakdown.",
+        "Relational Persistence & Caching: 25 normalized MySQL tables with foreign key integrity and Redis 7 distributed cache for sub-millisecond user, patient, and doctor lookups.",
+        "HIPAA Audit Trail & RBAC Matrix: Immutable audit records capturing actor, differential JSON snapshots, client IP, and timestamp across 7 roles (Admin, Doctor, Nurse, Receptionist, Lab Tech, Pharmacist, Patient)."
+      ],
+      architectureDetails: {
+        infrastructure: "Spring Cloud Gateway (:8080) & Netflix Eureka Service Registry (:8761)",
+        identity: "auth-service (:8086), user-service (:8087), role-service (:8088)",
+        clinicalOps: "department-service (:8089), patient-service (:8081), doctor-service (:8082), appointment-service (:8083), admission-service (:8096), prescription-service (:8085), medical-record-service (:8090)",
+        pharmacyAndLab: "medicine-service (:8091), lab-test-service (:8092), lab-report-service (:8093)",
+        financeAndAlerts: "billing-service (:8084), payment-service (:8094), notification-service (:8095)",
+        persistence: "MySQL 8.0 (25 Normalized Tables) + Redis 7 Cache on Docker Bridge Network"
+      }
     },
     {
       id: "myteachingapp-lms",
-      title: "MyTeachingApp LMS",
+      title: "MyTeachingApp — Learning Management System (LMS)",
       tagline: "Interactive Learning Management System with RBAC & Payment Processing",
       featured: true,
       category: "Full-Stack",
+      statusBadge: "LMS Platform",
+      github: "https://github.com/Faiz-Khan01",
+      liveDemo: null,
       stats: {
         roles: "Student & Instructor RBAC",
         latency: "~25% Lower Response Time",
@@ -181,7 +188,7 @@ export const resumeData = {
         "Tailwind CSS",
         "Axios"
       ],
-      description: "A comprehensive Learning Management System bridging instructors and learners, complete with curriculum creation, video/content access, automated course enrollment, and student progress tracking.",
+      description: "An interactive Learning Management System connecting students and instructors with automated course enrollment workflows, curriculum distribution, and payment processing.",
       bullets: [
         "Built an interactive LMS platform connecting students and instructors with automated course enrollment workflows.",
         "Implemented secure authentication with JWT and Google Sign-In, alongside fine-grained Role-Based Access Control (RBAC).",
@@ -192,9 +199,7 @@ export const resumeData = {
         rbac: "Role-based route authorization (@PreAuthorize('hasRole(\"INSTRUCTOR\")'))",
         workflows: "Event-driven enrollment triggers upon successful payment callback",
         optimization: "DTO projections and eager/lazy fetching strategy tuning in JPA"
-      },
-      github: "https://github.com/Faiz-Khan01",
-      liveDemo: null
+      }
     }
   ],
 
@@ -297,144 +302,15 @@ export const resumeData = {
   achievements: [
     {
       title: "3 Production-Grade Applications",
-      desc: "Engineered and deployed three full-scale systems showcasing microservices architecture, Docker containerization, and responsive frontend design."
+      desc: "Built 3 production-grade applications highlighting full-stack design, microservices architecture, and backend engineering."
     },
     {
-      title: "50+ RESTful APIs Developed & Documented",
-      desc: "Designed robust REST endpoints with global exception handling (@ControllerAdvice), DTO validation, and clean Swagger/Postman specifications."
+      title: "50+ RESTful APIs Engineered",
+      desc: "Developed and documented 50+ RESTful APIs with robust validation, global exception handling, and database integration."
     },
     {
-      title: "FinTech & Security Integration",
-      desc: "Implemented Razorpay payment checkout with cryptographic HMAC-SHA256 signature verification and dual JWT/OAuth2 authentication pipelines."
-    },
-    {
-      title: "Performance & Query Optimization",
-      desc: "Achieved ~30% page load acceleration and ~25% lower API response latencies through JPA indexing, query tuning, and asynchronous loading."
-    }
-  ],
-
-  // Interactive Live REST API Sandbox definitions for the portfolio demo
-  apiEndpoints: [
-    {
-      id: "auth-login",
-      name: "User Authentication",
-      method: "POST",
-      path: "/api/v1/auth/login",
-      service: "Auth Microservice (Port 8081)",
-      description: "Authenticates credentials and generates a signed HMAC-SHA256 JSON Web Token (JWT) with role permissions.",
-      requestBody: {
-        email: "faizkhan966563@gmail.com",
-        password: "••••••••••••",
-        roleRequested: "DEVELOPER"
-      },
-      responseStatus: 200,
-      responseTime: "24ms",
-      responseBody: {
-        status: "SUCCESS",
-        timestamp: "2026-08-19T12:54:00Z",
-        tokenType: "Bearer",
-        accessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmYWl6a2hhbiIsInJvbGVzIjpbIlJPTEVfQURNSU4iLCJST0xFX0RFVkVMT1BFUiJdfQ...",
-        expiresIn: 86400,
-        user: {
-          name: "Faiz Khan",
-          role: "ROLE_BACKEND_ENGINEER",
-          permissions: ["READ_ALL", "WRITE_SERVICES", "EXECUTE_DEPLOYMENTS"]
-        }
-      }
-    },
-    {
-      id: "eureka-health",
-      name: "Service Discovery Registry",
-      method: "GET",
-      path: "/eureka/apps",
-      service: "Eureka Discovery (Port 8761)",
-      description: "Fetches live health status and instances registered dynamically across the microservice cluster.",
-      requestBody: null,
-      responseStatus: 200,
-      responseTime: "18ms",
-      responseBody: {
-        applications: {
-          application: [
-            { name: "API-GATEWAY", instanceCount: 2, status: "UP", port: 8080 },
-            { name: "AUTH-SERVICE", instanceCount: 2, status: "UP", port: 8081 },
-            { name: "PATIENT-SERVICE", instanceCount: 3, status: "UP", port: 8082 },
-            { name: "DOCTOR-SERVICE", instanceCount: 2, status: "UP", port: 8083 },
-            { name: "BILLING-SERVICE", instanceCount: 2, status: "UP", port: 8085 }
-          ]
-        },
-        clusterHealth: "HEALTHY",
-        uptimeSeconds: 529420
-      }
-    },
-    {
-      id: "razorpay-checkout",
-      name: "Razorpay Payment Verify",
-      method: "POST",
-      path: "/api/v1/payments/razorpay/verify",
-      service: "Payment Gateway Service",
-      description: "Validates HMAC-SHA256 signature against Razorpay secret to confirm transaction security.",
-      requestBody: {
-        razorpay_order_id: "order_Kz8271nBxQ91",
-        razorpay_payment_id: "pay_98b1a37c442",
-        razorpay_signature: "a94a8fe5ccb19ba61c4c0873d391e987982fbbd3"
-      },
-      responseStatus: 200,
-      responseTime: "42ms",
-      responseBody: {
-        paymentStatus: "VERIFIED",
-        transactionId: "TXN-2026-94821",
-        currency: "INR",
-        amountCaptured: 4999.00,
-        signatureMatch: true,
-        message: "Payment successfully verified and enrollment unlocked."
-      }
-    },
-    {
-      id: "query-doctor-slot",
-      name: "OpenFeign Inter-Service Query",
-      method: "GET",
-      path: "/api/v1/appointments/available-slots?doctorId=DOC-102",
-      service: "Appointment Service (OpenFeign -> Doctor Service)",
-      description: "Inter-service RPC communication via OpenFeign client to query availability in real-time.",
-      requestBody: null,
-      responseStatus: 200,
-      responseTime: "31ms",
-      responseBody: {
-        doctorId: "DOC-102",
-        doctorName: "Dr. Sarah Jenkins",
-        specialty: "Cardiology",
-        availableSlots: [
-          { time: "10:00 AM", slotId: "SLOT-01", status: "AVAILABLE" },
-          { time: "11:30 AM", slotId: "SLOT-02", status: "AVAILABLE" },
-          { time: "03:00 PM", slotId: "SLOT-03", status: "AVAILABLE" }
-        ],
-        feignResponseHeader: "X-Feign-Client: DOCTOR-SERVICE-ROUTED"
-      }
-    },
-    {
-      id: "techstore-catalog",
-      name: "TechStore Deployed Catalog API",
-      method: "GET",
-      path: "/api/v1/techstore/products?category=Hardware",
-      service: "TechStore Deployed Backend (Docker)",
-      description: "Queries production inventory items, stock levels, and promotional discounts from the deployed MySQL database with index tuning.",
-      requestBody: null,
-      responseStatus: 200,
-      responseTime: "16ms",
-      responseBody: {
-        status: "SUCCESS",
-        server: "Docker Container (OpenJDK 17)",
-        deployment: "PRODUCTION_LIVE",
-        totalItems: 6,
-        category: "Hardware",
-        products: [
-          { id: 1, name: "Keychron Pro Mechanical Keyboard", price: 4999, inStock: true },
-          { id: 2, name: "34\" UltraWide 144Hz Monitor", price: 27999, inStock: true },
-          { id: 6, name: "10-in-1 Aluminum USB-C Hub", price: 3299, inStock: true }
-        ],
-        cacheHit: true,
-        executionTime: "16ms"
-      }
+      title: "Real-World Fintech & Cloud Architecture",
+      desc: "Applied critical engineering features into real-world projects: Razorpay Payment Integration, OAuth2, JWT Security, Microservices Routing, and Dockerization."
     }
   ]
 };
