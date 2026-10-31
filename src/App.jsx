@@ -1,4 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import Lenis from 'lenis';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
+import ThreeBackground from './components/ThreeBackground';
 import ParticleCanvas from './components/ParticleCanvas';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -17,6 +22,36 @@ export default function App() {
   const [resumeOpen, setResumeOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState(null);
 
+  // Initialize Lenis Smooth Scrolling & AOS Scroll Animations
+  useEffect(() => {
+    // 1. Lenis Smooth Scroll
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+      touchMultiplier: 2,
+    });
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    const rafId = requestAnimationFrame(raf);
+
+    // 2. AOS Scroll Reveal Initialization
+    AOS.init({
+      duration: 800,
+      once: true,
+      easing: 'ease-out-cubic',
+      offset: 60,
+    });
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      lenis.destroy();
+    };
+  }, []);
+
   const showToast = (msg) => {
     setToastMessage(msg);
     setTimeout(() => {
@@ -27,13 +62,16 @@ export default function App() {
   return (
     <div className="relative min-h-screen bg-[#070102] text-slate-100 selection:bg-red-500/30 selection:text-red-300">
       
-      {/* Deep Crimson Ambient Background Glows (Video Palette Reference) */}
+      {/* Deep Crimson Ambient Background Glows */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
         <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[950px] h-[650px] bg-red-600/20 rounded-full blur-[140px] animate-pulse-slow"></div>
         <div className="absolute top-[35%] left-1/2 -translate-x-1/2 w-[850px] h-[600px] bg-red-800/14 rounded-full blur-[160px]"></div>
         <div className="absolute top-[65%] left-10 w-[550px] h-[550px] bg-rose-950/20 rounded-full blur-[150px]"></div>
         <div className="absolute bottom-10 right-10 w-[650px] h-[650px] bg-red-900/15 rounded-full blur-[160px]"></div>
       </div>
+
+      {/* 3D Three.js Particle Galaxy & Floating Geometry */}
+      <ThreeBackground />
 
       {/* Interactive Particle Constellation Background */}
       <ParticleCanvas />

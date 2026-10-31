@@ -4,20 +4,15 @@ import {
   Layers, 
   ExternalLink, 
   Github, 
-  ShieldCheck, 
   CheckCircle2, 
   ArrowUpRight, 
   Sparkles, 
   Activity,
   X,
-  Server,
   Zap,
-  Play,
-  ShoppingCart,
-  Database,
-  Eye,
-  Glasses
+  ShoppingCart
 } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { resumeData } from '../data/resumeData';
 import TechStoreLiveModal from './TechStoreLiveModal';
 
@@ -40,8 +35,12 @@ export default function Projects() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6">
+        {/* Section Header with AOS */}
+        <div 
+          data-aos="fade-up"
+          data-aos-duration="800"
+          className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6"
+        >
           <div>
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-950/60 border border-red-500/30 text-red-400 text-xs font-mono font-semibold mb-4">
               <Code2 className="w-3.5 h-3.5" />
@@ -73,197 +72,208 @@ export default function Projects() {
           </div>
         </div>
 
-        {/* Project Cards Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {filteredProjects.map((project, idx) => {
-            const isTechStore = project.id === 'techstore-ecommerce';
-            const isHospital = project.id === 'hospital-management-microservices';
+        {/* Project Cards Grid with Framer Motion Layout & 3D Tilt Hover */}
+        <motion.div 
+          layout
+          className="grid grid-cols-1 lg:grid-cols-3 gap-8"
+        >
+          <AnimatePresence>
+            {filteredProjects.map((project, idx) => {
+              const isTechStore = project.id === 'techstore-ecommerce';
+              const isHospital = project.id === 'hospital-management-microservices';
 
-            return (
-              <div
-                key={project.id}
-                className={`rounded-3xl bg-[#0e0305] border shadow-xl overflow-hidden flex flex-col justify-between glass-card-hover group relative ${
-                  isTechStore
-                    ? 'border-red-500/50 shadow-red-600/10'
-                    : isHospital
-                    ? 'border-rose-500/40 shadow-rose-600/10'
-                    : 'border-red-950/80'
-                }`}
-              >
-                
-                {/* Glowing top accent gradient */}
-                <div className={`h-1.5 w-full ${
-                  isTechStore
-                    ? 'bg-gradient-to-r from-red-600 via-rose-500 to-amber-500'
-                    : isHospital
-                    ? 'bg-gradient-to-r from-rose-600 via-red-600 to-amber-500'
-                    : 'bg-red-950'
-                }`}></div>
-
-                {/* Main Card Content */}
-                <div className="p-6 sm:p-7 flex-1">
+              return (
+                <motion.div
+                  key={project.id}
+                  layout
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.5, delay: idx * 0.1 }}
+                  whileHover={{ y: -6, transition: { duration: 0.25 } }}
+                  className={`rounded-3xl bg-[#0e0305] border shadow-xl overflow-hidden flex flex-col justify-between group relative ${
+                    isTechStore
+                      ? 'border-red-500/50 shadow-red-600/10'
+                      : isHospital
+                      ? 'border-rose-500/40 shadow-rose-600/10'
+                      : 'border-red-950/80'
+                  }`}
+                >
                   
-                  {/* Category & Badges */}
-                  <div className="flex items-center justify-between gap-2 mb-4">
-                    <span className="px-3 py-1 rounded-full text-[11px] font-mono font-semibold bg-[#160407] text-rose-300 border border-red-950">
-                      {project.category}
-                    </span>
+                  {/* Glowing top accent gradient */}
+                  <div className={`h-1.5 w-full ${
+                    isTechStore
+                      ? 'bg-gradient-to-r from-red-600 via-rose-500 to-amber-500'
+                      : isHospital
+                      ? 'bg-gradient-to-r from-rose-600 via-red-600 to-amber-500'
+                      : 'bg-red-950'
+                  }`}></div>
 
-                    {/* Live Deployed Badge */}
-                    {isTechStore && (
-                      <span className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-[11px] font-mono font-bold bg-red-500/20 text-red-300 border border-red-500/40 animate-pulse">
-                        <span className="w-2 h-2 rounded-full bg-red-500"></span>
-                        LIVE DEPLOYED
+                  {/* Main Card Content */}
+                  <div className="p-6 sm:p-7 flex-1">
+                    
+                    {/* Category & Badges */}
+                    <div className="flex items-center justify-between gap-2 mb-4">
+                      <span className="px-3 py-1 rounded-full text-[11px] font-mono font-semibold bg-[#160407] text-rose-300 border border-red-950">
+                        {project.category}
                       </span>
+
+                      {/* Live Deployed Badge with Pulse */}
+                      {isTechStore && (
+                        <span className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-[11px] font-mono font-bold bg-red-500/20 text-red-300 border border-red-500/40 animate-pulse">
+                          <span className="w-2 h-2 rounded-full bg-red-500"></span>
+                          LIVE DEPLOYED
+                        </span>
+                      )}
+
+                      {isHospital && (
+                        <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40">
+                          <Zap className="w-3 h-3 text-amber-400" />
+                          18 SERVICES
+                        </span>
+                      )}
+
+                      {!isTechStore && !isHospital && (
+                        <span className="text-xs font-mono text-slate-500">
+                          03 / 03
+                        </span>
+                      )}
+                    </div>
+
+                    {/* Title & Tagline */}
+                    <h3 className="font-display text-xl sm:text-2xl font-bold text-white group-hover:text-red-400 transition-colors leading-snug">
+                      {project.title}
+                    </h3>
+                    <p className="mt-1 text-xs font-mono text-rose-300 font-medium">
+                      {project.tagline}
+                    </p>
+
+                    {/* Description */}
+                    <p className="mt-4 text-xs sm:text-sm text-slate-300 leading-relaxed line-clamp-3">
+                      {project.description}
+                    </p>
+
+                    {/* Highlights Box */}
+                    {isTechStore && (
+                      <div className="mt-4 p-3 rounded-2xl bg-[#140306] border border-red-950/70 text-xs text-zinc-300 space-y-1.5">
+                        <div className="flex items-center gap-2 text-rose-300 font-medium">
+                          <Sparkles className="w-3.5 h-3.5 text-red-400 shrink-0" />
+                          <span>3D Fitting Room &bull; AI Stylist &bull; INR Razorpay</span>
+                        </div>
+                        <div className="text-[11px] text-zinc-400 line-clamp-2">
+                          Vercel Edge (React 18) + Render Docker (Spring Boot 3) + Aiven Cloud MySQL 8.0
+                        </div>
+                      </div>
                     )}
 
                     {isHospital && (
-                      <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40">
-                        <Zap className="w-3 h-3 text-amber-400" />
-                        18 SERVICES
-                      </span>
+                      <div className="mt-4 p-3 rounded-2xl bg-[#140306] border border-red-950/70 text-xs text-zinc-300 space-y-1.5">
+                        <div className="flex items-center gap-2 text-rose-300 font-medium">
+                          <Activity className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                          <span>18 Spring Boot Services &bull; Eureka &bull; Redis 7</span>
+                        </div>
+                        <div className="text-[11px] text-zinc-400 line-clamp-2">
+                          OpenFeign Resilience &bull; 25 Normalized Tables &bull; HIPAA Immutable Audit Logs
+                        </div>
+                      </div>
                     )}
 
-                    {!isTechStore && !isHospital && (
-                      <span className="text-xs font-mono text-slate-500">
-                        03 / 03
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Title & Tagline */}
-                  <h3 className="font-display text-xl sm:text-2xl font-bold text-white group-hover:text-red-400 transition-colors leading-snug">
-                    {project.title}
-                  </h3>
-                  <p className="mt-1 text-xs font-mono text-rose-300 font-medium">
-                    {project.tagline}
-                  </p>
-
-                  {/* Description */}
-                  <p className="mt-4 text-xs sm:text-sm text-slate-300 leading-relaxed line-clamp-3">
-                    {project.description}
-                  </p>
-
-                  {/* Highlights Box */}
-                  {isTechStore && (
-                    <div className="mt-4 p-3 rounded-2xl bg-[#140306] border border-red-950/70 text-xs text-zinc-300 space-y-1.5">
-                      <div className="flex items-center gap-2 text-rose-300 font-medium">
-                        <Sparkles className="w-3.5 h-3.5 text-red-400 shrink-0" />
-                        <span>3D Fitting Room &bull; AI Stylist &bull; INR Razorpay</span>
-                      </div>
-                      <div className="text-[11px] text-zinc-400 line-clamp-2">
-                        Vercel Edge (React 18) + Render Docker (Spring Boot 3) + Aiven Cloud MySQL 8.0
-                      </div>
+                    {/* Metric Badges */}
+                    <div className="mt-4 grid grid-cols-2 gap-2 bg-[#140306] p-3 rounded-2xl border border-red-950">
+                      {Object.entries(project.stats).slice(0, 2).map(([k, v]) => (
+                        <div key={k} className="flex flex-col">
+                          <span className="text-[10px] uppercase font-mono text-slate-400">{k}</span>
+                          <span className="text-xs font-bold text-rose-300 font-mono truncate">{v}</span>
+                        </div>
+                      ))}
                     </div>
-                  )}
 
-                  {isHospital && (
-                    <div className="mt-4 p-3 rounded-2xl bg-[#140306] border border-red-950/70 text-xs text-zinc-300 space-y-1.5">
-                      <div className="flex items-center gap-2 text-rose-300 font-medium">
-                        <Activity className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-                        <span>18 Spring Boot Services &bull; Eureka &bull; Redis 7</span>
-                      </div>
-                      <div className="text-[11px] text-zinc-400 line-clamp-2">
-                        OpenFeign Resilience &bull; 25 Normalized Tables &bull; HIPAA Immutable Audit Logs
-                      </div>
+                    {/* Tech Stack Pills with Motion Stagger */}
+                    <div className="mt-5 flex flex-wrap gap-1.5">
+                      {project.techStack.slice(0, 6).map((tech) => (
+                        <span
+                          key={tech}
+                          className="px-2.5 py-1 rounded-lg text-[11px] font-mono bg-[#160407] text-rose-200 border border-red-950 hover:border-red-500/40 transition-colors"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                      {project.techStack.length > 6 && (
+                        <span className="px-2 py-1 rounded-lg text-[11px] font-mono bg-[#160407] text-slate-400 border border-red-950">
+                          +{project.techStack.length - 6} more
+                        </span>
+                      )}
                     </div>
-                  )}
 
-                  {/* Metric Badges */}
-                  <div className="mt-4 grid grid-cols-2 gap-2 bg-[#140306] p-3 rounded-2xl border border-red-950">
-                    {Object.entries(project.stats).slice(0, 2).map(([k, v]) => (
-                      <div key={k} className="flex flex-col">
-                        <span className="text-[10px] uppercase font-mono text-slate-400">{k}</span>
-                        <span className="text-xs font-bold text-rose-300 font-mono truncate">{v}</span>
+                  </div>
+
+                  {/* Bottom Actions */}
+                  <div className="px-6 py-4 bg-[#120204]/90 border-t border-red-950/80 flex flex-wrap items-center justify-between gap-3">
+                    
+                    {isTechStore ? (
+                      <div className="flex items-center gap-2">
+                        <a
+                          href={project.liveStorefront}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="px-3.5 py-2 rounded-xl text-xs font-bold font-mono text-white bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 transition-all flex items-center gap-1.5 shadow-md shadow-red-600/30"
+                        >
+                          <ExternalLink className="w-3.5 h-3.5" />
+                          <span>Live Storefront ↗</span>
+                        </a>
+                        <button
+                          onClick={() => setTechStoreModalOpen(true)}
+                          className="px-3 py-2 rounded-xl text-xs font-mono font-semibold text-rose-200 bg-[#1a0407] hover:bg-[#25060b] border border-red-900/60 transition-colors flex items-center gap-1 cursor-pointer"
+                          title="Interactive Store Simulation"
+                        >
+                          <ShoppingCart className="w-3.5 h-3.5" />
+                          <span className="hidden sm:inline">Preview</span>
+                        </button>
                       </div>
-                    ))}
-                  </div>
-
-                  {/* Tech Stack Pills */}
-                  <div className="mt-5 flex flex-wrap gap-1.5">
-                    {project.techStack.slice(0, 6).map((tech) => (
-                      <span
-                        key={tech}
-                        className="px-2.5 py-1 rounded-lg text-[11px] font-mono bg-[#160407] text-rose-200 border border-red-950"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                    {project.techStack.length > 6 && (
-                      <span className="px-2 py-1 rounded-lg text-[11px] font-mono bg-[#160407] text-slate-400 border border-red-950">
-                        +{project.techStack.length - 6} more
-                      </span>
-                    )}
-                  </div>
-
-                </div>
-
-                {/* Bottom Actions */}
-                <div className="px-6 py-4 bg-[#120204]/90 border-t border-red-950/80 flex flex-wrap items-center justify-between gap-3">
-                  
-                  {isTechStore ? (
-                    <div className="flex items-center gap-2">
+                    ) : isHospital ? (
                       <a
-                        href={project.liveStorefront}
+                        href="#architecture"
+                        className="px-4 py-2 rounded-xl text-xs font-bold font-mono text-white bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 transition-all flex items-center gap-1.5 shadow-md shadow-red-600/30"
+                      >
+                        <Zap className="w-3.5 h-3.5" />
+                        <span>18 Services Architecture</span>
+                      </a>
+                    ) : (
+                      <button
+                        onClick={() => setActiveModalProject(project)}
+                        className="text-xs font-semibold text-red-400 hover:text-red-300 flex items-center gap-1.5 transition-colors cursor-pointer"
+                      >
+                        <span>Architecture Details</span>
+                        <ArrowUpRight className="w-3.5 h-3.5" />
+                      </button>
+                    )}
+
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => setActiveModalProject(project)}
+                        className="p-2 rounded-xl bg-[#160407] hover:bg-[#20050a] text-slate-300 hover:text-white border border-red-950 transition-colors cursor-pointer"
+                        title="Architecture Specifications & Tech Highlights"
+                      >
+                        <Layers className="w-4 h-4" />
+                      </button>
+
+                      <a
+                        href={project.github}
                         target="_blank"
                         rel="noreferrer"
-                        className="px-3.5 py-2 rounded-xl text-xs font-bold font-mono text-white bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 transition-all flex items-center gap-1.5 shadow-md shadow-red-600/30"
+                        className="p-2 rounded-xl bg-[#160407] hover:bg-[#20050a] text-slate-300 hover:text-white border border-red-950 transition-colors"
+                        title="View Source on GitHub (@Faiz-Khan01)"
                       >
-                        <ExternalLink className="w-3.5 h-3.5" />
-                        <span>Live Storefront ↗</span>
+                        <Github className="w-4 h-4" />
                       </a>
-                      <button
-                        onClick={() => setTechStoreModalOpen(true)}
-                        className="px-3 py-2 rounded-xl text-xs font-mono font-semibold text-rose-200 bg-[#1a0407] hover:bg-[#25060b] border border-red-900/60 transition-colors flex items-center gap-1 cursor-pointer"
-                        title="Interactive Store Simulation"
-                      >
-                        <ShoppingCart className="w-3.5 h-3.5" />
-                        <span className="hidden sm:inline">Preview</span>
-                      </button>
                     </div>
-                  ) : isHospital ? (
-                    <a
-                      href="#architecture"
-                      className="px-4 py-2 rounded-xl text-xs font-bold font-mono text-white bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 transition-all flex items-center gap-1.5 shadow-md shadow-red-600/30"
-                    >
-                      <Zap className="w-3.5 h-3.5" />
-                      <span>18 Services Architecture</span>
-                    </a>
-                  ) : (
-                    <button
-                      onClick={() => setActiveModalProject(project)}
-                      className="text-xs font-semibold text-red-400 hover:text-red-300 flex items-center gap-1.5 transition-colors cursor-pointer"
-                    >
-                      <span>Architecture Details</span>
-                      <ArrowUpRight className="w-3.5 h-3.5" />
-                    </button>
-                  )}
-
-                  <div className="flex items-center gap-2">
-                    <button
-                      onClick={() => setActiveModalProject(project)}
-                      className="p-2 rounded-xl bg-[#160407] hover:bg-[#20050a] text-slate-300 hover:text-white border border-red-950 transition-colors cursor-pointer"
-                      title="Architecture Specifications & Tech Highlights"
-                    >
-                      <Layers className="w-4 h-4" />
-                    </button>
-
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="p-2 rounded-xl bg-[#160407] hover:bg-[#20050a] text-slate-300 hover:text-white border border-red-950 transition-colors"
-                      title="View Source on GitHub (@Faiz-Khan01)"
-                    >
-                      <Github className="w-4 h-4" />
-                    </a>
                   </div>
-                </div>
 
-              </div>
-            );
-          })}
-        </div>
+                </motion.div>
+              );
+            })}
+          </AnimatePresence>
+        </motion.div>
 
       </div>
 

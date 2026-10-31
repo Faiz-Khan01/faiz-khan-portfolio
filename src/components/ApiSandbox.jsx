@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Server, 
   Play, 
@@ -79,7 +80,7 @@ export default function ApiSandbox() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div data-aos="fade-up" className="text-center max-w-3xl mx-auto mb-16">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-950/60 border border-red-500/30 text-red-400 text-xs font-mono font-semibold mb-4">
             <Server className="w-3.5 h-3.5" />
             <span>Interactive REST API Sandbox</span>
@@ -98,45 +99,48 @@ export default function ApiSandbox() {
           {/* Left Column: Endpoint Picker */}
           <div className="lg:col-span-4 flex flex-col gap-3">
             <div className="text-xs font-mono text-slate-400 uppercase tracking-wider px-2 flex items-center justify-between">
-              <span>Select Endpoint</span>
-              <span className="text-red-400 font-bold">{apiEndpoints.length} Ready</span>
+              <span>Select Endpoint ({apiEndpoints.length})</span>
+              <Terminal className="w-3.5 h-3.5 text-red-400" />
             </div>
 
-            {apiEndpoints.map((ep) => {
-              const isSelected = selectedEndpoint.id === ep.id;
-              const isGet = ep.method === 'GET';
+            <div className="space-y-2">
+              {apiEndpoints.map((ep) => {
+                const isSelected = selectedEndpoint.id === ep.id;
+                return (
+                  <motion.button
+                    key={ep.id}
+                    onClick={() => handleSelectEndpoint(ep)}
+                    whileHover={{ scale: 1.015 }}
+                    whileTap={{ scale: 0.985 }}
+                    className={`w-full p-4 rounded-2xl text-left border transition-all cursor-pointer ${
+                      isSelected
+                        ? 'bg-[#180407] border-red-500 shadow-lg shadow-red-600/20'
+                        : 'bg-[#0e0305] border-red-950/80 hover:bg-[#140306] hover:border-red-900 text-slate-300'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between mb-1.5">
+                      <span className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold ${
+                        ep.method === 'POST' ? 'bg-red-950 text-red-400 border border-red-500/30' :
+                        ep.method === 'GET' ? 'bg-amber-950 text-amber-400 border border-amber-500/30' :
+                        'bg-blue-950 text-blue-400 border border-blue-500/30'
+                      }`}>
+                        {ep.method}
+                      </span>
+                      <span className="text-[10px] font-mono text-slate-400">
+                        {ep.service.split(' ')[0]}
+                      </span>
+                    </div>
 
-              return (
-                <button
-                  key={ep.id}
-                  onClick={() => handleSelectEndpoint(ep)}
-                  className={`p-4 rounded-2xl text-left border transition-all cursor-pointer ${
-                    isSelected
-                      ? 'bg-[#180407] border-red-500 shadow-lg shadow-red-600/15'
-                      : 'bg-[#0e0305]/80 border-red-950/80 hover:bg-[#150407] hover:border-red-900'
-                  }`}
-                >
-                  <div className="flex items-center gap-2 mb-1.5">
-                    <span className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold ${
-                      isGet 
-                        ? 'bg-amber-950/80 text-amber-300 border border-amber-500/40' 
-                        : 'bg-red-950/80 text-red-300 border border-red-500/40'
-                    }`}>
-                      {ep.method}
-                    </span>
-                    <span className="font-display font-semibold text-slate-200 text-xs truncate">
+                    <h4 className="font-display font-bold text-white text-sm">
                       {ep.name}
-                    </span>
-                  </div>
-                  <p className="font-mono text-[11px] text-slate-400 truncate">
-                    {ep.path}
-                  </p>
-                  <p className="text-[11px] text-slate-400 mt-2 line-clamp-1">
-                    {ep.service}
-                  </p>
-                </button>
-              );
-            })}
+                    </h4>
+                    <p className="mt-1 font-mono text-xs text-rose-300 truncate">
+                      {ep.path}
+                    </p>
+                  </motion.button>
+                );
+              })}
+            </div>
           </div>
 
           {/* Right Column: Interactive Console & Response Viewer */}
@@ -158,9 +162,11 @@ export default function ApiSandbox() {
               </div>
 
               {/* Send Button */}
-              <button
+              <motion.button
                 onClick={handleSendRequest}
                 disabled={isLoading}
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
                 className="flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl font-semibold text-xs text-white bg-gradient-to-r from-red-600 via-rose-600 to-red-500 hover:from-red-500 hover:to-rose-500 transition-all shadow-lg shadow-red-600/30 disabled:opacity-50 cursor-pointer"
               >
                 {isLoading ? (
@@ -174,7 +180,7 @@ export default function ApiSandbox() {
                     <span>Send Request</span>
                   </>
                 )}
-              </button>
+              </motion.button>
 
             </div>
 
@@ -186,10 +192,15 @@ export default function ApiSandbox() {
               </div>
 
               <div className="flex items-center gap-3 font-mono">
-                <div className="flex items-center gap-1 text-red-400">
-                  <CheckCircle2 className="w-3.5 h-3.5" />
-                  <span>Status: 200 OK</span>
-                </div>
+                <motion.div 
+                  initial={{ scale: 0.8 }}
+                  animate={{ scale: 1 }}
+                  transition={{ type: 'spring', stiffness: 300 }}
+                  className="flex items-center gap-1 text-red-400"
+                >
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                  <span className="text-emerald-400 font-semibold">Status: 200 OK</span>
+                </motion.div>
                 <span className="text-red-950">|</span>
                 <div className="flex items-center gap-1 text-amber-400">
                   <Clock className="w-3.5 h-3.5" />
@@ -248,18 +259,27 @@ export default function ApiSandbox() {
               </button>
             </div>
 
-            {/* JSON Output Viewer */}
-            <div className="p-5 bg-[#070102] min-h-[260px] max-h-[360px] overflow-y-auto font-mono text-xs leading-relaxed text-slate-200">
-              {activeTab === 'response' ? (
-                <pre className="text-rose-300">
-                  {JSON.stringify(responseOutput, null, 2)}
-                </pre>
-              ) : (
-                <pre className="text-amber-300">
-                  {JSON.stringify(selectedEndpoint.requestBody, null, 2)}
-                </pre>
-              )}
-            </div>
+            {/* JSON Output Viewer with Framer Motion Animation */}
+            <AnimatePresence mode="wait">
+              <motion.div 
+                key={`${selectedEndpoint.id}-${activeTab}-${simulatedTime}`}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.25 }}
+                className="p-5 bg-[#070102] min-h-[260px] max-h-[360px] overflow-y-auto font-mono text-xs leading-relaxed text-slate-200"
+              >
+                {activeTab === 'response' ? (
+                  <pre className="text-rose-300">
+                    {JSON.stringify(responseOutput, null, 2)}
+                  </pre>
+                ) : (
+                  <pre className="text-amber-300">
+                    {JSON.stringify(selectedEndpoint.requestBody, null, 2)}
+                  </pre>
+                )}
+              </motion.div>
+            </AnimatePresence>
 
             {/* Footer status */}
             <div className="px-5 py-2.5 bg-[#0e0305] border-t border-red-950 flex items-center justify-between text-[11px] text-slate-400 font-mono">

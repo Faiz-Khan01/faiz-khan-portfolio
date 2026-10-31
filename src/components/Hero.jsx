@@ -1,29 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   ArrowRight, 
   Layers, 
-  Server, 
   Github, 
   Linkedin, 
   Mail, 
   Phone, 
   FileText, 
-  CheckCircle2, 
-  Database, 
   Sparkles,
-  Zap,
-  Code2,
-  Terminal,
-  User
+  Coffee,
+  Database,
+  Cpu
 } from 'lucide-react';
+import gsap from 'gsap';
 import { resumeData } from '../data/resumeData';
-import TerminalSnippet from './TerminalSnippet';
 import HeroAvatarOrbit from './HeroAvatarOrbit';
 
 const rotatingTitles = [
   'Java Backend Engineer',
-  'Spring Boot Microservices Architect',
-  'Full Stack Systems Developer',
+  'Spring Boot Microservices Developer',
+  'Full Stack Systems Engineer',
   'RESTful API & Security Specialist'
 ];
 
@@ -31,8 +27,52 @@ export default function Hero({ onOpenResume }) {
   const { personal } = resumeData;
   const [titleIndex, setTitleIndex] = useState(0);
   const [fadeState, setFadeState] = useState(true);
-  const [viewMode, setViewMode] = useState('avatar'); // 'avatar' | 'terminal'
+  
+  const heroRef = useRef(null);
+  const titleRef = useRef(null);
+  const badgeRef = useRef(null);
+  const ctaRef = useRef(null);
 
+  // GSAP Entrance Animations
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // 1. Badge pop-in
+      gsap.from(badgeRef.current, {
+        scale: 0.8,
+        opacity: 0,
+        duration: 0.8,
+        ease: 'back.out(1.7)'
+      });
+
+      // 2. Heading stagger reveal
+      if (titleRef.current) {
+        gsap.from(titleRef.current.children, {
+          y: 40,
+          opacity: 0,
+          duration: 1,
+          stagger: 0.2,
+          ease: 'power3.out',
+          delay: 0.2
+        });
+      }
+
+      // 3. CTA buttons smooth float-up
+      if (ctaRef.current) {
+        gsap.from(ctaRef.current.children, {
+          y: 20,
+          opacity: 0,
+          duration: 0.8,
+          stagger: 0.15,
+          ease: 'power2.out',
+          delay: 0.6
+        });
+      }
+    }, heroRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  // Cycling titles timer
   useEffect(() => {
     const interval = setInterval(() => {
       setFadeState(false);
@@ -46,16 +86,20 @@ export default function Hero({ onOpenResume }) {
   }, []);
 
   return (
-    <section id="hero" className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden">
+    <section 
+      ref={heroRef}
+      id="hero" 
+      className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden"
+    >
       
-      {/* Background radial crimson/ruby glow (matching video reference) */}
+      {/* Background radial crimson/ruby glow */}
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] h-[850px] bg-gradient-to-b from-red-600/25 via-red-900/15 to-transparent rounded-full blur-[150px] pointer-events-none -z-10 animate-glow-pulse"></div>
       <div className="absolute top-1/4 right-5 w-[500px] h-[500px] bg-rose-700/15 rounded-full blur-[140px] pointer-events-none -z-10 animate-float-slow"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Top availability pill & live deployed announcement */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 text-center mb-8">
+        <div ref={badgeRef} className="flex flex-col sm:flex-row items-center justify-center gap-3 text-center mb-8">
           <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#120204]/90 border border-red-500/30 text-red-400 text-xs font-mono shadow-lg shadow-black/70 backdrop-blur-md">
             <span className="relative flex h-2.5 w-2.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
@@ -83,16 +127,18 @@ export default function Hero({ onOpenResume }) {
           <div className="lg:col-span-6 flex flex-col text-center lg:text-left">
             
             <div className="inline-flex items-center justify-center lg:justify-start gap-2 text-xs font-mono font-semibold text-rose-400 mb-2">
-              <span className="px-2.5 py-1 rounded-md bg-red-950/60 border border-red-500/30">
-                Hello, I'm
+              <span className="px-3 py-1 rounded-md bg-red-950/60 border border-red-500/30">
+                Hello, I'm Faiz Khan
               </span>
             </div>
 
-            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-[1.12]">
-              Engineering Robust <br />
-              <span className="gradient-text-red">Java Microservices</span> &amp; <br />
-              <span className="gradient-text-gold">Scalable Web Apps</span>
-            </h1>
+            <div ref={titleRef}>
+              <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-[1.12]">
+                Engineering Robust <br />
+                <span className="gradient-text-red">Java Microservices</span> &amp; <br />
+                <span className="gradient-text-gold">Scalable Web Apps</span>
+              </h1>
+            </div>
 
             {/* Cycling Interactive Title */}
             <div className="h-8 mt-3 flex items-center justify-center lg:justify-start">
@@ -105,42 +151,54 @@ export default function Hero({ onOpenResume }) {
             </div>
 
             <p className="mt-4 text-base sm:text-lg text-slate-300 leading-relaxed max-w-xl mx-auto lg:mx-0">
-              Driven Computer Science undergraduate specializing in building scalable RESTful APIs, Spring Boot microservices, JWT authentication, and containerized full-stack platforms with Docker.
+              Driven Computer Science undergraduate with hands-on expertise in Java 17, Spring Boot 3, RESTful Microservices, and React.js. Passionate about clean architecture, secure JWT/OAuth authentication, and deploying containerized applications with Docker.
             </p>
 
-            {/* Quick Skills Badges */}
+            {/* Quick Skills Badges with 3D Float Hover */}
             <div className="mt-6 flex flex-wrap gap-2 justify-center lg:justify-start">
-              {['Java 17+', 'Spring Boot 3', 'Microservices', 'Eureka Discovery', 'Spring Security', 'Docker', 'MySQL', 'React.js', 'Razorpay'].map((tech) => (
-                <span 
-                  key={tech}
-                  className="px-3 py-1 rounded-lg text-xs font-mono font-medium bg-[#140306] text-rose-200 border border-red-950/80 shadow-sm hover:border-red-500/50 hover:text-white transition-all"
-                >
-                  {tech}
-                </span>
-              ))}
+              {[
+                { name: 'Java 17+', icon: Coffee },
+                { name: 'Spring Boot 3', icon: Cpu },
+                { name: '18 Microservices', icon: Layers },
+                { name: 'Docker', icon: Sparkles },
+                { name: 'MySQL', icon: Database },
+                { name: 'React.js', icon: Cpu },
+                { name: 'Razorpay', icon: Sparkles }
+              ].map((tech) => {
+                const Icon = tech.icon;
+                return (
+                  <span 
+                    key={tech.name}
+                    className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-mono font-medium bg-[#140306] text-rose-200 border border-red-950/80 shadow-sm hover:border-red-500/50 hover:scale-105 hover:text-white transition-all cursor-default"
+                  >
+                    <Icon className="w-3 h-3 text-red-400" />
+                    <span>{tech.name}</span>
+                  </span>
+                );
+              })}
             </div>
 
-            {/* Call to Actions (Styled with glowing red/rose buttons from video) */}
-            <div className="mt-8 flex flex-wrap items-center justify-center lg:justify-start gap-4">
+            {/* Call to Actions with Magnetic Hover */}
+            <div ref={ctaRef} className="mt-8 flex flex-wrap items-center justify-center lg:justify-start gap-4">
               <a
                 href="#projects"
-                className="flex items-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-sm text-white bg-gradient-to-r from-red-600 via-rose-600 to-red-500 hover:from-red-500 hover:to-rose-500 shadow-xl shadow-red-600/35 transition-all transform hover:-translate-y-0.5 hover:shadow-red-600/50"
+                className="group flex items-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-sm text-white bg-gradient-to-r from-red-600 via-rose-600 to-red-500 hover:from-red-500 hover:to-rose-500 shadow-xl shadow-red-600/35 transition-all transform hover:-translate-y-1 hover:shadow-red-600/60"
               >
                 <span>Explore Projects</span>
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </a>
 
               <a
                 href="#architecture"
-                className="flex items-center gap-2 px-5 py-3.5 rounded-xl font-semibold text-sm text-rose-200 bg-[#140306] hover:bg-[#1f0509] border border-red-900/60 transition-all hover:border-red-500/50 shadow-md"
+                className="flex items-center gap-2 px-5 py-3.5 rounded-xl font-semibold text-sm text-rose-200 bg-[#140306] hover:bg-[#1f0509] border border-red-900/60 transition-all hover:border-red-500/50 hover:-translate-y-0.5 shadow-md"
               >
                 <Layers className="w-4 h-4 text-red-400" />
-                <span>Hospital Microservices</span>
+                <span>18 Microservices</span>
               </a>
 
               <button
                 onClick={onOpenResume}
-                className="flex items-center gap-2 px-5 py-3.5 rounded-xl font-semibold text-sm text-amber-300 bg-[#120204] hover:bg-[#1a0407] border border-amber-500/40 transition-all hover:border-amber-400"
+                className="flex items-center gap-2 px-5 py-3.5 rounded-xl font-semibold text-sm text-amber-300 bg-[#120204] hover:bg-[#1a0407] border border-amber-500/40 transition-all hover:border-amber-400 hover:-translate-y-0.5 cursor-pointer"
               >
                 <FileText className="w-4 h-4 text-amber-400" />
                 <span>View Resume</span>
@@ -169,8 +227,8 @@ export default function Hero({ onOpenResume }) {
                 <a 
                   href={personal.github} 
                   target="_blank" 
-                  rel="noreferrer"
-                  className="p-2 rounded-lg bg-[#140306] hover:bg-[#20050a] text-slate-300 hover:text-white border border-red-950/80 transition-colors"
+                  rel="noreferrer" 
+                  className="p-2 rounded-lg bg-[#140306] hover:bg-[#20050a] text-slate-300 hover:text-white border border-red-950/80 hover:scale-110 transition-all"
                   title="GitHub Profile (@Faiz-Khan01)"
                 >
                   <Github className="w-4 h-4" />
@@ -178,8 +236,8 @@ export default function Hero({ onOpenResume }) {
                 <a 
                   href="https://linkedin.com" 
                   target="_blank" 
-                  rel="noreferrer"
-                  className="p-2 rounded-lg bg-[#140306] hover:bg-[#20050a] text-slate-300 hover:text-red-400 border border-red-950/80 transition-colors"
+                  rel="noreferrer" 
+                  className="p-2 rounded-lg bg-[#140306] hover:bg-[#20050a] text-slate-300 hover:text-red-400 border border-red-950/80 hover:scale-110 transition-all"
                   title="LinkedIn Profile"
                 >
                   <Linkedin className="w-4 h-4" />
@@ -190,68 +248,10 @@ export default function Hero({ onOpenResume }) {
           </div>
 
           {/* Right Column: Hero Visual - Circular Avatar with Orbiting Skills (As in Video) */}
-          <div className="lg:col-span-6 flex flex-col items-center justify-center relative">
-            
-            {/* View Mode Toggle Pill (Avatar with Flying Skills vs Live Terminal) */}
-            <div className="mb-3 flex items-center gap-1.5 p-1 rounded-full bg-[#120204] border border-red-950/80 shadow-md">
-              <button
-                onClick={() => setViewMode('avatar')}
-                className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-semibold transition-all ${
-                  viewMode === 'avatar'
-                    ? 'bg-gradient-to-r from-red-600 to-rose-600 text-white shadow-md shadow-red-600/30'
-                    : 'text-slate-400 hover:text-white'
-                }`}
-              >
-                <User className="w-3 h-3" />
-                <span>Avatar &amp; Flying Skills</span>
-              </button>
-
-              <button
-                onClick={() => setViewMode('terminal')}
-                className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-semibold transition-all ${
-                  viewMode === 'terminal'
-                    ? 'bg-gradient-to-r from-red-600 to-rose-600 text-white shadow-md shadow-red-600/30'
-                    : 'text-slate-400 hover:text-white'
-                }`}
-              >
-                <Terminal className="w-3 h-3" />
-                <span>Spring Terminal</span>
-              </button>
-            </div>
-
-            {viewMode === 'avatar' ? (
-              <HeroAvatarOrbit />
-            ) : (
-              <div className="w-full max-w-lg">
-                <TerminalSnippet />
-              </div>
-            )}
-
+          <div className="lg:col-span-6 flex flex-col items-center justify-center relative pt-8 pb-4">
+            <HeroAvatarOrbit />
           </div>
 
-        </div>
-
-        {/* Stats Grid Bar */}
-        <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
-          {personal.stats.map((stat, idx) => (
-            <div 
-              key={idx}
-              className="p-5 rounded-2xl bg-[#0e0305]/90 border border-red-950/80 backdrop-blur-md glass-card-hover group"
-            >
-              <div className="flex items-baseline gap-2">
-                <span className="font-display text-3xl sm:text-4xl font-extrabold text-white group-hover:text-red-400 transition-colors">
-                  {stat.value}
-                </span>
-                <span className="text-red-400 text-xs font-mono font-semibold">Verified</span>
-              </div>
-              <p className="mt-1 text-sm font-semibold text-rose-100">
-                {stat.label}
-              </p>
-              <p className="mt-0.5 text-xs text-slate-400">
-                {stat.detail}
-              </p>
-            </div>
-          ))}
         </div>
 
       </div>

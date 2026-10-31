@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { 
   GraduationCap, 
   Briefcase, 
@@ -16,9 +18,67 @@ import { resumeData } from '../data/resumeData';
 
 export default function ExperienceEducation() {
   const { experience, education, certifications, achievements } = resumeData;
+  const sectionRef = useRef(null);
+  const expColRef = useRef(null);
+  const eduColRef = useRef(null);
+  const certsGridRef = useRef(null);
+
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const ctx = gsap.context(() => {
+      // 1. Experience cards slide in from left
+      if (expColRef.current) {
+        gsap.from(expColRef.current.children, {
+          scrollTrigger: {
+            trigger: expColRef.current,
+            start: 'top 85%',
+          },
+          x: -30,
+          opacity: 0,
+          duration: 0.8,
+          stagger: 0.15,
+          ease: 'power3.out',
+        });
+      }
+
+      // 2. Education cards slide in from right
+      if (eduColRef.current) {
+        gsap.from(eduColRef.current.children, {
+          scrollTrigger: {
+            trigger: eduColRef.current,
+            start: 'top 85%',
+          },
+          x: 30,
+          opacity: 0,
+          duration: 0.8,
+          stagger: 0.15,
+          ease: 'power3.out',
+        });
+      }
+
+      // 3. Certification badges staggered pop-in
+      if (certsGridRef.current) {
+        gsap.from(certsGridRef.current.children, {
+          scrollTrigger: {
+            trigger: certsGridRef.current,
+            start: 'top 85%',
+          },
+          y: 25,
+          opacity: 0,
+          scale: 0.95,
+          duration: 0.7,
+          stagger: 0.1,
+          ease: 'back.out(1.4)',
+        });
+      }
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <section id="experience" className="py-24 relative bg-[#070102]/90 border-t border-red-950/40">
+    <section ref={sectionRef} id="experience" className="py-24 relative bg-[#070102]/90 border-t border-red-950/40">
       
       {/* Background ambient lighting */}
       <div className="absolute top-1/2 right-10 w-96 h-96 bg-red-600/10 rounded-full blur-3xl pointer-events-none"></div>
@@ -26,7 +86,7 @@ export default function ExperienceEducation() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div data-aos="fade-up" className="text-center max-w-3xl mx-auto mb-16">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-950/60 border border-red-500/30 text-red-400 text-xs font-mono font-semibold mb-4">
             <GraduationCap className="w-3.5 h-3.5" />
             <span>Milestones &amp; Credentials</span>
@@ -56,7 +116,7 @@ export default function ExperienceEducation() {
               </div>
             </div>
 
-            <div className="space-y-6">
+            <div ref={expColRef} className="space-y-6">
               {experience.map((exp, idx) => (
                 <div 
                   key={idx}
@@ -122,7 +182,7 @@ export default function ExperienceEducation() {
               </div>
             </div>
 
-            <div className="space-y-6">
+            <div ref={eduColRef} className="space-y-6">
               {education.map((edu, idx) => (
                 <div 
                   key={idx}
@@ -183,7 +243,7 @@ export default function ExperienceEducation() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div ref={certsGridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {certifications.map((cert, idx) => (
               <div 
                 key={idx}
@@ -198,71 +258,70 @@ export default function ExperienceEducation() {
                   </div>
 
                   <h4 className="font-display font-bold text-white text-base group-hover:text-red-400 transition-colors leading-snug">
-                    {cert.title}
+                    {cert.name}
                   </h4>
-                  <p className="text-xs font-mono text-red-400 mt-1">
+                  <p className="text-xs text-rose-300 font-mono mt-1 font-semibold">
                     {cert.issuer}
                   </p>
-                  <p className="text-xs text-slate-400 mt-3 leading-relaxed">
-                    {cert.desc}
+                  <p className="mt-2 text-xs text-slate-400 leading-relaxed">
+                    {cert.skills}
                   </p>
                 </div>
 
-                <div className="mt-5 pt-4 border-t border-red-950/60">
-                  {cert.link ? (
-                    <a
-                      href={cert.link}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="w-full py-2 px-3 rounded-xl text-xs font-semibold text-white bg-[#140306] hover:bg-red-600 border border-red-950 flex items-center justify-center gap-1.5 transition-all"
-                    >
-                      <ShieldCheck className="w-3.5 h-3.5 text-amber-400" />
-                      <span>Verify Credential</span>
-                      <ExternalLink className="w-3 h-3 text-slate-400" />
-                    </a>
-                  ) : (
-                    <div className="w-full py-2 px-3 rounded-xl text-xs font-mono text-slate-400 bg-[#120204] border border-red-950 text-center flex items-center justify-center gap-1">
-                      <Check className="w-3.5 h-3.5 text-red-400" />
-                      <span>AICTE Verified</span>
-                    </div>
-                  )}
+                <div className="mt-5 pt-3 border-t border-red-950/60 flex items-center justify-between">
+                  <span className="text-[10px] font-mono text-slate-500">ID: {cert.id}</span>
+                  <a
+                    href={cert.link}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1 text-xs font-mono font-semibold text-red-400 hover:text-red-300 transition-colors"
+                  >
+                    <span>Verify</span>
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
                 </div>
-
               </div>
             ))}
           </div>
         </div>
 
-        {/* Key Achievements Banner */}
-        <div className="p-8 sm:p-10 rounded-3xl bg-gradient-to-r from-[#140306] via-[#1f050a] to-[#140306] border border-red-500/30 shadow-2xl relative overflow-hidden">
-          
-          <div className="relative z-10">
-            <div className="flex items-center gap-2 text-xs font-mono text-red-400 font-bold mb-3">
-              <Trophy className="w-4 h-4" />
-              <span>KEY ENGINEERING HIGHLIGHTS</span>
+        {/* Academic Achievements & Hackathons */}
+        <div data-aos="fade-up" className="p-8 sm:p-10 rounded-3xl bg-gradient-to-br from-[#140306] to-[#0a0204] border border-red-950/80 shadow-2xl relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-red-600/10 rounded-full blur-3xl pointer-events-none"></div>
+
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400">
+              <Trophy className="w-5 h-5" />
             </div>
-
-            <h3 className="font-display text-2xl sm:text-3xl font-extrabold text-white mb-6">
-              Track Record of Delivering Reliable Software
-            </h3>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {achievements.map((ach, idx) => (
-                <div key={idx} className="p-4 rounded-2xl bg-[#0a0204]/90 border border-red-950">
-                  <div className="w-7 h-7 rounded-lg bg-red-950 text-red-400 flex items-center justify-center text-xs font-bold font-mono mb-2">
-                    0{idx + 1}
-                  </div>
-                  <h4 className="font-display font-bold text-white text-sm mb-1">
-                    {ach.title}
-                  </h4>
-                  <p className="text-xs text-slate-400 leading-relaxed">
-                    {ach.desc}
-                  </p>
-                </div>
-              ))}
+            <div>
+              <h3 className="font-display font-bold text-white text-xl">
+                Honors, Competitions &amp; Hackathons
+              </h3>
+              <p className="text-xs text-amber-300 font-mono">Recognized Engineering Excellence</p>
             </div>
           </div>
 
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {achievements.map((ach, idx) => (
+              <div 
+                key={idx}
+                className="p-5 rounded-2xl bg-[#080103]/80 border border-red-950/80 hover:border-amber-500/40 transition-all"
+              >
+                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-amber-950 text-amber-300 border border-amber-500/30">
+                  {ach.year}
+                </span>
+                <h4 className="mt-2 font-display font-bold text-white text-sm">
+                  {ach.title}
+                </h4>
+                <p className="text-xs text-rose-300 font-mono mt-0.5">
+                  {ach.event}
+                </p>
+                <p className="mt-2 text-xs text-slate-400 leading-relaxed">
+                  {ach.desc}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
 
       </div>

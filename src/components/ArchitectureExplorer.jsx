@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { 
   Layers, 
   Server, 
@@ -300,6 +302,33 @@ export default function ArchitectureExplorer() {
   const [isSimulating, setIsSimulating] = useState(false);
   const [simLogs, setSimLogs] = useState([]);
 
+  const archRef = useRef(null);
+  const servicesGridRef = useRef(null);
+
+  // GSAP ScrollTrigger Entrance Animation for 18 Microservices
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const ctx = gsap.context(() => {
+      if (servicesGridRef.current) {
+        gsap.from(servicesGridRef.current.children, {
+          scrollTrigger: {
+            trigger: servicesGridRef.current,
+            start: 'top 85%',
+          },
+          opacity: 0,
+          y: 30,
+          scale: 0.95,
+          duration: 0.5,
+          stagger: 0.04,
+          ease: 'power3.out',
+        });
+      }
+    }, archRef);
+
+    return () => ctx.revert();
+  }, []);
+
   const runSimulation = (scenario = activeScenario) => {
     setActiveScenario(scenario);
     setIsSimulating(true);
@@ -330,7 +359,7 @@ export default function ArchitectureExplorer() {
   };
 
   return (
-    <section id="architecture" className="py-24 relative bg-[#070103]/90 border-t border-b border-red-950/40">
+    <section ref={archRef} id="architecture" className="py-24 relative bg-[#070103]/90 border-t border-b border-red-950/40">
       
       {/* Background ambient lighting */}
       <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-red-600/10 rounded-full blur-[140px] pointer-events-none"></div>
@@ -339,7 +368,7 @@ export default function ArchitectureExplorer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-14">
+        <div data-aos="fade-up" className="text-center max-w-3xl mx-auto mb-14">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-950/60 border border-red-500/30 text-red-400 text-xs font-mono font-semibold mb-4">
             <Network className="w-3.5 h-3.5" />
             <span>HospitalSync Pro Suite v2.5 Architecture</span>
@@ -491,7 +520,7 @@ export default function ArchitectureExplorer() {
               </div>
 
               {/* Level 3: Microservices Grid (16 Domain Services) */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div ref={servicesGridRef} className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {architectureNodes.slice(2).map((node) => {
                   const isSelected = selectedNode.id === node.id;
                   const isStepActive = isSimulating && activeScenario.steps[currentStepIndex]?.node === node.id;

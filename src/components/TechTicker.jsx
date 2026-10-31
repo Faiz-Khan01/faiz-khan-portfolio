@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { 
   Server, 
   Database, 
@@ -9,10 +9,11 @@ import {
   Code2, 
   Radio, 
   Zap, 
-  CreditCard,
-  CloudLightning,
-  GitBranch
+  CreditCard, 
+  CloudLightning, 
+  GitBranch 
 } from 'lucide-react';
+import { animate, stagger } from 'animejs';
 
 const tickerItems = [
   { name: 'Java 17 / 21', icon: Code2, color: 'text-amber-400' },
@@ -30,8 +31,32 @@ const tickerItems = [
 ];
 
 export default function TechTicker() {
+  const tickerRef = useRef(null);
+
+  useEffect(() => {
+    // Anime.js subtle wave pulsation on tech badges
+    const pills = tickerRef.current?.querySelectorAll('.ticker-pill');
+    if (pills && pills.length > 0) {
+      try {
+        animate(pills, {
+          translateY: [-2, 2],
+          delay: stagger(120),
+          duration: 1800,
+          loop: true,
+          alternate: true,
+          ease: 'easeInOutSine'
+        });
+      } catch (e) {
+        // Fallback gracefully
+      }
+    }
+  }, []);
+
   return (
-    <div className="relative py-6 bg-[#060102]/90 border-y border-red-950/40 overflow-hidden select-none">
+    <div 
+      ref={tickerRef}
+      className="relative py-6 bg-[#060102]/90 border-y border-red-950/40 overflow-hidden select-none"
+    >
       
       {/* Side gradient masks for smooth fade */}
       <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[#060102] to-transparent z-10 pointer-events-none"></div>
@@ -44,7 +69,7 @@ export default function TechTicker() {
           return (
             <div
               key={index}
-              className="inline-flex items-center gap-2.5 px-6 py-2 mx-2 rounded-xl bg-[#0e0305]/85 border border-red-950/60 backdrop-blur-sm transition-all hover:border-red-500/50 hover:scale-105"
+              className="ticker-pill inline-flex items-center gap-2.5 px-6 py-2 mx-2 rounded-xl bg-[#0e0305]/85 border border-red-950/60 backdrop-blur-sm transition-all hover:border-red-500/50 hover:scale-105"
             >
               <Icon className={`w-4 h-4 ${item.color} shrink-0`} />
               <span className="font-mono text-xs font-semibold text-zinc-300 tracking-wide whitespace-nowrap">

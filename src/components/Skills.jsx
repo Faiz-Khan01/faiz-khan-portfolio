@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { 
   Cpu, 
   Server, 
@@ -17,6 +19,8 @@ import { resumeData } from '../data/resumeData';
 export default function Skills() {
   const { skills } = resumeData;
   const [activeCategory, setActiveCategory] = useState('backend');
+  const sectionRef = useRef(null);
+  const gridRef = useRef(null);
 
   const categories = [
     { id: 'backend', label: 'Backend & Microservices', icon: Server, count: skills.backend.length },
@@ -26,8 +30,36 @@ export default function Skills() {
     { id: 'concepts', label: 'Core CS & System Design', icon: Cpu, count: skills.coreConcepts.length },
   ];
 
+  // GSAP Progress Bar Animation on Scroll & Category Switch
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const ctx = gsap.context(() => {
+      // Animate progress bars from 0 to full width
+      const bars = gridRef.current?.querySelectorAll('.skill-bar-fill');
+      if (bars && bars.length > 0) {
+        gsap.fromTo(
+          bars,
+          { width: '0%' },
+          {
+            width: (i, target) => target.getAttribute('data-target-width') || '85%',
+            duration: 1.1,
+            ease: 'power3.out',
+            stagger: 0.08,
+            scrollTrigger: {
+              trigger: gridRef.current,
+              start: 'top 85%',
+            }
+          }
+        );
+      }
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, [activeCategory]);
+
   return (
-    <section id="skills" className="py-24 relative overflow-hidden bg-[#070102] border-t border-red-950/40">
+    <section ref={sectionRef} id="skills" className="py-24 relative overflow-hidden bg-[#070102] border-t border-red-950/40">
       
       {/* Background glow */}
       <div className="absolute top-1/3 right-0 w-96 h-96 bg-red-600/10 rounded-full blur-3xl pointer-events-none"></div>
@@ -35,7 +67,7 @@ export default function Skills() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div data-aos="fade-up" className="text-center max-w-3xl mx-auto mb-16">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-950/60 border border-red-500/30 text-red-400 text-xs font-mono font-semibold mb-4">
             <Cpu className="w-3.5 h-3.5" />
             <span>Technical Expertise</span>
@@ -76,7 +108,7 @@ export default function Skills() {
         </div>
 
         {/* Skills Cards Grid */}
-        <div className="bg-[#0e0305] p-6 sm:p-10 rounded-3xl border border-red-950/80 shadow-2xl">
+        <div ref={gridRef} className="bg-[#0e0305] p-6 sm:p-10 rounded-3xl border border-red-950/80 shadow-2xl">
           
           {/* Backend View */}
           {activeCategory === 'backend' && (
@@ -103,7 +135,8 @@ export default function Skills() {
                   </div>
                   <div className="w-full bg-[#0a0204] rounded-full h-1.5 mt-1 overflow-hidden">
                     <div
-                      className="bg-gradient-to-r from-red-600 via-rose-600 to-amber-500 h-full rounded-full transition-all duration-1000"
+                      className="skill-bar-fill bg-gradient-to-r from-red-600 via-rose-600 to-amber-500 h-full rounded-full transition-all duration-1000"
+                      data-target-width={`${item.level}%`}
                       style={{ width: `${item.level}%` }}
                     ></div>
                   </div>
@@ -136,7 +169,8 @@ export default function Skills() {
                     </div>
                     <div className="w-full bg-[#0a0204] rounded-full h-2 overflow-hidden">
                       <div
-                        className="bg-gradient-to-r from-red-600 to-rose-500 h-full rounded-full"
+                        className="skill-bar-fill bg-gradient-to-r from-red-600 to-rose-500 h-full rounded-full"
+                        data-target-width={`${item.level}%`}
                         style={{ width: `${item.level}%` }}
                       ></div>
                     </div>
@@ -171,7 +205,8 @@ export default function Skills() {
                   </div>
                   <div className="w-full bg-[#0a0204] rounded-full h-1.5 mt-1 overflow-hidden">
                     <div
-                      className="bg-gradient-to-r from-red-500 to-amber-500 h-full rounded-full"
+                      className="skill-bar-fill bg-gradient-to-r from-red-500 to-amber-500 h-full rounded-full"
+                      data-target-width={`${item.level}%`}
                       style={{ width: `${item.level}%` }}
                     ></div>
                   </div>
@@ -205,7 +240,8 @@ export default function Skills() {
                   </div>
                   <div className="w-full bg-[#0a0204] rounded-full h-1.5 mt-1 overflow-hidden">
                     <div
-                      className="bg-gradient-to-r from-rose-500 to-red-600 h-full rounded-full"
+                      className="skill-bar-fill bg-gradient-to-r from-rose-500 to-red-600 h-full rounded-full"
+                      data-target-width={`${item.level}%`}
                       style={{ width: `${item.level}%` }}
                     ></div>
                   </div>
@@ -220,41 +256,27 @@ export default function Skills() {
               {skills.coreConcepts.map((item, idx) => (
                 <div
                   key={idx}
-                  className="p-6 rounded-2xl bg-[#140306] border border-red-950/80 flex items-start gap-4 glass-card-hover"
+                  className="p-6 rounded-2xl bg-[#140306] border border-red-950/80 glass-card-hover group"
                 >
-                  <div className="w-10 h-10 rounded-xl bg-red-950/60 border border-red-500/30 flex items-center justify-center text-red-400 shrink-0">
-                    <BookOpen className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <h4 className="font-display font-bold text-white text-base">
+                  <div className="flex items-center justify-between">
+                    <h4 className="font-display font-bold text-white text-base group-hover:text-amber-400 transition-colors">
                       {item.name}
                     </h4>
-                    <p className="mt-1.5 text-xs text-slate-300 leading-relaxed">
-                      {item.desc}
-                    </p>
+                    <span className="px-2.5 py-1 rounded-md text-[10px] font-mono bg-amber-950/80 text-amber-300 border border-amber-500/30">
+                      {item.topic}
+                    </span>
+                  </div>
+                  <p className="mt-3 text-xs sm:text-sm text-slate-300 leading-relaxed">
+                    {item.desc}
+                  </p>
+                  <div className="mt-4 pt-3 border-t border-red-950/60 flex items-center gap-2 text-xs font-mono text-rose-300">
+                    <CheckCircle className="w-3.5 h-3.5 text-red-400" />
+                    <span>Production Grade Implementation</span>
                   </div>
                 </div>
               ))}
             </div>
           )}
-
-          {/* Soft Skills Footer */}
-          <div className="mt-10 pt-6 border-t border-red-950/60">
-            <h4 className="text-xs font-mono font-semibold uppercase tracking-wider text-slate-400 mb-3 flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-red-400" />
-              <span>Professional Soft Skills</span>
-            </h4>
-            <div className="flex flex-wrap gap-2">
-              {skills.softSkills.map((soft) => (
-                <span
-                  key={soft}
-                  className="px-3 py-1.5 rounded-xl text-xs font-medium bg-[#140306] text-rose-200 border border-red-950"
-                >
-                  ✓ {soft}
-                </span>
-              ))}
-            </div>
-          </div>
 
         </div>
 
