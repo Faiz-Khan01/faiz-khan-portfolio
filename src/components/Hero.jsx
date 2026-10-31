@@ -105,7 +105,7 @@ export default function Hero({ onOpenResume }) {
             </div>
 
             <p className="mt-4 text-base sm:text-lg text-slate-300 leading-relaxed max-w-xl mx-auto lg:mx-0">
-              Driven Computer Science engineer specializing in high-throughput REST APIs, Spring Boot microservices, JWT authentication, and full-stack web platforms with Docker containerization.
+              Driven Computer Science undergraduate specializing in building scalable RESTful APIs, Spring Boot microservices, JWT authentication, and containerized full-stack platforms with Docker.
             </p>
 
             {/* Quick Skills Badges */}
