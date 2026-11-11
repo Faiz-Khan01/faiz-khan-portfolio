@@ -222,13 +222,14 @@ export const resumeData = {
 
   education: [
     {
-      degree: "B.Tech in Computer Science & Engineering (CSE)",
+      degree: "Bachelor of Technology (B.Tech) – Computer Science & Engineering",
       institution: "Anjuman College of Engineering and Technology",
-      location: "Nagpur, Maharashtra, India",
+      location: "Nagpur, India",
       period: "2023 – 2026",
-      grade: "SGPA: 7.00",
-      status: "Final Year Undergraduate",
+      grade: "CGPA: 6.70 • SGPA: 7.00",
+      status: "Final Year Undergraduate (B.Tech CSE)",
       highlights: [
+        "Cumulative Grade: 6.70 CGPA | Current SGPA: 7.00",
         "Core Coursework: Data Structures & Algorithms, Object-Oriented Software Design, Operating Systems, Database Management Systems, Computer Networks.",
         "Focus on distributed systems, enterprise Java architectures, and scalable web services."
       ]
@@ -236,7 +237,7 @@ export const resumeData = {
     {
       degree: "Diploma in Electronics & Telecommunication Engineering",
       institution: "Anjuman Polytechnic",
-      location: "Nagpur, Maharashtra, India",
+      location: "Nagpur, India",
       period: "2020 – 2023",
       grade: "85.00%",
       status: "Graduated with Distinction",
@@ -247,7 +248,7 @@ export const resumeData = {
     {
       degree: "Secondary School Certificate (SSC 10th)",
       institution: "Unique English School",
-      location: "Patur, Dist. Akola, Maharashtra, India",
+      location: "Patur, Dist. Akola, India",
       period: "2020",
       grade: "88.00%",
       status: "Academic Excellence",
