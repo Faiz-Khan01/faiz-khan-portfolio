@@ -229,10 +229,10 @@ export const resumeData = {
       institution: "Anjuman College of Engineering and Technology",
       location: "Nagpur, India",
       period: "2023 – 2026",
-      grade: "CGPA: 6.70 • SGPA: 7.00",
+      grade: "SGPA: 6.7",
       status: "Final Year Undergraduate (B.Tech CSE)",
       highlights: [
-        "Cumulative Grade: 6.70 CGPA | Current SGPA: 7.00",
+        "Academic Performance: SGPA: 6.7 | Final Year B.Tech CSE",
         "Core Coursework: Data Structures & Algorithms, Object-Oriented Software Design, Operating Systems, Database Management Systems, Computer Networks.",
         "Focus on distributed systems, enterprise Java architectures, and scalable web services."
       ]
@@ -242,21 +242,22 @@ export const resumeData = {
       institution: "Anjuman Polytechnic",
       location: "Nagpur, India",
       period: "2020 – 2023",
-      grade: "85.00%",
-      status: "Graduated with Distinction",
+      grade: "Percentage: 85.00%",
+      status: "Graduated with Distinction (85.00%)",
       highlights: [
+        "Secured 85.00% aggregate with First Class Distinction.",
         "Strong foundation in digital logic, circuit design, microprocessors, and mathematical foundations."
       ]
     },
     {
-      degree: "Secondary School Certificate (SSC 10th)",
+      degree: "Secondary School Certificate (SSC - 10th)",
       institution: "Unique English School",
       location: "Patur, Dist. Akola, India",
-      period: "2020",
-      grade: "88.00%",
-      status: "Academic Excellence",
+      period: "2019",
+      grade: "Percentage: 88.00%",
+      status: "Academic Excellence (88.00%)",
       highlights: [
-        "Distinction in Mathematics, Science, and English."
+        "Scored 88.00% aggregate with Distinction in Mathematics, Science, and English."
       ]
     }
   ],
