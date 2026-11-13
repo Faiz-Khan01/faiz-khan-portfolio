@@ -13,7 +13,8 @@ import {
   ShoppingCart,
   Maximize2,
   Eye,
-  ZoomIn
+  ZoomIn,
+  Server
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { resumeData } from '../data/resumeData';
@@ -24,7 +25,7 @@ export default function Projects() {
   const [filter, setFilter] = useState('ALL');
   const [activeModalProject, setActiveModalProject] = useState(null);
   const [techStoreModalOpen, setTechStoreModalOpen] = useState(false);
-  const [previewImage, setPreviewImage] = useState(null);
+  const [previewImage, setPreviewImage] = useState(null); // { src, title, liveUrl }
 
   const filteredProjects = filter === 'ALL' 
     ? projects 
@@ -85,6 +86,7 @@ export default function Projects() {
             {filteredProjects.map((project, idx) => {
               const isTechStore = project.id === 'techstore-ecommerce';
               const isHospital = project.id === 'hospital-management-microservices';
+              const isLms = project.id === 'myteachingapp-lms';
 
               return (
                 <motion.div
@@ -110,69 +112,100 @@ export default function Projects() {
                       ? 'bg-gradient-to-r from-red-600 via-rose-500 to-amber-500'
                       : isHospital
                       ? 'bg-gradient-to-r from-rose-600 via-red-600 to-amber-500'
-                      : 'bg-red-950'
+                      : 'bg-gradient-to-r from-blue-600 via-rose-600 to-amber-500'
                   }`}></div>
 
-                  {/* VISUAL PROJECT THUMBNAIL / SCREENSHOT BANNER */}
+                  {/* VISUAL PROJECT THUMBNAIL WITH BROWSER WINDOW MOCKUP */}
                   <div className="relative w-full h-56 sm:h-60 bg-[#070102] overflow-hidden border-b border-red-950/80 group/thumb">
                     
-                    {/* TechStore PRO Live Screenshot Thumbnail with Mockup & Hover Pan */}
-                    {isTechStore && (
-                      <div className="relative w-full h-full">
-                        {/* Browser Address Bar Header */}
-                        <div className="absolute top-0 inset-x-0 z-20 h-7 bg-[#140306]/95 backdrop-blur-md border-b border-red-950/60 px-3 flex items-center justify-between text-[10px] font-mono text-slate-400">
-                          <div className="flex items-center gap-1.5">
-                            <span className="w-2 h-2 rounded-full bg-red-500/80"></span>
-                            <span className="w-2 h-2 rounded-full bg-amber-500/80"></span>
-                            <span className="w-2 h-2 rounded-full bg-emerald-500/80"></span>
-                          </div>
-                          <div className="flex items-center gap-1.5 bg-[#0a0204] px-2.5 py-0.5 rounded-md border border-red-950/60 text-slate-300">
-                            <span className="text-emerald-400 text-[9px]">🔒</span>
-                            <span className="text-[10px] font-mono text-rose-200 truncate max-w-[170px]">
-                              techstore-catalog.vercel.app
-                            </span>
-                          </div>
-                          <span className="flex items-center gap-1 text-[9px] text-emerald-400 font-semibold font-mono">
-                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                            LIVE
-                          </span>
-                        </div>
+                    {/* Browser Address Bar Header */}
+                    <div className="absolute top-0 inset-x-0 z-20 h-7 bg-[#140306]/95 backdrop-blur-md border-b border-red-950/60 px-3 flex items-center justify-between text-[10px] font-mono text-slate-400">
+                      <div className="flex items-center gap-1.5">
+                        <span className="w-2 h-2 rounded-full bg-red-500/80"></span>
+                        <span className="w-2 h-2 rounded-full bg-amber-500/80"></span>
+                        <span className="w-2 h-2 rounded-full bg-emerald-500/80"></span>
+                      </div>
+                      <div className="flex items-center gap-1.5 bg-[#0a0204] px-2.5 py-0.5 rounded-md border border-red-950/60 text-slate-300">
+                        <span className="text-emerald-400 text-[9px]">🔒</span>
+                        <span className="text-[10px] font-mono text-rose-200 truncate max-w-[170px]">
+                          {isTechStore ? 'techstore-catalog.vercel.app' :
+                           isHospital ? 'hospitalsync-pro.internal:8080' :
+                           'myteachingapp-lms.vercel.app'}
+                        </span>
+                      </div>
+                      <span className="flex items-center gap-1 text-[9px] text-emerald-400 font-semibold font-mono">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                        LIVE
+                      </span>
+                    </div>
 
-                        {/* Screenshot image container with smooth downward pan on hover */}
-                        <div className="w-full h-full pt-7 overflow-hidden relative">
-                          <img
-                            src="/techstore-preview.jpg"
-                            alt="TechStore PRO Storefront Preview"
-                            className="w-full h-[520px] object-cover object-top transition-transform duration-[4000ms] ease-in-out group-hover/thumb:-translate-y-64"
-                            onError={(e) => {
-                              e.currentTarget.src = './src/assets/techstore-preview.jpg';
-                            }}
-                          />
-                          
-                          {/* Ambient gradient blend at bottom */}
-                          <div className="absolute inset-0 bg-gradient-to-t from-[#0e0305] via-transparent to-transparent opacity-90 pointer-events-none"></div>
+                    {/* Screenshot image container with smooth downward pan on hover */}
+                    <div className="w-full h-full pt-7 overflow-hidden relative">
+                      <img
+                        src={project.image || (isTechStore ? '/techstore-preview.jpg' : isHospital ? '/hospitalsync-preview.svg' : '/myteachingapp-preview.svg')}
+                        alt={`${project.title} Preview`}
+                        className="w-full h-[520px] object-cover object-top transition-transform duration-[4000ms] ease-in-out group-hover/thumb:-translate-y-64"
+                        onError={(e) => {
+                          if (isTechStore) e.currentTarget.src = './src/assets/techstore-preview.jpg';
+                          else if (isHospital) e.currentTarget.src = './src/assets/hospitalsync-preview.svg';
+                          else e.currentTarget.src = './src/assets/myteachingapp-preview.svg';
+                        }}
+                      />
+                      
+                      {/* Ambient gradient blend at bottom */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#0e0305] via-transparent to-transparent opacity-90 pointer-events-none"></div>
 
-                          {/* Floating Feature Pills */}
-                          <div className="absolute bottom-2.5 left-3 z-10 flex flex-wrap items-center gap-1.5">
+                      {/* Floating Feature Pills */}
+                      <div className="absolute bottom-2.5 left-3 z-10 flex flex-wrap items-center gap-1.5">
+                        {isTechStore && (
+                          <>
                             <span className="px-2 py-0.5 rounded-md text-[9px] font-mono font-bold bg-[#140306]/90 text-rose-300 border border-red-500/40 backdrop-blur-md shadow-md">
                               🧥 3D Fitting Room
                             </span>
                             <span className="px-2 py-0.5 rounded-md text-[9px] font-mono font-bold bg-[#140306]/90 text-amber-300 border border-amber-500/40 backdrop-blur-md shadow-md">
                               🤖 AI Stylist
                             </span>
-                          </div>
+                          </>
+                        )}
+                        {isHospital && (
+                          <>
+                            <span className="px-2 py-0.5 rounded-md text-[9px] font-mono font-bold bg-[#140306]/90 text-rose-300 border border-red-500/40 backdrop-blur-md shadow-md">
+                              🏥 18 Spring Boot Services
+                            </span>
+                            <span className="px-2 py-0.5 rounded-md text-[9px] font-mono font-bold bg-[#140306]/90 text-amber-300 border border-amber-500/40 backdrop-blur-md shadow-md">
+                              🛏️ Bed Matrix &amp; HIPAA
+                            </span>
+                          </>
+                        )}
+                        {isLms && (
+                          <>
+                            <span className="px-2 py-0.5 rounded-md text-[9px] font-mono font-bold bg-[#140306]/90 text-rose-300 border border-red-500/40 backdrop-blur-md shadow-md">
+                              🎓 Student &amp; Instructor RBAC
+                            </span>
+                            <span className="px-2 py-0.5 rounded-md text-[9px] font-mono font-bold bg-[#140306]/90 text-amber-300 border border-amber-500/40 backdrop-blur-md shadow-md">
+                              💳 Razorpay Checkout
+                            </span>
+                          </>
+                        )}
+                      </div>
 
-                          {/* Lightbox Zoom Trigger */}
-                          <button
-                            onClick={() => setPreviewImage('/techstore-preview.jpg')}
-                            className="absolute top-9 right-3 z-20 p-1.5 rounded-lg bg-black/75 hover:bg-red-950 text-slate-300 hover:text-white border border-red-950/80 transition-all opacity-0 group-hover/thumb:opacity-100 shadow-lg cursor-pointer"
-                            title="Expand Full Website Screenshot"
-                          >
-                            <Maximize2 className="w-3.5 h-3.5 text-red-400" />
-                          </button>
+                      {/* Lightbox Zoom Trigger */}
+                      <button
+                        onClick={() => setPreviewImage({
+                          src: project.image || (isTechStore ? '/techstore-preview.jpg' : isHospital ? '/hospitalsync-preview.svg' : '/myteachingapp-preview.svg'),
+                          title: project.title,
+                          liveUrl: project.liveStorefront || (isHospital ? '#architecture' : project.github)
+                        })}
+                        className="absolute top-9 right-3 z-20 p-1.5 rounded-lg bg-black/75 hover:bg-red-950 text-slate-300 hover:text-white border border-red-950/80 transition-all opacity-0 group-hover/thumb:opacity-100 shadow-lg cursor-pointer"
+                        title="Expand Full Website Screenshot"
+                      >
+                        <Maximize2 className="w-3.5 h-3.5 text-red-400" />
+                      </button>
 
-                          {/* Quick Action Overlay on Hover */}
-                          <div className="absolute inset-0 bg-black/60 opacity-0 group-hover/thumb:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2.5 backdrop-blur-[2px] z-15">
+                      {/* Quick Action Overlay on Hover */}
+                      <div className="absolute inset-0 bg-black/60 opacity-0 group-hover/thumb:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2.5 backdrop-blur-[2px] z-15">
+                        {isTechStore ? (
+                          <>
                             <a
                               href={project.liveStorefront}
                               target="_blank"
@@ -189,120 +222,46 @@ export default function Projects() {
                               <ShoppingCart className="w-3 h-3 text-amber-400" />
                               <span>3D Studio</span>
                             </button>
-                          </div>
-                        </div>
+                          </>
+                        ) : isHospital ? (
+                          <>
+                            <a
+                              href="#architecture"
+                              className="px-3 py-1.5 rounded-xl text-xs font-mono font-bold text-white bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 transition-all shadow-lg shadow-red-600/40 flex items-center gap-1.5"
+                            >
+                              <Zap className="w-3 h-3" />
+                              <span>18 Services Explorer ➔</span>
+                            </a>
+                            <a
+                              href="#sandbox"
+                              className="px-3 py-1.5 rounded-xl text-xs font-mono font-semibold text-rose-200 bg-[#160407] hover:bg-[#20050a] border border-red-500/40 transition-colors flex items-center gap-1 cursor-pointer"
+                            >
+                              <Server className="w-3 h-3 text-amber-400" />
+                              <span>REST Sandbox</span>
+                            </a>
+                          </>
+                        ) : (
+                          <>
+                            <button
+                              onClick={() => setActiveModalProject(project)}
+                              className="px-3 py-1.5 rounded-xl text-xs font-mono font-bold text-white bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 transition-all shadow-lg shadow-red-600/40 flex items-center gap-1.5 cursor-pointer"
+                            >
+                              <Layers className="w-3 h-3" />
+                              <span>Deep Dive Specs ➔</span>
+                            </button>
+                            <a
+                              href={project.github}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="px-3 py-1.5 rounded-xl text-xs font-mono font-semibold text-slate-200 bg-[#160407] hover:bg-[#20050a] border border-red-500/40 transition-colors flex items-center gap-1"
+                            >
+                              <Github className="w-3 h-3 text-red-400" />
+                              <span>GitHub Code</span>
+                            </a>
+                          </>
+                        )}
                       </div>
-                    )}
-
-                    {/* HospitalSync 18 Microservices Architecture Graphic Banner */}
-                    {isHospital && (
-                      <div className="relative w-full h-full p-4 flex flex-col justify-between bg-cyber-grid bg-[length:18px_18px] overflow-hidden">
-                        <div className="absolute inset-0 bg-gradient-to-br from-red-950/35 via-transparent to-rose-950/20 pointer-events-none"></div>
-
-                        {/* Top Header */}
-                        <div className="relative z-10 flex items-center justify-between">
-                          <div className="flex items-center gap-1.5">
-                            <span className="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
-                            <span className="text-[10px] font-mono font-bold text-rose-300">
-                              18 SPRING BOOT SERVICES
-                            </span>
-                          </div>
-                          <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-950/80 text-amber-300 border border-amber-500/40">
-                            Eureka :8761
-                          </span>
-                        </div>
-
-                        {/* Network Topology Visual Graphic */}
-                        <div className="relative z-10 flex items-center justify-around my-auto py-1">
-                          <div className="p-2.5 rounded-xl bg-[#140306] border border-red-500/50 text-center shadow-lg">
-                            <div className="text-[11px] font-mono text-red-400 font-bold">:8080</div>
-                            <div className="text-[9px] font-mono text-slate-300">Gateway</div>
-                          </div>
-
-                          <div className="flex-1 h-0.5 bg-gradient-to-r from-red-500 via-rose-500 to-amber-500 relative mx-1.5">
-                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-red-400 animate-ping"></div>
-                          </div>
-
-                          <div className="p-2.5 rounded-xl bg-[#140306] border border-amber-500/50 text-center shadow-lg">
-                            <div className="text-[11px] font-mono text-amber-400 font-bold">:8761</div>
-                            <div className="text-[9px] font-mono text-slate-300">Eureka</div>
-                          </div>
-
-                          <div className="flex-1 h-0.5 bg-gradient-to-r from-amber-500 via-rose-500 to-red-500 relative mx-1.5">
-                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-amber-400 animate-pulse"></div>
-                          </div>
-
-                          <div className="p-2.5 rounded-xl bg-[#140306] border border-rose-500/50 text-center shadow-lg">
-                            <div className="text-[11px] font-mono text-rose-300 font-bold">16 Domains</div>
-                            <div className="text-[9px] font-mono text-slate-400">OpenFeign</div>
-                          </div>
-                        </div>
-
-                        {/* Bottom Stats */}
-                        <div className="relative z-10 flex items-center justify-between text-[10px] font-mono text-slate-400 pt-1 border-t border-red-950/60">
-                          <span>MySQL (25 Tables)</span>
-                          <span className="text-amber-400 font-semibold">Redis 7 Distributed Cache</span>
-                        </div>
-
-                        {/* Hover Overlay */}
-                        <a
-                          href="#architecture"
-                          className="absolute inset-0 bg-black/65 opacity-0 group-hover/thumb:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2 backdrop-blur-[2px] z-20 cursor-pointer"
-                        >
-                          <span className="px-3.5 py-2 rounded-xl text-xs font-mono font-bold text-white bg-gradient-to-r from-red-600 to-rose-600 shadow-lg shadow-red-600/30 flex items-center gap-1.5">
-                            <Zap className="w-3.5 h-3.5" />
-                            <span>Explore 18 Services Architecture ➔</span>
-                          </span>
-                        </a>
-                      </div>
-                    )}
-
-                    {/* MyTeachingApp LMS Portal Banner */}
-                    {!isTechStore && !isHospital && (
-                      <div className="relative w-full h-full p-4 flex flex-col justify-between bg-gradient-to-br from-[#160408] via-transparent to-[#0a0204] overflow-hidden">
-                        <div className="relative z-10 flex items-center justify-between">
-                          <div className="flex items-center gap-1.5">
-                            <span className="w-2 h-2 rounded-full bg-blue-500"></span>
-                            <span className="text-[10px] font-mono font-bold text-blue-300">
-                              LMS ARCHITECTURE
-                            </span>
-                          </div>
-                          <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-blue-950/80 text-blue-300 border border-blue-500/40">
-                            Spring Boot + React
-                          </span>
-                        </div>
-
-                        {/* Dual Portal Modules */}
-                        <div className="relative z-10 grid grid-cols-2 gap-2 my-auto py-1">
-                          <div className="p-2.5 rounded-xl bg-[#140306] border border-red-950 text-center">
-                            <div className="text-[10px] font-mono text-rose-300 font-bold">Student Portal</div>
-                            <div className="text-[9px] font-mono text-slate-400">Course Enrollment</div>
-                          </div>
-                          <div className="p-2.5 rounded-xl bg-[#140306] border border-red-950 text-center">
-                            <div className="text-[10px] font-mono text-amber-300 font-bold">Instructor Portal</div>
-                            <div className="text-[9px] font-mono text-slate-400">Curriculum Matrix</div>
-                          </div>
-                        </div>
-
-                        {/* Bottom Tags */}
-                        <div className="relative z-10 flex items-center justify-between text-[10px] font-mono text-slate-400 pt-1 border-t border-red-950/60">
-                          <span>Razorpay Payments</span>
-                          <span className="text-rose-400 font-semibold">JWT + Google OAuth</span>
-                        </div>
-
-                        {/* Hover Overlay */}
-                        <button
-                          onClick={() => setActiveModalProject(project)}
-                          className="absolute inset-0 bg-black/65 opacity-0 group-hover/thumb:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2 backdrop-blur-[2px] z-20 cursor-pointer"
-                        >
-                          <span className="px-3.5 py-2 rounded-xl text-xs font-mono font-bold text-white bg-gradient-to-r from-red-600 to-rose-600 shadow-lg shadow-red-600/30 flex items-center gap-1.5">
-                            <Layers className="w-3.5 h-3.5" />
-                            <span>Architecture Specifications ➔</span>
-                          </span>
-                        </button>
-                      </div>
-                    )}
-
+                    </div>
                   </div>
 
                   {/* Main Card Content */}
@@ -374,6 +333,18 @@ export default function Projects() {
                       </div>
                     )}
 
+                    {!isTechStore && !isHospital && (
+                      <div className="mt-4 p-3 rounded-2xl bg-[#140306] border border-red-950/70 text-xs text-zinc-300 space-y-1.5">
+                        <div className="flex items-center gap-2 text-rose-300 font-medium">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-blue-400 shrink-0" />
+                          <span>Interactive LMS &bull; RBAC &bull; Razorpay</span>
+                        </div>
+                        <div className="text-[11px] text-zinc-400 line-clamp-2">
+                          Student &amp; Instructor Portals &bull; Curriculum Streaming &bull; Automated Enrollment
+                        </div>
+                      </div>
+                    )}
+
                     {/* Metric Badges */}
                     <div className="mt-4 grid grid-cols-2 gap-2 bg-[#140306] p-3 rounded-2xl border border-red-950">
                       {Object.entries(project.stats).slice(0, 2).map(([k, v]) => (
@@ -427,21 +398,32 @@ export default function Projects() {
                         </button>
                       </div>
                     ) : isHospital ? (
-                      <a
-                        href="#architecture"
-                        className="px-4 py-2 rounded-xl text-xs font-bold font-mono text-white bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 transition-all flex items-center gap-1.5 shadow-md shadow-red-600/30"
-                      >
-                        <Zap className="w-3.5 h-3.5" />
-                        <span>18 Services Architecture</span>
-                      </a>
+                      <div className="flex items-center gap-2">
+                        <a
+                          href="#architecture"
+                          className="px-4 py-2 rounded-xl text-xs font-bold font-mono text-white bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 transition-all flex items-center gap-1.5 shadow-md shadow-red-600/30"
+                        >
+                          <Zap className="w-3.5 h-3.5" />
+                          <span>18 Services</span>
+                        </a>
+                        <button
+                          onClick={() => setActiveModalProject(project)}
+                          className="px-3 py-2 rounded-xl text-xs font-mono font-semibold text-rose-200 bg-[#1a0407] hover:bg-[#25060b] border border-red-900/60 transition-colors flex items-center gap-1 cursor-pointer"
+                        >
+                          <Layers className="w-3.5 h-3.5" />
+                          <span>Specs</span>
+                        </button>
+                      </div>
                     ) : (
-                      <button
-                        onClick={() => setActiveModalProject(project)}
-                        className="text-xs font-semibold text-red-400 hover:text-red-300 flex items-center gap-1.5 transition-colors cursor-pointer"
-                      >
-                        <span>Architecture Details</span>
-                        <ArrowUpRight className="w-3.5 h-3.5" />
-                      </button>
+                      <div className="flex items-center gap-2">
+                        <button
+                          onClick={() => setActiveModalProject(project)}
+                          className="px-3.5 py-2 rounded-xl text-xs font-bold font-mono text-white bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 transition-all flex items-center gap-1.5 shadow-md shadow-red-600/30 cursor-pointer"
+                        >
+                          <span>Explore LMS</span>
+                          <ArrowUpRight className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
                     )}
 
                     <div className="flex items-center gap-2">
@@ -479,7 +461,7 @@ export default function Projects() {
         onClose={() => setTechStoreModalOpen(false)} 
       />
 
-      {/* Project Deep Dive Modal */}
+      {/* Project Deep Dive Modal with High-Res Screenshot Preview */}
       {activeModalProject && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md animate-fadeIn">
           <div className="bg-[#0e0305] border border-red-950 rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl p-6 sm:p-8 relative">
@@ -505,13 +487,13 @@ export default function Projects() {
               </p>
             </div>
 
-            {/* If TechStore: Visual Website Screenshot Banner in Modal */}
-            {activeModalProject.id === 'techstore-ecommerce' && (
-              <div className="mt-6 rounded-2xl overflow-hidden border border-red-950/80 bg-[#080103] relative group/modalimg">
-                <div className="h-6 bg-[#140306] border-b border-red-950 px-3 flex items-center justify-between text-[10px] font-mono text-slate-400">
-                  <span className="text-rose-200">Live Storefront Screenshot Preview</span>
+            {/* Visual Screenshot / Architecture Banner in Modal */}
+            <div className="mt-6 rounded-2xl overflow-hidden border border-red-950/80 bg-[#080103] relative group/modalimg">
+              <div className="h-7 bg-[#140306] border-b border-red-950 px-3 flex items-center justify-between text-[10px] font-mono text-slate-400">
+                <span className="text-rose-200 font-semibold">{activeModalProject.title} — Live Dashboard Preview</span>
+                {activeModalProject.liveStorefront ? (
                   <a
-                    href="https://techstore-catalog.vercel.app/"
+                    href={activeModalProject.liveStorefront}
                     target="_blank"
                     rel="noreferrer"
                     className="text-red-400 hover:text-red-300 flex items-center gap-1 font-mono text-[10px]"
@@ -519,16 +501,18 @@ export default function Projects() {
                     <span>Open Live Storefront</span>
                     <ExternalLink className="w-3 h-3" />
                   </a>
-                </div>
-                <div className="max-h-72 overflow-y-auto scrollbar-thin scrollbar-thumb-red-950 scrollbar-track-black">
-                  <img
-                    src="/techstore-preview.jpg"
-                    alt="TechStore Full Screenshot"
-                    className="w-full object-cover object-top"
-                  />
-                </div>
+                ) : (
+                  <span className="text-emerald-400 font-mono text-[10px]">● Production Architecture</span>
+                )}
               </div>
-            )}
+              <div className="max-h-80 overflow-y-auto scrollbar-thin scrollbar-thumb-red-950 scrollbar-track-black">
+                <img
+                  src={activeModalProject.image || (activeModalProject.id === 'techstore-ecommerce' ? '/techstore-preview.jpg' : activeModalProject.id === 'hospital-management-microservices' ? '/hospitalsync-preview.svg' : '/myteachingapp-preview.svg')}
+                  alt={activeModalProject.title}
+                  className="w-full object-cover object-top"
+                />
+              </div>
+            </div>
 
             {/* Live Deployment Direct Links Banner */}
             {activeModalProject.id === 'techstore-ecommerce' && (
@@ -677,21 +661,23 @@ export default function Projects() {
             {/* Lightbox Header Bar */}
             <div className="p-4 bg-[#140306] border-b border-red-950 flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-red-500"></span>
+                <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse"></span>
                 <span className="text-xs font-mono font-bold text-white">
-                  TechStore PRO — Full Webpage Catalog &amp; 3D Fitting Room Screenshot
+                  {previewImage.title || 'Project UI & Architecture Dashboard Preview'}
                 </span>
               </div>
               <div className="flex items-center gap-3">
-                <a
-                  href="https://techstore-catalog.vercel.app/"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="px-3 py-1 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-mono font-semibold flex items-center gap-1.5 shadow-md shadow-red-600/30"
-                >
-                  <ExternalLink className="w-3 h-3" />
-                  <span>Visit Live Storefront</span>
-                </a>
+                {previewImage.liveUrl && previewImage.liveUrl.startsWith('http') && (
+                  <a
+                    href={previewImage.liveUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="px-3 py-1 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-mono font-semibold flex items-center gap-1.5 shadow-md shadow-red-600/30"
+                  >
+                    <ExternalLink className="w-3 h-3" />
+                    <span>Visit Live Storefront</span>
+                  </a>
+                )}
                 <button
                   onClick={() => setPreviewImage(null)}
                   className="p-1.5 rounded-xl bg-[#1c0509] hover:bg-[#28070d] text-slate-300 hover:text-white border border-red-950 cursor-pointer"
@@ -704,8 +690,8 @@ export default function Projects() {
             {/* Scrollable Full Screenshot */}
             <div className="flex-1 overflow-y-auto p-4 bg-[#070102]">
               <img
-                src={previewImage}
-                alt="Full Webpage Screenshot"
+                src={previewImage.src}
+                alt={previewImage.title || "Project Screenshot"}
                 className="w-full rounded-2xl border border-red-950/80 shadow-2xl"
               />
             </div>

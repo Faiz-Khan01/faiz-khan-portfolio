@@ -1,0 +1,229 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1200" width="800" height="1200" style="background:#070204;font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
+  <defs>
+    <linearGradient id="lms-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#140307"/>
+      <stop offset="50%" stop-color="#080103"/>
+      <stop offset="100%" stop-color="#0f0205"/>
+    </linearGradient>
+    <linearGradient id="card-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#190408"/>
+      <stop offset="100%" stop-color="#0e0204"/>
+    </linearGradient>
+    <pattern id="lms-grid" width="24" height="24" patternUnits="userSpaceOnUse">
+      <path d="M 24 0 L 0 0 0 24" fill="none" stroke="#2d050c" stroke-width="0.8" opacity="0.35"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="url(#lms-bg)"/>
+  <rect width="100%" height="100%" fill="url(#lms-grid)"/>
+
+  <!-- Top App Navigation Bar -->
+  <rect x="0" y="0" width="800" height="64" fill="#120205" stroke="#3b070f" stroke-width="1"/>
+  
+  <!-- MyTeachingApp Logo -->
+  <g transform="translate(24, 16)">
+    <rect width="32" height="32" rx="8" fill="#e11d48"/>
+    <!-- Graduation cap / book icon -->
+    <path d="M16 6 L6 11 L16 16 L26 11 Z" fill="#ffffff"/>
+    <path d="M10 14 v6 c0 3 3 5 6 5 s6 -2 6 -5 v-6" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+    <text x="44" y="18" fill="#ffffff" font-size="16" font-weight="800" letter-spacing="-0.5">MyTeachingApp</text>
+    <text x="168" y="18" fill="#f43f5e" font-size="13" font-weight="700">LMS</text>
+    <text x="44" y="30" fill="#fda4af" font-size="9" font-family="monospace">Interactive Learning &amp; Course Commerce</text>
+  </g>
+
+  <!-- Search Bar -->
+  <rect x="300" y="16" width="220" height="32" rx="8" fill="#080102" stroke="#450a12" stroke-width="1"/>
+  <text x="330" y="36" fill="#9f1239" font-size="10.5" font-family="monospace">Search Courses, Java, DSA...</text>
+  <circle cx="314" cy="32" r="5" fill="none" stroke="#9f1239" stroke-width="1.5"/>
+  <path d="M318 36 L323 41" stroke="#9f1239" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- RBAC Role Pill -->
+  <g transform="translate(535, 18)">
+    <rect width="155" height="28" rx="6" fill="#1c0409" stroke="#881337" stroke-width="1"/>
+    <circle cx="14" cy="14" r="4" fill="#3b82f6"/>
+    <text x="26" y="18" fill="#93c5fd" font-size="10" font-family="monospace" font-weight="700">Role: INSTRUCTOR (RBAC)</text>
+  </g>
+
+  <!-- User Avatar -->
+  <circle cx="755" cy="32" r="16" fill="#881337" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="755" y="36" fill="#ffffff" font-size="11" font-weight="700" text-anchor="middle">FK</text>
+
+  <!-- Hero Header Banner -->
+  <g transform="translate(24, 84)">
+    <rect width="752" height="110" rx="16" fill="url(#card-grad)" stroke="#4c0519" stroke-width="1"/>
+    <text x="24" y="36" fill="#ffffff" font-size="19" font-weight="800">Developer Education &amp; Course Streaming Platform</text>
+    <text x="24" y="58" fill="#fda4af" font-size="11.5" font-family="monospace">Spring Boot 3 Backend • JWT + Google Sign-In • Razorpay Automated Course Unlock</text>
+    
+    <g transform="translate(24, 72)">
+      <rect width="155" height="24" rx="6" fill="#3b070f" stroke="#e11d48" stroke-width="0.8"/>
+      <text x="10" y="16" fill="#fecdd3" font-size="10" font-family="monospace">Student &amp; Instructor RBAC</text>
+    </g>
+    <g transform="translate(190, 72)">
+      <rect width="155" height="24" rx="6" fill="#3b070f" stroke="#f59e0b" stroke-width="0.8"/>
+      <text x="10" y="16" fill="#fef08a" font-size="10" font-family="monospace">Razorpay INR Webhooks</text>
+    </g>
+    <g transform="translate(355, 72)">
+      <rect width="170" height="24" rx="6" fill="#3b070f" stroke="#22c55e" stroke-width="0.8"/>
+      <text x="10" y="16" fill="#86efac" font-size="10" font-family="monospace">~25% Lower Response Time</text>
+    </g>
+  </g>
+
+  <!-- 4 KPI Metrics Cards -->
+  <g transform="translate(24, 210)">
+    <!-- Card 1 -->
+    <rect x="0" y="0" width="176" height="90" rx="14" fill="url(#card-grad)" stroke="#3b070f" stroke-width="1"/>
+    <text x="16" y="24" fill="#fda4af" font-size="10" font-family="monospace" font-weight="700">ACTIVE STUDENTS</text>
+    <text x="16" y="56" fill="#ffffff" font-size="24" font-weight="800">3,420</text>
+    <text x="16" y="76" fill="#22c55e" font-size="10" font-family="monospace">142 Enrolled This Week</text>
+
+    <!-- Card 2 -->
+    <rect x="192" y="0" width="176" height="90" rx="14" fill="url(#card-grad)" stroke="#3b070f" stroke-width="1"/>
+    <text x="208" y="24" fill="#fda4af" font-size="10" font-family="monospace" font-weight="700">COURSES &amp; TRACKS</text>
+    <text x="208" y="56" fill="#fb7185" font-size="24" font-weight="800">28 Tracks</text>
+    <text x="208" y="76" fill="#fbbf24" font-size="10" font-family="monospace">Java, Spring &amp; DSA</text>
+
+    <!-- Card 3 -->
+    <rect x="384" y="0" width="176" height="90" rx="14" fill="url(#card-grad)" stroke="#3b070f" stroke-width="1"/>
+    <text x="400" y="24" fill="#fda4af" font-size="10" font-family="monospace" font-weight="700">COMPLETION RATE</text>
+    <text x="400" y="56" fill="#ffffff" font-size="24" font-weight="800">84.6%</text>
+    <text x="400" y="76" fill="#22c55e" font-size="10" font-family="monospace">+12% vs Industry Avg</text>
+
+    <!-- Card 4 -->
+    <rect x="576" y="0" width="176" height="90" rx="14" fill="url(#card-grad)" stroke="#3b070f" stroke-width="1"/>
+    <text x="592" y="24" fill="#fda4af" font-size="10" font-family="monospace" font-weight="700">COURSE SALES</text>
+    <text x="592" y="56" fill="#f59e0b" font-size="22" font-weight="800">₹8.92L</text>
+    <text x="592" y="76" fill="#86efac" font-size="10" font-family="monospace">Instant Settlement</text>
+  </g>
+
+  <!-- Interactive Course Player & Curriculum Section -->
+  <g transform="translate(24, 320)">
+    <rect width="752" height="280" rx="16" fill="url(#card-grad)" stroke="#4c0519" stroke-width="1"/>
+    <text x="24" y="32" fill="#ffffff" font-size="15" font-weight="700">Active Course: Spring Boot 3 &amp; Microservices Masterclass</text>
+    <text x="560" y="32" fill="#fda4af" font-size="10.5" font-family="monospace">Lecture 14 of 48 (72% Done)</text>
+
+    <!-- Video Player Simulation Box -->
+    <g transform="translate(24, 52)">
+      <rect width="450" height="210" rx="10" fill="#070102" stroke="#3b070f" stroke-width="1"/>
+      
+      <!-- Video header -->
+      <rect width="450" height="24" fill="#140306" rx="10"/>
+      <text x="14" y="16" fill="#fda4af" font-size="10" font-family="monospace">Module 03: Designing Resilient OpenFeign Clients</text>
+      
+      <!-- Video Center Play Icon -->
+      <circle cx="225" cy="115" r="28" fill="#e11d48" opacity="0.9"/>
+      <polygon points="220,105 236,115 220,125" fill="#ffffff"/>
+
+      <!-- Progress bar on video -->
+      <rect x="16" y="180" width="418" height="6" rx="3" fill="#2b060d"/>
+      <rect x="16" y="180" width="300" height="6" rx="3" fill="#e11d48"/>
+      <text x="16" y="200" fill="#fda4af" font-size="9" font-family="monospace">24:18 / 32:40 • 1080p 60fps • Auto-Progress Tracked</text>
+    </g>
+
+    <!-- Curriculum Sidebar inside Player -->
+    <g transform="translate(488, 52)">
+      <rect width="240" height="210" rx="10" fill="#120205" stroke="#3b070f" stroke-width="1"/>
+      <text x="14" y="22" fill="#ffffff" font-size="11.5" font-weight="700">Course Syllabus &amp; Labs</text>
+      
+      <!-- Lesson 1 -->
+      <g transform="translate(10, 36)">
+        <rect width="220" height="36" rx="6" fill="#1c0409"/>
+        <circle cx="14" cy="18" r="6" fill="#22c55e"/>
+        <text x="26" y="18" fill="#ffffff" font-size="10">01. Spring Boot 3 Core Annotations</text>
+        <text x="26" y="28" fill="#86efac" font-size="8" font-family="monospace">Completed (45m)</text>
+      </g>
+
+      <!-- Lesson 2 -->
+      <g transform="translate(10, 78)">
+        <rect width="220" height="36" rx="6" fill="#1c0409"/>
+        <circle cx="14" cy="18" r="6" fill="#22c55e"/>
+        <text x="26" y="18" fill="#ffffff" font-size="10">02. JWT Authentication &amp; RBAC</text>
+        <text x="26" y="28" fill="#86efac" font-size="8" font-family="monospace">Completed (1h 10m)</text>
+      </g>
+
+      <!-- Lesson 3 (Active) -->
+      <g transform="translate(10, 120)">
+        <rect width="220" height="36" rx="6" fill="#2b060d" stroke="#e11d48" stroke-width="1"/>
+        <circle cx="14" cy="18" r="6" fill="#f59e0b"/>
+        <text x="26" y="18" fill="#ffffff" font-size="10" font-weight="700">03. Resilient OpenFeign Clients</text>
+        <text x="26" y="28" fill="#fef08a" font-size="8" font-family="monospace">Now Playing (32m)</text>
+      </g>
+
+      <!-- Lesson 4 -->
+      <g transform="translate(10, 162)">
+        <rect width="220" height="36" rx="6" fill="#140306"/>
+        <circle cx="14" cy="18" r="6" fill="#450a12"/>
+        <text x="26" y="18" fill="#94a3b8" font-size="10">04. Razorpay Webhooks &amp; Orders</text>
+        <text x="26" y="28" fill="#64748b" font-size="8" font-family="monospace">Locked • Next Up</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Code Editor & RBAC Authorization Snippet -->
+  <g transform="translate(24, 620)">
+    <rect width="752" height="260" rx="16" fill="url(#card-grad)" stroke="#4c0519" stroke-width="1"/>
+    <text x="24" y="32" fill="#ffffff" font-size="15" font-weight="700">Integrated Spring Security RBAC Code Pattern</text>
+    <text x="560" y="32" fill="#22c55e" font-size="10.5" font-family="monospace">@PreAuthorize Verified</text>
+
+    <!-- Code Block -->
+    <g transform="translate(24, 52)">
+      <rect width="704" height="185" rx="10" fill="#070102" stroke="#3b070f" stroke-width="1"/>
+      <text x="20" y="28" fill="#f43f5e" font-size="11" font-family="monospace">@RestController</text>
+      <text x="20" y="48" fill="#f43f5e" font-size="11" font-family="monospace">@RequestMapping("/api/v1/courses")</text>
+      <text x="20" y="68" fill="#ffffff" font-size="11" font-family="monospace">public class CourseController {</text>
+      <text x="40" y="88" fill="#f59e0b" font-size="11" font-family="monospace">@PreAuthorize("hasRole('INSTRUCTOR') or hasAuthority('COURSE_CREATE')")</text>
+      <text x="40" y="108" fill="#ffffff" font-size="11" font-family="monospace">@PostMapping("/{id}/publish")</text>
+      <text x="40" y="128" fill="#e2e8f0" font-size="11" font-family="monospace">public ResponseEntity&lt;CourseDto&gt; publishCourse(@PathVariable Long id) { ... }</text>
+      <text x="40" y="148" fill="#86efac" font-size="11" font-family="monospace">// Automated Razorpay Webhook updates Enrollment status instantly upon payment</text>
+      <text x="20" y="168" fill="#ffffff" font-size="11" font-family="monospace">}</text>
+    </g>
+  </g>
+
+  <!-- Recent Enrollments & Razorpay Transactions Table -->
+  <g transform="translate(24, 900)">
+    <rect width="752" height="270" rx="16" fill="url(#card-grad)" stroke="#4c0519" stroke-width="1"/>
+    <text x="24" y="32" fill="#ffffff" font-size="15" font-weight="700">Recent Student Enrollments &amp; Razorpay Transactions</text>
+    
+    <!-- Table Header -->
+    <g transform="translate(24, 52)">
+      <rect width="704" height="28" fill="#1b0409" rx="4"/>
+      <text x="12" y="18" fill="#fda4af" font-size="10" font-family="monospace" font-weight="700">STUDENT NAME</text>
+      <text x="180" y="18" fill="#fda4af" font-size="10" font-family="monospace" font-weight="700">COURSE ENROLLED</text>
+      <text x="360" y="18" fill="#fda4af" font-size="10" font-family="monospace" font-weight="700">ORDER ID</text>
+      <text x="490" y="18" fill="#fda4af" font-size="10" font-family="monospace" font-weight="700">PAYMENT</text>
+      <text x="620" y="18" fill="#fda4af" font-size="10" font-family="monospace" font-weight="700">PROGRESS</text>
+    </g>
+
+    <!-- Row 1 -->
+    <g transform="translate(24, 88)">
+      <text x="12" y="16" fill="#ffffff" font-size="11" font-weight="600">Aakash Sinha</text>
+      <text x="12" y="28" fill="#fda4af" font-size="9" font-family="monospace">aakash@gmail.com</text>
+      <text x="180" y="20" fill="#e2e8f0" font-size="11">Java Spring Boot Masterclass</text>
+      <text x="360" y="20" fill="#fda4af" font-size="10" font-family="monospace">order_Lms9912</text>
+      <text x="490" y="20" fill="#86efac" font-size="11" font-family="monospace">₹2,499 (PAID)</text>
+      <text x="620" y="20" fill="#f59e0b" font-size="11" font-family="monospace">74% Done</text>
+    </g>
+    <line x1="36" y1="124" x2="740" y2="124" stroke="#2b060d" stroke-width="1"/>
+
+    <!-- Row 2 -->
+    <g transform="translate(24, 134)">
+      <text x="12" y="16" fill="#ffffff" font-size="11" font-weight="600">Sneha Patil</text>
+      <text x="12" y="28" fill="#fda4af" font-size="9" font-family="monospace">sneha.p@outlook.com</text>
+      <text x="180" y="20" fill="#e2e8f0" font-size="11">Microservices with Docker &amp; K8s</text>
+      <text x="360" y="20" fill="#fda4af" font-size="10" font-family="monospace">order_Lms9913</text>
+      <text x="490" y="20" fill="#86efac" font-size="11" font-family="monospace">₹3,199 (PAID)</text>
+      <text x="620" y="20" fill="#86efac" font-size="11" font-family="monospace">92% Done</text>
+    </g>
+    <line x1="36" y1="170" x2="740" y2="170" stroke="#2b060d" stroke-width="1"/>
+
+    <!-- Row 3 -->
+    <g transform="translate(24, 180)">
+      <text x="12" y="16" fill="#ffffff" font-size="11" font-weight="600">Vikas Kulkarni</text>
+      <text x="12" y="28" fill="#fda4af" font-size="9" font-family="monospace">vikas.k@gmail.com</text>
+      <text x="180" y="20" fill="#e2e8f0" font-size="11">Full-Stack React + Spring Boot</text>
+      <text x="360" y="20" fill="#fda4af" font-size="10" font-family="monospace">order_Lms9914</text>
+      <text x="490" y="20" fill="#86efac" font-size="11" font-family="monospace">₹1,999 (PAID)</text>
+      <text x="620" y="20" fill="#f59e0b" font-size="11" font-family="monospace">45% Done</text>
+    </g>
+  </g>
+</svg>
