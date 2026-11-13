@@ -75,6 +75,7 @@ export const resumeData = {
       featured: true,
       isDeployed: true,
       category: "Full-Stack",
+      image: "/techstore-preview.jpg",
       statusBadge: "🟢 Live Deployed on Vercel",
       liveStorefront: "https://techstore-catalog-yw04kw9zf-faiz-khan01s-projects.vercel.app/",
       liveStorefrontAlt: "https://techstore-catalog.vercel.app/",

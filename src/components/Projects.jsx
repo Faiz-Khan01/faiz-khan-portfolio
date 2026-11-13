@@ -10,7 +10,10 @@ import {
   Activity,
   X,
   Zap,
-  ShoppingCart
+  ShoppingCart,
+  Maximize2,
+  Eye,
+  ZoomIn
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { resumeData } from '../data/resumeData';
@@ -21,6 +24,7 @@ export default function Projects() {
   const [filter, setFilter] = useState('ALL');
   const [activeModalProject, setActiveModalProject] = useState(null);
   const [techStoreModalOpen, setTechStoreModalOpen] = useState(false);
+  const [previewImage, setPreviewImage] = useState(null);
 
   const filteredProjects = filter === 'ALL' 
     ? projects 
@@ -108,6 +112,198 @@ export default function Projects() {
                       ? 'bg-gradient-to-r from-rose-600 via-red-600 to-amber-500'
                       : 'bg-red-950'
                   }`}></div>
+
+                  {/* VISUAL PROJECT THUMBNAIL / SCREENSHOT BANNER */}
+                  <div className="relative w-full h-56 sm:h-60 bg-[#070102] overflow-hidden border-b border-red-950/80 group/thumb">
+                    
+                    {/* TechStore PRO Live Screenshot Thumbnail with Mockup & Hover Pan */}
+                    {isTechStore && (
+                      <div className="relative w-full h-full">
+                        {/* Browser Address Bar Header */}
+                        <div className="absolute top-0 inset-x-0 z-20 h-7 bg-[#140306]/95 backdrop-blur-md border-b border-red-950/60 px-3 flex items-center justify-between text-[10px] font-mono text-slate-400">
+                          <div className="flex items-center gap-1.5">
+                            <span className="w-2 h-2 rounded-full bg-red-500/80"></span>
+                            <span className="w-2 h-2 rounded-full bg-amber-500/80"></span>
+                            <span className="w-2 h-2 rounded-full bg-emerald-500/80"></span>
+                          </div>
+                          <div className="flex items-center gap-1.5 bg-[#0a0204] px-2.5 py-0.5 rounded-md border border-red-950/60 text-slate-300">
+                            <span className="text-emerald-400 text-[9px]">🔒</span>
+                            <span className="text-[10px] font-mono text-rose-200 truncate max-w-[170px]">
+                              techstore-catalog.vercel.app
+                            </span>
+                          </div>
+                          <span className="flex items-center gap-1 text-[9px] text-emerald-400 font-semibold font-mono">
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                            LIVE
+                          </span>
+                        </div>
+
+                        {/* Screenshot image container with smooth downward pan on hover */}
+                        <div className="w-full h-full pt-7 overflow-hidden relative">
+                          <img
+                            src="/techstore-preview.jpg"
+                            alt="TechStore PRO Storefront Preview"
+                            className="w-full h-[520px] object-cover object-top transition-transform duration-[4000ms] ease-in-out group-hover/thumb:-translate-y-64"
+                            onError={(e) => {
+                              e.currentTarget.src = './src/assets/techstore-preview.jpg';
+                            }}
+                          />
+                          
+                          {/* Ambient gradient blend at bottom */}
+                          <div className="absolute inset-0 bg-gradient-to-t from-[#0e0305] via-transparent to-transparent opacity-90 pointer-events-none"></div>
+
+                          {/* Floating Feature Pills */}
+                          <div className="absolute bottom-2.5 left-3 z-10 flex flex-wrap items-center gap-1.5">
+                            <span className="px-2 py-0.5 rounded-md text-[9px] font-mono font-bold bg-[#140306]/90 text-rose-300 border border-red-500/40 backdrop-blur-md shadow-md">
+                              🧥 3D Fitting Room
+                            </span>
+                            <span className="px-2 py-0.5 rounded-md text-[9px] font-mono font-bold bg-[#140306]/90 text-amber-300 border border-amber-500/40 backdrop-blur-md shadow-md">
+                              🤖 AI Stylist
+                            </span>
+                          </div>
+
+                          {/* Lightbox Zoom Trigger */}
+                          <button
+                            onClick={() => setPreviewImage('/techstore-preview.jpg')}
+                            className="absolute top-9 right-3 z-20 p-1.5 rounded-lg bg-black/75 hover:bg-red-950 text-slate-300 hover:text-white border border-red-950/80 transition-all opacity-0 group-hover/thumb:opacity-100 shadow-lg cursor-pointer"
+                            title="Expand Full Website Screenshot"
+                          >
+                            <Maximize2 className="w-3.5 h-3.5 text-red-400" />
+                          </button>
+
+                          {/* Quick Action Overlay on Hover */}
+                          <div className="absolute inset-0 bg-black/60 opacity-0 group-hover/thumb:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2.5 backdrop-blur-[2px] z-15">
+                            <a
+                              href={project.liveStorefront}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="px-3 py-1.5 rounded-xl text-xs font-mono font-bold text-white bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 transition-all shadow-lg shadow-red-600/40 flex items-center gap-1.5"
+                            >
+                              <ExternalLink className="w-3 h-3" />
+                              <span>Live Storefront ↗</span>
+                            </a>
+                            <button
+                              onClick={() => setTechStoreModalOpen(true)}
+                              className="px-3 py-1.5 rounded-xl text-xs font-mono font-semibold text-rose-200 bg-[#160407] hover:bg-[#20050a] border border-red-500/40 transition-colors flex items-center gap-1 cursor-pointer"
+                            >
+                              <ShoppingCart className="w-3 h-3 text-amber-400" />
+                              <span>3D Studio</span>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* HospitalSync 18 Microservices Architecture Graphic Banner */}
+                    {isHospital && (
+                      <div className="relative w-full h-full p-4 flex flex-col justify-between bg-cyber-grid bg-[length:18px_18px] overflow-hidden">
+                        <div className="absolute inset-0 bg-gradient-to-br from-red-950/35 via-transparent to-rose-950/20 pointer-events-none"></div>
+
+                        {/* Top Header */}
+                        <div className="relative z-10 flex items-center justify-between">
+                          <div className="flex items-center gap-1.5">
+                            <span className="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
+                            <span className="text-[10px] font-mono font-bold text-rose-300">
+                              18 SPRING BOOT SERVICES
+                            </span>
+                          </div>
+                          <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-950/80 text-amber-300 border border-amber-500/40">
+                            Eureka :8761
+                          </span>
+                        </div>
+
+                        {/* Network Topology Visual Graphic */}
+                        <div className="relative z-10 flex items-center justify-around my-auto py-1">
+                          <div className="p-2.5 rounded-xl bg-[#140306] border border-red-500/50 text-center shadow-lg">
+                            <div className="text-[11px] font-mono text-red-400 font-bold">:8080</div>
+                            <div className="text-[9px] font-mono text-slate-300">Gateway</div>
+                          </div>
+
+                          <div className="flex-1 h-0.5 bg-gradient-to-r from-red-500 via-rose-500 to-amber-500 relative mx-1.5">
+                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-red-400 animate-ping"></div>
+                          </div>
+
+                          <div className="p-2.5 rounded-xl bg-[#140306] border border-amber-500/50 text-center shadow-lg">
+                            <div className="text-[11px] font-mono text-amber-400 font-bold">:8761</div>
+                            <div className="text-[9px] font-mono text-slate-300">Eureka</div>
+                          </div>
+
+                          <div className="flex-1 h-0.5 bg-gradient-to-r from-amber-500 via-rose-500 to-red-500 relative mx-1.5">
+                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-amber-400 animate-pulse"></div>
+                          </div>
+
+                          <div className="p-2.5 rounded-xl bg-[#140306] border border-rose-500/50 text-center shadow-lg">
+                            <div className="text-[11px] font-mono text-rose-300 font-bold">16 Domains</div>
+                            <div className="text-[9px] font-mono text-slate-400">OpenFeign</div>
+                          </div>
+                        </div>
+
+                        {/* Bottom Stats */}
+                        <div className="relative z-10 flex items-center justify-between text-[10px] font-mono text-slate-400 pt-1 border-t border-red-950/60">
+                          <span>MySQL (25 Tables)</span>
+                          <span className="text-amber-400 font-semibold">Redis 7 Distributed Cache</span>
+                        </div>
+
+                        {/* Hover Overlay */}
+                        <a
+                          href="#architecture"
+                          className="absolute inset-0 bg-black/65 opacity-0 group-hover/thumb:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2 backdrop-blur-[2px] z-20 cursor-pointer"
+                        >
+                          <span className="px-3.5 py-2 rounded-xl text-xs font-mono font-bold text-white bg-gradient-to-r from-red-600 to-rose-600 shadow-lg shadow-red-600/30 flex items-center gap-1.5">
+                            <Zap className="w-3.5 h-3.5" />
+                            <span>Explore 18 Services Architecture ➔</span>
+                          </span>
+                        </a>
+                      </div>
+                    )}
+
+                    {/* MyTeachingApp LMS Portal Banner */}
+                    {!isTechStore && !isHospital && (
+                      <div className="relative w-full h-full p-4 flex flex-col justify-between bg-gradient-to-br from-[#160408] via-transparent to-[#0a0204] overflow-hidden">
+                        <div className="relative z-10 flex items-center justify-between">
+                          <div className="flex items-center gap-1.5">
+                            <span className="w-2 h-2 rounded-full bg-blue-500"></span>
+                            <span className="text-[10px] font-mono font-bold text-blue-300">
+                              LMS ARCHITECTURE
+                            </span>
+                          </div>
+                          <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-blue-950/80 text-blue-300 border border-blue-500/40">
+                            Spring Boot + React
+                          </span>
+                        </div>
+
+                        {/* Dual Portal Modules */}
+                        <div className="relative z-10 grid grid-cols-2 gap-2 my-auto py-1">
+                          <div className="p-2.5 rounded-xl bg-[#140306] border border-red-950 text-center">
+                            <div className="text-[10px] font-mono text-rose-300 font-bold">Student Portal</div>
+                            <div className="text-[9px] font-mono text-slate-400">Course Enrollment</div>
+                          </div>
+                          <div className="p-2.5 rounded-xl bg-[#140306] border border-red-950 text-center">
+                            <div className="text-[10px] font-mono text-amber-300 font-bold">Instructor Portal</div>
+                            <div className="text-[9px] font-mono text-slate-400">Curriculum Matrix</div>
+                          </div>
+                        </div>
+
+                        {/* Bottom Tags */}
+                        <div className="relative z-10 flex items-center justify-between text-[10px] font-mono text-slate-400 pt-1 border-t border-red-950/60">
+                          <span>Razorpay Payments</span>
+                          <span className="text-rose-400 font-semibold">JWT + Google OAuth</span>
+                        </div>
+
+                        {/* Hover Overlay */}
+                        <button
+                          onClick={() => setActiveModalProject(project)}
+                          className="absolute inset-0 bg-black/65 opacity-0 group-hover/thumb:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2 backdrop-blur-[2px] z-20 cursor-pointer"
+                        >
+                          <span className="px-3.5 py-2 rounded-xl text-xs font-mono font-bold text-white bg-gradient-to-r from-red-600 to-rose-600 shadow-lg shadow-red-600/30 flex items-center gap-1.5">
+                            <Layers className="w-3.5 h-3.5" />
+                            <span>Architecture Specifications ➔</span>
+                          </span>
+                        </button>
+                      </div>
+                    )}
+
+                  </div>
 
                   {/* Main Card Content */}
                   <div className="p-6 sm:p-7 flex-1">
@@ -227,7 +423,7 @@ export default function Projects() {
                           title="Interactive Store Simulation"
                         >
                           <ShoppingCart className="w-3.5 h-3.5" />
-                          <span className="hidden sm:inline">Preview</span>
+                          <span className="hidden sm:inline">3D Studio</span>
                         </button>
                       </div>
                     ) : isHospital ? (
@@ -309,6 +505,31 @@ export default function Projects() {
               </p>
             </div>
 
+            {/* If TechStore: Visual Website Screenshot Banner in Modal */}
+            {activeModalProject.id === 'techstore-ecommerce' && (
+              <div className="mt-6 rounded-2xl overflow-hidden border border-red-950/80 bg-[#080103] relative group/modalimg">
+                <div className="h-6 bg-[#140306] border-b border-red-950 px-3 flex items-center justify-between text-[10px] font-mono text-slate-400">
+                  <span className="text-rose-200">Live Storefront Screenshot Preview</span>
+                  <a
+                    href="https://techstore-catalog.vercel.app/"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-red-400 hover:text-red-300 flex items-center gap-1 font-mono text-[10px]"
+                  >
+                    <span>Open Live Storefront</span>
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                </div>
+                <div className="max-h-72 overflow-y-auto scrollbar-thin scrollbar-thumb-red-950 scrollbar-track-black">
+                  <img
+                    src="/techstore-preview.jpg"
+                    alt="TechStore Full Screenshot"
+                    className="w-full object-cover object-top"
+                  />
+                </div>
+              </div>
+            )}
+
             {/* Live Deployment Direct Links Banner */}
             {activeModalProject.id === 'techstore-ecommerce' && (
               <div className="mt-6 p-4 rounded-2xl bg-gradient-to-r from-red-950/60 via-[#180408] to-red-950/40 border border-red-500/30 flex flex-wrap items-center justify-between gap-3">
@@ -329,13 +550,13 @@ export default function Projects() {
                     className="px-3.5 py-1.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-mono text-xs font-bold flex items-center gap-1.5 shadow-md shadow-red-600/30"
                   >
                     <span>Storefront</span>
-                    <ExternalLink className="w-3.5 h-3.5" />
+                    <ExternalLink className="w-3 h-3" />
                   </a>
                   <a
                     href="https://full-stack-ecommerce-catalog.onrender.com/"
                     target="_blank"
                     rel="noreferrer"
-                    className="px-3 py-1.5 rounded-xl bg-[#20050a] hover:bg-[#2e080f] text-rose-300 border border-red-900/60 font-mono text-xs font-medium flex items-center gap-1"
+                    className="px-3.5 py-1.5 rounded-xl bg-[#20050a] hover:bg-[#2e080f] text-rose-300 border border-red-900/60 font-mono text-xs font-medium flex items-center gap-1"
                   >
                     <span>Backend API</span>
                     <ExternalLink className="w-3 h-3" />
@@ -439,6 +660,55 @@ export default function Projects() {
               </button>
             </div>
 
+          </div>
+        </div>
+      )}
+
+      {/* Full-Page Lightbox Screenshot Preview Modal */}
+      {previewImage && (
+        <div 
+          onClick={() => setPreviewImage(null)}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/95 backdrop-blur-lg animate-fadeIn"
+        >
+          <div 
+            onClick={(e) => e.stopPropagation()}
+            className="bg-[#0e0305] border border-red-500/50 rounded-3xl max-w-4xl w-full max-h-[92vh] overflow-hidden flex flex-col shadow-2xl relative"
+          >
+            {/* Lightbox Header Bar */}
+            <div className="p-4 bg-[#140306] border-b border-red-950 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-red-500"></span>
+                <span className="text-xs font-mono font-bold text-white">
+                  TechStore PRO — Full Webpage Catalog &amp; 3D Fitting Room Screenshot
+                </span>
+              </div>
+              <div className="flex items-center gap-3">
+                <a
+                  href="https://techstore-catalog.vercel.app/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="px-3 py-1 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-mono font-semibold flex items-center gap-1.5 shadow-md shadow-red-600/30"
+                >
+                  <ExternalLink className="w-3 h-3" />
+                  <span>Visit Live Storefront</span>
+                </a>
+                <button
+                  onClick={() => setPreviewImage(null)}
+                  className="p-1.5 rounded-xl bg-[#1c0509] hover:bg-[#28070d] text-slate-300 hover:text-white border border-red-950 cursor-pointer"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+
+            {/* Scrollable Full Screenshot */}
+            <div className="flex-1 overflow-y-auto p-4 bg-[#070102]">
+              <img
+                src={previewImage}
+                alt="Full Webpage Screenshot"
+                className="w-full rounded-2xl border border-red-950/80 shadow-2xl"
+              />
+            </div>
           </div>
         </div>
       )}
