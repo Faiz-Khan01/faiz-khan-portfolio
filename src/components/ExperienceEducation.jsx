@@ -1,6 +1,5 @@
-import React, { useEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import React from 'react';
+import { motion } from 'framer-motion';
 import { 
   GraduationCap, 
   Briefcase, 
@@ -18,67 +17,9 @@ import { resumeData } from '../data/resumeData';
 
 export default function ExperienceEducation() {
   const { experience, education, certifications, achievements } = resumeData;
-  const sectionRef = useRef(null);
-  const expColRef = useRef(null);
-  const eduColRef = useRef(null);
-  const certsGridRef = useRef(null);
-
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-
-    const ctx = gsap.context(() => {
-      // 1. Experience cards slide in from left
-      if (expColRef.current) {
-        gsap.from(expColRef.current.children, {
-          scrollTrigger: {
-            trigger: expColRef.current,
-            start: 'top 85%',
-          },
-          x: -30,
-          opacity: 0,
-          duration: 0.8,
-          stagger: 0.15,
-          ease: 'power3.out',
-        });
-      }
-
-      // 2. Education cards slide in from right
-      if (eduColRef.current) {
-        gsap.from(eduColRef.current.children, {
-          scrollTrigger: {
-            trigger: eduColRef.current,
-            start: 'top 85%',
-          },
-          x: 30,
-          opacity: 0,
-          duration: 0.8,
-          stagger: 0.15,
-          ease: 'power3.out',
-        });
-      }
-
-      // 3. Certification badges staggered pop-in
-      if (certsGridRef.current) {
-        gsap.from(certsGridRef.current.children, {
-          scrollTrigger: {
-            trigger: certsGridRef.current,
-            start: 'top 85%',
-          },
-          y: 25,
-          opacity: 0,
-          scale: 0.95,
-          duration: 0.7,
-          stagger: 0.1,
-          ease: 'back.out(1.4)',
-        });
-      }
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
 
   return (
-    <section ref={sectionRef} id="experience" className="py-24 relative bg-[#070102]/90 border-t border-red-950/40">
+    <section id="experience" className="py-24 relative bg-[#070102]/90 border-t border-red-950/40">
       
       {/* Background ambient lighting */}
       <div className="absolute top-1/2 right-10 w-96 h-96 bg-red-600/10 rounded-full blur-3xl pointer-events-none"></div>
@@ -89,7 +30,7 @@ export default function ExperienceEducation() {
         <div data-aos="fade-up" className="text-center max-w-3xl mx-auto mb-16">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-950/60 border border-red-500/30 text-red-400 text-xs font-mono font-semibold mb-4">
             <GraduationCap className="w-3.5 h-3.5" />
-            <span>Milestones &amp; Credentials</span>
+            <span>06. Experience &amp; Education</span>
           </div>
           <h2 className="font-display text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
             Experience, Education &amp; <span className="gradient-text-red">Certifications</span>
@@ -116,10 +57,14 @@ export default function ExperienceEducation() {
               </div>
             </div>
 
-            <div ref={expColRef} className="space-y-6">
+            <div className="space-y-6">
               {experience.map((exp, idx) => (
-                <div 
+                <motion.div 
                   key={idx}
+                  initial={{ opacity: 0, x: -25 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, amount: 0.15 }}
+                  transition={{ duration: 0.6, delay: idx * 0.1 }}
                   className="p-6 sm:p-7 rounded-3xl bg-[#0e0305] border border-red-950/80 shadow-xl glass-card-hover relative"
                 >
                   <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
@@ -163,7 +108,7 @@ export default function ExperienceEducation() {
                     ))}
                   </div>
 
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
@@ -182,10 +127,14 @@ export default function ExperienceEducation() {
               </div>
             </div>
 
-            <div ref={eduColRef} className="space-y-6">
+            <div className="space-y-6">
               {education.map((edu, idx) => (
-                <div 
+                <motion.div 
                   key={idx}
+                  initial={{ opacity: 0, x: 25 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, amount: 0.15 }}
+                  transition={{ duration: 0.6, delay: idx * 0.1 }}
                   className="p-6 rounded-3xl bg-[#0e0305] border border-red-950/80 shadow-xl glass-card-hover"
                 >
                   <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
@@ -202,7 +151,7 @@ export default function ExperienceEducation() {
                     {edu.degree}
                   </h4>
                   <p className="text-xs sm:text-sm text-slate-300 font-medium mt-0.5 flex items-center gap-1.5">
-                    <MapPin className="w-3.5 h-3.5 text-rose-400" />
+                    <MapPin className="w-3.5 h-3.5 text-rose-400 shrink-0" />
                     <span>{edu.institution}, {edu.location}</span>
                   </p>
 
@@ -222,7 +171,7 @@ export default function ExperienceEducation() {
                     )}
                   </div>
 
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
@@ -243,10 +192,14 @@ export default function ExperienceEducation() {
             </div>
           </div>
 
-          <div ref={certsGridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {certifications.map((cert, idx) => (
-              <div 
+              <motion.div 
                 key={idx}
+                initial={{ opacity: 0, y: 25 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.1 }}
+                transition={{ duration: 0.5, delay: idx * 0.08 }}
                 className="p-6 rounded-3xl bg-[#0e0305] border border-red-950/80 shadow-xl flex flex-col justify-between glass-card-hover group"
               >
                 <div>
@@ -258,34 +211,43 @@ export default function ExperienceEducation() {
                   </div>
 
                   <h4 className="font-display font-bold text-white text-base group-hover:text-red-400 transition-colors leading-snug">
-                    {cert.name}
+                    {cert.title}
                   </h4>
                   <p className="text-xs text-rose-300 font-mono mt-1 font-semibold">
                     {cert.issuer}
                   </p>
                   <p className="mt-2 text-xs text-slate-400 leading-relaxed">
-                    {cert.skills}
+                    {cert.desc}
                   </p>
                 </div>
 
                 <div className="mt-5 pt-3 border-t border-red-950/60 flex items-center justify-between">
-                  <span className="text-[10px] font-mono text-slate-500">ID: {cert.id}</span>
-                  <a
-                    href={cert.link}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-1 text-xs font-mono font-semibold text-red-400 hover:text-red-300 transition-colors"
-                  >
-                    <span>Verify</span>
-                    <ExternalLink className="w-3 h-3" />
-                  </a>
+                  <span className="text-[10px] font-mono text-slate-500">
+                    {cert.credentialId ? `ID: ${cert.credentialId}` : 'AICTE Verified'}
+                  </span>
+                  {cert.link ? (
+                    <a
+                      href={cert.link}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1 text-xs font-mono font-semibold text-red-400 hover:text-red-300 transition-colors"
+                    >
+                      <span>Verify</span>
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  ) : (
+                    <span className="text-[11px] font-mono text-slate-500 flex items-center gap-1">
+                      <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
+                      <span>Certified</span>
+                    </span>
+                  )}
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
 
-        {/* Academic Achievements & Hackathons */}
+        {/* Academic Achievements & Key Milestones */}
         <div data-aos="fade-up" className="p-8 sm:p-10 rounded-3xl bg-gradient-to-br from-[#140306] to-[#0a0204] border border-red-950/80 shadow-2xl relative overflow-hidden">
           <div className="absolute top-0 right-0 w-64 h-64 bg-red-600/10 rounded-full blur-3xl pointer-events-none"></div>
 
@@ -295,7 +257,7 @@ export default function ExperienceEducation() {
             </div>
             <div>
               <h3 className="font-display font-bold text-white text-xl">
-                Honors, Competitions &amp; Hackathons
+                Key Engineering Milestones
               </h3>
               <p className="text-xs text-amber-300 font-mono">Recognized Engineering Excellence</p>
             </div>
@@ -303,23 +265,29 @@ export default function ExperienceEducation() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {achievements.map((ach, idx) => (
-              <div 
+              <motion.div 
                 key={idx}
-                className="p-5 rounded-2xl bg-[#080103]/80 border border-red-950/80 hover:border-amber-500/40 transition-all"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                className="p-5 rounded-2xl bg-[#080103]/80 border border-red-950/80 hover:border-amber-500/40 transition-all flex flex-col justify-between"
               >
-                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-amber-950 text-amber-300 border border-amber-500/30">
-                  {ach.year}
-                </span>
-                <h4 className="mt-2 font-display font-bold text-white text-sm">
-                  {ach.title}
-                </h4>
-                <p className="text-xs text-rose-300 font-mono mt-0.5">
-                  {ach.event}
-                </p>
-                <p className="mt-2 text-xs text-slate-400 leading-relaxed">
-                  {ach.desc}
-                </p>
-              </div>
+                <div>
+                  <div className="flex items-center gap-2 mb-2">
+                    <Sparkles className="w-4 h-4 text-amber-400" />
+                    <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-950/80 text-amber-300 border border-amber-500/30">
+                      Milestone 0{idx + 1}
+                    </span>
+                  </div>
+                  <h4 className="font-display font-bold text-white text-sm">
+                    {ach.title}
+                  </h4>
+                  <p className="mt-2 text-xs text-slate-300 leading-relaxed">
+                    {ach.desc}
+                  </p>
+                </div>
+              </motion.div>
             ))}
           </div>
         </div>

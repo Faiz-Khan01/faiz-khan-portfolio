@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { motion } from 'framer-motion';
 import { 
   Layers, 
   Server, 
@@ -305,30 +304,6 @@ export default function ArchitectureExplorer() {
   const archRef = useRef(null);
   const servicesGridRef = useRef(null);
 
-  // GSAP ScrollTrigger Entrance Animation for 18 Microservices
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-
-    const ctx = gsap.context(() => {
-      if (servicesGridRef.current) {
-        gsap.from(servicesGridRef.current.children, {
-          scrollTrigger: {
-            trigger: servicesGridRef.current,
-            start: 'top 85%',
-          },
-          opacity: 0,
-          y: 30,
-          scale: 0.95,
-          duration: 0.5,
-          stagger: 0.04,
-          ease: 'power3.out',
-        });
-      }
-    }, archRef);
-
-    return () => ctx.revert();
-  }, []);
-
   const runSimulation = (scenario = activeScenario) => {
     setActiveScenario(scenario);
     setIsSimulating(true);
@@ -521,13 +496,17 @@ export default function ArchitectureExplorer() {
 
               {/* Level 3: Microservices Grid (16 Domain Services) */}
               <div ref={servicesGridRef} className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {architectureNodes.slice(2).map((node) => {
+                {architectureNodes.slice(2).map((node, nIdx) => {
                   const isSelected = selectedNode.id === node.id;
                   const isStepActive = isSimulating && activeScenario.steps[currentStepIndex]?.node === node.id;
 
                   return (
-                    <button
+                    <motion.button
                       key={node.id}
+                      initial={{ opacity: 0, scale: 0.96 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true, amount: 0.05 }}
+                      transition={{ duration: 0.35, delay: (nIdx % 4) * 0.05 }}
                       onClick={() => setSelectedNode(node)}
                       className={`p-3.5 rounded-2xl text-left border transition-all cursor-pointer ${
                         isSelected
@@ -546,7 +525,7 @@ export default function ArchitectureExplorer() {
                       <h5 className="mt-2 font-semibold text-slate-100 text-xs">
                         {node.name}
                       </h5>
-                    </button>
+                    </motion.button>
                   );
                 })}
               </div>

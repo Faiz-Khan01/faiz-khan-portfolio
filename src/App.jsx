@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Lenis from 'lenis';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+
+gsap.registerPlugin(ScrollTrigger);
 
 import ThreeBackground from './components/ThreeBackground';
 import ParticleCanvas from './components/ParticleCanvas';
@@ -32,11 +36,14 @@ export default function App() {
       touchMultiplier: 2,
     });
 
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    const rafId = requestAnimationFrame(raf);
+    // Synchronize Lenis with GSAP ScrollTrigger
+    lenis.on('scroll', ScrollTrigger.update);
+
+    const tickerCb = (time) => {
+      lenis.raf(time * 1000);
+    };
+    gsap.ticker.add(tickerCb);
+    gsap.ticker.lagSmoothing(0);
 
     // 2. AOS Scroll Reveal Initialization
     AOS.init({
@@ -46,8 +53,15 @@ export default function App() {
       offset: 60,
     });
 
+    // Refresh triggers after elements mount and images load
+    const refreshTimer = setTimeout(() => {
+      ScrollTrigger.refresh();
+      AOS.refresh();
+    }, 600);
+
     return () => {
-      cancelAnimationFrame(rafId);
+      gsap.ticker.remove(tickerCb);
+      clearTimeout(refreshTimer);
       lenis.destroy();
     };
   }, []);
